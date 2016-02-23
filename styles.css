@@ -1,0 +1,118 @@
+
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0px;
+    background: #4A2463;
+}
+.row:after {
+    content: "";
+    clear: both;
+    display: block;
+}
+[class*="col-"] {
+    float: left;
+}
+.col-1 {width: 8.33%;}
+.col-2 {width: 16.66%;}
+.col-3 {width: 25%;}
+.col-4 {width: 33.33%;}
+.col-5 {width: 41.66%;}
+.col-6 {width: 50%;}
+.col-7 {width: 58.33%;}
+.col-8 {width: 66.66%;}
+.col-9 {width: 75%;}
+.col-10 {width: 83.33%;}
+.col-11 {width: 91.66%;}
+.col-12 {width: 100%;}
+html {
+    font-size: small;
+    font-family: "Futura", sans-serif;
+    color: white;
+}
+
+#container {
+    position:relative;
+}
+
+#bidrags {
+
+}
+
+#nameinputbutton {
+    width: 100px;
+    margin: 10px 100px 10px 100px;
+}
+
+.artistnsong {
+    padding: 10px 10px 10px 10px;
+}
+
+.artist {
+    font-size: x-small;
+}
+
+.resultheader {
+    background: #7E5E94;
+    padding: 5px 5px 5px 5px;
+}
+
+.resultitem, .resultitemself {
+    border-style: solid;
+    padding: 5px 5px 5px 5px;
+    background: #5F3978;
+    border-color:#321149;
+    border-width: 1px 0px 0px 0px;
+}
+
+.resultitemself {
+    background: #3B5177;
+}
+
+#img1 {
+    width: 100%;
+}
+
+.namediv {
+    width: 300px;
+    height: 100px;
+    
+    position: absolute;
+    top:0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    
+    margin: auto;
+}
+
+#nameinput {
+    width: 300px;
+}
+
+.selectorcontainer {
+    position: relative;
+}
+
+.selector {
+    background: #7E5E94;
+    color: white;
+    width: 95%;
+    height: 30px;
+    position: relative;
+    top: 50%;
+    transform: 			translateY(90%);
+}
+
+.selectionheader {
+    width: 100%;
+}
+
+.song {
+    width: 50%;
+    height:177px;
+    display:inline;
+}
