@@ -48,7 +48,7 @@ function getCookie(cname) {
 
 function saveList(vote, sortable)
 {
-    var contestnumber = 3;
+    var contestnumber = 4;
 
     var xmlHttp = new XMLHttpRequest();
     xmlHttp.onreadystatechange = function() {

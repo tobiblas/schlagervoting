@@ -6,10 +6,14 @@
 <meta charset="utf-8">
 
 <script>
-function saveresult()
+function saveresult(contestnumber)
 {
-    var contestnumber = 3;
     var numberofcontestants = 7;
+    
+    if (contestnumber == -1) {
+        alert("missing contestnumber!");
+        return;
+    }
     
     var xmlHttp = new XMLHttpRequest();
     xmlHttp.onreadystatechange = function() {
@@ -69,6 +73,10 @@ function setVoteEnabled(enabled)
     if ($bidrag == null || $bidrag == "") {
         $bidrag = 7;
     }
+    $contestnumber = $_GET['contestnumber'];
+    if ($contestnumber == null || $contestnumber == "") {
+        $contestnumber = -1;
+    }
     
     include("db.php");
     $query =  "select vote from votes where name='" . $username . "'";
@@ -84,7 +92,7 @@ function setVoteEnabled(enabled)
         $bidragarray[$i] = explode("-", $piece)[1];
         $i = $i+1;
     }
-    echo "skicka med parameter 'bidrag=7'. Sen bidrag x kom på plats nummer...<br>";
+    echo "skicka med parameter 'bidrag=7', 'contestnumber=3'. Sen bidrag x kom på plats nummer...<br>";
 for ($j = 0; $j < $bidrag; $j++) {
 echo "<div class='row'><div class='col-12'><select id='bidrag".($j+1)."' class='selector'>";
     for ($i = 0; $i < $bidrag; $i++) {
@@ -94,7 +102,7 @@ echo "</select></div></div>";
 }
 ?>
 <div class='row'><div class='col-12'><br>
-<button id="nameinputbutton" name="sdfjksd" onclick="saveresult()">OK</button>
+<button id="nameinputbutton" name="sdfjksd" <?php echo "onclick='saveresult(" . $contestnumber . ")'"; ?> >OK</button>
 </div></div>
 
 <div class="row">

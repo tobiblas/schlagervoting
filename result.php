@@ -21,6 +21,72 @@
 
 
 
+<div class="row"><div class="col-12 resultheader" style="text-align:center;">Deltävling 4</div></div>
+
+<?php
+    #CREATE TABLE VOTES(NAME TEXT NOT NULL, CONTESTNUMBER INT, VOTE TEXT NOT NULL);
+    include("db.php");
+    
+    $user = $_COOKIE["schlagername7"];
+    
+    $correctResult = "";
+    $query = "select * from result where contestnumber=4";
+    foreach ($dbh->query($query) as $row) {
+        $correctResult = $row[1];
+    }
+    $correctResultArray = array();
+    $i = 0;
+    foreach (explode(";", $correctResult) as $result) {
+        if ($result != "") {
+            $songNPlace = explode("-", $result);
+            $correctResultArray[$songNPlace[0]] = $songNPlace[1];
+        }
+        $i = $i+1;
+    }
+    
+    if (sizeof($correctResultArray) == 0) {
+        echo "<div class='row'><div class='col-12 resultitem'>Inget resultat än</div></div><br>";
+    }
+    else {
+        $query = "select name,vote from votes where contestnumber=4;";
+        $resultArray = array();
+        foreach ($dbh->query($query) as $row) {
+            $username = $row[0];
+            $vote = $row[1];
+            $score = 0;
+            $votes = explode(";", $vote);
+            $numberOfSongs = sizeof($votes) -1;
+            
+            foreach ($votes as $oneVote) {
+                if ($oneVote != "") {
+                    $song = explode("-", $oneVote)[0];
+                    $place = explode("-", $oneVote)[1];
+                    $scoreForThisItem = $numberOfSongs - abs($place - $correctResultArray[$song]);
+                    $score = $score + $scoreForThisItem;
+                }
+            }
+            $resultArray[$username] = $score;
+        }
+        arsort($resultArray);
+        $preciousValue = -1;
+        $i = 0;
+        foreach ($resultArray as $key => $value) {
+            if ($previousValue != $value) {
+                $i++;
+            }
+            $previousValue = $value;
+            if ($key == $user) {
+                echo "<div class='row'><div class='col-12 resultitemself'>" . $i . ". " . $key . " " . $value . "p</div></div>";
+            } else {
+                echo "<div class='row'><div class='col-12 resultitem'>" . $i . ". " . $key . " " . $value . "p</div></div>";
+            }
+            
+        }
+        echo "<br>";
+    }
+    
+    ?>
+
 
 <div class="row"><div class="col-12 resultheader" style="text-align:center;">Deltävling 3</div></div>
 
