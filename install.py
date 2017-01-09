@@ -55,33 +55,14 @@ print "-----------"
 
 ################# MOVE PHP PAGE TO RIGHT PLACE ###############
 
-print "adding php admin page for thermometer."
 print "installing php pages in /var/www/html/"
 
-print subprocess.Popen("sudo mkdir -p /var/www/html/thermometer && sudo cp -R php/* /var/www/html/thermometer", shell=True, stdout=subprocess.PIPE).stdout.read()
+print subprocess.Popen("sudo mkdir -p /var/www/html/mello && sudo cp -R php/* /var/www/html/mello", shell=True, stdout=subprocess.PIPE).stdout.read()
 
 print "-----------"
 
-#################THERMO FILES, CONFIG ETC######################
-thermoPath = "/home/pi/thermometer"
-
-print "Installing thermometer files in " + thermoPath
-print subprocess.Popen("mkdir -p " + thermoPath, shell=True, stdout=subprocess.PIPE).stdout.read()
-if not thermoPath.endswith("/"):
-	thermoPath += "/"
-print subprocess.Popen("cp -R thermometer/* " + thermoPath, shell=True, stdout=subprocess.PIPE).stdout.read()
-
-
-#if isServer:
-#    print "Adding alarm home to admin.properties"
-#    print subprocess.Popen('echo "alarm_home:' + alarmPath + '" | sudo tee /var/www/html/alarm/admin.properties', shell=True, stdout=subprocess.PIPE).stdout.read()
-print "Making the thermometer application available for the php server"
-print subprocess.Popen('sudo chmod 777 ' + thermoPath + '/*', shell=True, stdout=subprocess.PIPE).stdout.read()
-print subprocess.Popen('sudo chmod 777 /var/www/html/thermometer/admin.properties', shell=True, stdout=subprocess.PIPE).stdout.read()
-
-print "todo. add this to crontab: 0 4,15 * * * python /home/pi/thermometer/sense_remote_temp.py /var/www/html/thermometer 1> /home/pi/templog.txt 2> /home/pi/templog.err"
 
 ##############################################################
 
 print
-print "Congratulation! Now go to <IP of your raspberry>/thermometer and configure your thermometer."
+print "Congratulation! All done."
