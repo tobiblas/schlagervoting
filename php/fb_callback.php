@@ -47,16 +47,38 @@ if (isset($accessToken)) {
     
     #TODO get picture as http://graph.facebook.com/userid_here/picture
     
-    echo 'Logged in as ' . $userNode->getName();
+    #echo 'Logged in as ' . $userNode->getName();
     
     #CREATE TABLE USERS(ID INTEGER PRIMARY KEY AUTOINCREMENT, NAME TEXT UNIQUE NOT NULL, PASSWORD TEXT, FBID INTEGER, MELLOTOKEN TEXT);
     
     #LOGIN TO MELLO
     #1 GENERATE MELLOTOKEN,
-    echo trim(com_create_guid(), '{}');
+    $token = getGUID();
+    $name = $userNode->getName();
+    $fbid = $userNode->getId();
     
+    $sql = "insert or replace into users (name, fbid, mellotoken) values (" . $name . "," . $fbid . "," . $token . ")";
+    
+    $dbh->query($sql);
+
     #upsert user in database. id = incerease, fbId = facebookid, name = Facebookname
     
+    #set cookie an redirect to index page.
     
+    function getGUID(){
+        if (function_exists('com_create_guid')){
+            return com_create_guid();
+        }else{
+            mt_srand((double)microtime()*10000);//optional for php 4.2.0 and up.
+            $charid = strtoupper(md5(uniqid(rand(), true)));
+            $hyphen = chr(45);// "-"
+            $uuid = substr($charid, 0, 8).$hyphen
+            .substr($charid, 8, 4).$hyphen
+            .substr($charid,12, 4).$hyphen
+            .substr($charid,16, 4).$hyphen
+            .substr($charid,20,12);
+            return $uuid;
+        }
+    }
     
     ?>
