@@ -2,7 +2,7 @@
     require_once __DIR__ . '/php-graph-sdk-5.0.0/src/Facebook/autoload.php';
     session_start();
     
-    ?>
+    
 
 # login-callback.php
 $fb = new Facebook\Facebook([
@@ -31,3 +31,19 @@ if (isset($accessToken)) {
     // Now you can redirect to another page and use the
     // access token from $_SESSION['facebook_access_token']
 }
+    
+    try {
+        // Returns a `Facebook\FacebookResponse` object
+        $response = $fb->get('/me?fields=id,name', '{access-token}');
+    } catch(Facebook\Exceptions\FacebookResponseException $e) {
+        echo 'Graph returned an error: ' . $e->getMessage();
+        exit;
+    } catch(Facebook\Exceptions\FacebookSDKException $e) {
+        echo 'Facebook SDK returned an error: ' . $e->getMessage();
+        exit;
+    }
+    
+    $user = $response->getGraphUser();
+    
+    echo 'Name: ' . $user['name'];
+?>
