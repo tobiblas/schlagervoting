@@ -33,17 +33,30 @@ if (isset($accessToken)) {
 }
     
     try {
-        // Returns a `Facebook\FacebookResponse` object
-        $response = $fb->get('/me?fields=id,name', '{access-token}');
+        $response = $fb->get('/me?fields=id,name', $accessToken );
+        $userNode = $response->getGraphUser();
     } catch(Facebook\Exceptions\FacebookResponseException $e) {
+        // When Graph returns an error
         echo 'Graph returned an error: ' . $e->getMessage();
         exit;
     } catch(Facebook\Exceptions\FacebookSDKException $e) {
+        // When validation fails or other local issues
         echo 'Facebook SDK returned an error: ' . $e->getMessage();
         exit;
     }
     
-    $user = $response->getGraphUser();
+    #TODO get picture as http://graph.facebook.com/userid_here/picture
     
-    echo 'Name: ' . $user['name'];
-?>
+    echo 'Logged in as ' . $userNode->getName();
+    
+    #CREATE TABLE USERS(ID INTEGER PRIMARY KEY AUTOINCREMENT, NAME TEXT UNIQUE NOT NULL, PASSWORD TEXT, FBID INTEGER, MELLOTOKEN TEXT);
+    
+    #LOGIN TO MELLO
+    #1 GENERATE MELLOTOKEN,
+    echo trim(com_create_guid(), '{}');
+    
+    #upsert user in database. id = incerease, fbId = facebookid, name = Facebookname
+    
+    
+    
+    ?>
