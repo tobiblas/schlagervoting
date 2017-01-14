@@ -1,6 +1,7 @@
 <?php
     require_once __DIR__ . '/php-graph-sdk-5.0.0/src/Facebook/autoload.php';
     session_start();
+    
 ?>
 <html>
 <head>
@@ -33,7 +34,7 @@
     $helper = $fb->getRedirectLoginHelper();
     
     $permissions = []; // Optional permissions
-    $loginUrl = $helper->getLoginUrl('http://84.217.38.36:8081/thermometer/fb_callback.php', $permissions);
+    $loginUrl = $helper->getLoginUrl('http://84.217.38.36:8081/mello/fb_callback.php', $permissions);
     
     
     
