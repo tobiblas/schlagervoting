@@ -1,10 +1,22 @@
+
+<html>
+<head>
+<title>Schlager</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="utf-8">
+
+
+<link rel="stylesheet" href="styles.css?<?php echo date('l jS \of F Y h:i:s A'); ?>">
+
+
 <?php
     require_once __DIR__ . '/php-graph-sdk-5.0.0/src/Facebook/autoload.php';
     session_start();
     
+    include("db.php");
     
-
-# login-callback.php
+   # login-callback.php
 $fb = new Facebook\Facebook([
                             'app_id' => '1615633848746410', // Replace {app-id} with your app id
                             'app_secret' => 'c6105888a635b10a5800f1f261d80e34',
@@ -12,6 +24,7 @@ $fb = new Facebook\Facebook([
                             ]);
 
 $helper = $fb->getRedirectLoginHelper();
+    # $_SESSION['FBRLH_state']=$_GET['state'];
 try {
     $accessToken = $helper->getAccessToken();
 } catch(Facebook\Exceptions\FacebookResponseException $e) {
@@ -27,7 +40,6 @@ try {
 if (isset($accessToken)) {
     // Logged in!
     $_SESSION['facebook_access_token'] = (string) $accessToken;
-    echo (string) $accessToken;
     // Now you can redirect to another page and use the
     // access token from $_SESSION['facebook_access_token']
 }
@@ -47,23 +59,21 @@ if (isset($accessToken)) {
     
     #TODO get picture as http://graph.facebook.com/userid_here/picture
     
-    #echo 'Logged in as ' . $userNode->getName();
-    
-    #CREATE TABLE USERS(ID INTEGER PRIMARY KEY AUTOINCREMENT, NAME TEXT UNIQUE NOT NULL, PASSWORD TEXT, FBID INTEGER, MELLOTOKEN TEXT);
-    
     #LOGIN TO MELLO
     #1 GENERATE MELLOTOKEN,
     $token = getGUID();
     $name = $userNode->getName();
     $fbid = $userNode->getId();
     
-    $sql = "insert or replace into users (name, fbid, mellotoken) values (" . $name . "," . $fbid . "," . $token . ")";
+    $sql = "insert into users (name, fbid, mellotoken) values ('" . $name . "'," . $fbid . ",'" . $token . "')";
     
-    $dbh->query($sql);
+    if (!$dbh->query($sql)) {
+        $sql ="update users set mellotoken='" . $token  . "' where fbid=" . $fbid;
+        echo $sql;
+        $dbh->query($sql);
+    }
 
-    #upsert user in database. id = incerease, fbId = facebookid, name = Facebookname
-    
-    #set cookie an redirect to index page.
+    #then set cookie an redirect to index page.
     
     function getGUID(){
         if (function_exists('com_create_guid')){
@@ -82,3 +92,12 @@ if (isset($accessToken)) {
     }
     
     ?>
+
+<script>
+document.cookie="melloToken=" + <?php echo "\"" . $token . "\"";?>;
+        window.location.href = "index.php";
+
+</script>
+
+</head>
+</html>
