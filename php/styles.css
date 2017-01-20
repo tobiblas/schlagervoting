@@ -16,6 +16,43 @@ body {
 [class*="col-"] {
     float: left;
 }
+
+.signupcontainer {
+    margin-top: 100px;
+}
+
+.or {
+    padding-top: 10px;
+    text-align:center;
+}
+
+.signupbutton {
+    text-align:center;
+    padding-top: 10px;
+}
+
+.logoutbutton {
+    position: absolute;
+    width: 100%;
+    text-align: right;
+    top: 10;
+    right: 10;
+    z-index:100;
+}
+
+button {
+    background-color: #76399E;
+    border: none;
+    color: white;
+    padding: 12px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+
 .col-1 {width: 8.33%;}
 .col-2 {width: 16.66%;}
 .col-3 {width: 25%;}
@@ -90,7 +127,10 @@ html {
 }
 
 #nameinput {
-    width: 300px;
+    width: 200px;
+    margin: 3px;
+    height: 28px;
+    font-size: 16px;
 }
 
 .selectorcontainer {

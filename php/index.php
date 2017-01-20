@@ -128,7 +128,7 @@ function nameEntered() {
     <div class="col-12">
         <img src="images/header_melodifestivalen2.jpg" id="img1" />
     </div>
-    <div id="result" style="position: absolute;width: 100%;text-align: right;top: 10; right: 10; z-index:100;">
+<div id="result" class="logoutbutton" <?php if (!$logged_in) { echo "style='visibility:hidden;'"; } ?> >
         <a href="#" onclick="eraseCookie('melloToken');window.location.href = window.location.href;" style="color: white;">Log out</a>
     </div>
     <div id="result" style="position: absolute;width: 100%;text-align: center;top: 10; z-index:99;">

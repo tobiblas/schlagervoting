@@ -1,13 +1,40 @@
 
 
+<div class="signupcontainer">
+
 <div class="row">
-<div class="namediv">
-<button id="signInButton" name="sdfjksd" onclick="nameEntered()">Sign in</button>
+<div class="col-12" style="text-align:center;">
+<input id="nameinput" type="text" placeholder="First name"><br/>
+</div>
+</div>
+<div class="row">
+<div class="col-12" style="text-align:center;">
+<input id="nameinput" type="text" placeholder="Password">
+</div>
+</div>
 
-<button id="signUpButton" name="sdfjksd" onclick="nameEntered()">Sign up</button>
+<div class="row">
+    <div class="col-12" >
+        <div class="signUpButton">
+            <button style="width:200px;" onclick="nameEntered()">Sign up</button>
+        </div>
+    </div>
+</div>
 
-OR
+</div>
+
+
+<div class="or">
+--------------------------------- OR ---------------------------------
+</div>
+<br>
+
+<div class="row">
+<div class="col-12" style="text-align:center;">
 <?php echo '<a href="' . htmlspecialchars($loginUrl) . '"><img src="images/facebook-login-button.png" width="200px"/></a>'; ?>
+</div>
+</div>
+
 
 
 
