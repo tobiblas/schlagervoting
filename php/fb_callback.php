@@ -69,7 +69,6 @@ if (isset($accessToken)) {
     
     if (!$dbh->query($sql)) {
         $sql ="update users set mellotoken='" . $token  . "' where fbid=" . $fbid;
-        echo $sql;
         $dbh->query($sql);
     }
 

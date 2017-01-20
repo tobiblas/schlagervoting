@@ -16,7 +16,6 @@
 <script src="http://rubaxa.github.io/Sortable/Sortable.js"></script>
 
 <?php
-    #CREATE TABLE VOTES(NAME TEXT NOT NULL, CONTESTNUMBER INT, VOTE TEXT NOT NULL);
     include("db.php");
     
     #check if we are logged in
@@ -35,25 +34,7 @@
     
     $permissions = []; // Optional permissions
     $loginUrl = $helper->getLoginUrl('http://84.217.38.36:8081/mello/fb_callback.php', $permissions);
-    
-    
-    
-    #$count = $dbh->query($query) as $entry;
-    #echo $count;
-    #$query =  "SELECT * FROM VOTES";
-    #insert into votes ('tobias',2,'3;4;5;4;2');
-    #foreach ($dbh->query($query) as $row)
-    #{
-    #    echo $row[2];
-    #}
-    
-    #if (!isset($_COOKIE["schlagername7"])) {
-        $name_set = false;
-    #} else {
-    #    $name_set = true;
-    #    $username = $_COOKIE["schlagername7"];
-    #}
-?>
+   ?>
 
 <script>
 
@@ -140,7 +121,7 @@ function nameEntered() {
 
 </head>
 
-<body onload="checkName();">
+<body>
 
 
 <div class="row">
@@ -157,8 +138,8 @@ function nameEntered() {
 
 
 <?php
-    if ($name_set) {
-        include("bidrag.php");
+    if ($logged_in) {
+        include("start.php");
     } else {
         include("enter_name.php");
     }
