@@ -3,38 +3,62 @@
     
     $name = $_POST['name'];
     $pass = $_POST['password'];
+    $new = $_POST['new'];
     
-    echo name . " " . pass;
-  
-    fixa nedan
-    lägg in i databasen. upsert
+    $error = ""; #no error
     
+    $token=getGUID();
     
-    $query =  "select enabled from State";
-    $enabled = "";
-    foreach ($dbh->query($query) as $row)
-    {
-        $enabled = $row[0];
-    }
-    $voteOn = true;
-    if ($enabled == 'false') {
-        $voteOn = false;
-    }
-    
-    if ($voteOn) {
-        $name = $_GET['name'];
-        $vote = $_GET['vote'];
-        $contestnumber = $_GET['contestnumber'];
+    if ($new == 'true') {
         
-        $query = "delete from votes where contestnumber=" . $contestnumber . " and name='".$name."';";
-        $dbh->query($query);
+        $sql ="select name from users where lower(name)='" . strtolower($name) . "';";
+        foreach ($dbh->query($sql) as $row)
+        {
+            $error = "User already exists";
+        }
+        if ($error == "") {
+            $sql = "insert into users (name, password, mellotoken) values ('" . $name . "','" . sha1($pass) . "','" . $token . "');";
+            
+            if (!$dbh->query($sql)) {
+                $error = "server error";
+            }
+        }
         
-        $query =  "insert into votes values ('" . $name . "'," .$contestnumber . ",'" . $vote . "');";
-        $dbh->query($query);
     } else {
-        #bad reuest.
-        echo "CLOSED";
+        $sql = "select password from users where name='" . $name . "';";
+        foreach ($dbh->query($sql) as $row)
+        {
+            $password = $row[0];
+            if (sha1($pass) != $password) {
+                $error = "incorrect password";
+            } else {
+                #login ok!
+            }
+        }
+        #what if users does not exist?
+    }
+    
+    if ($error != "") {
+        echo "error:" . $error;
+    } else {
+        echo $token;
     }
     
     
+    function getGUID(){
+        if (function_exists('com_create_guid')){
+            return com_create_guid();
+        }else{
+            mt_srand((double)microtime()*10000);//optional for php 4.2.0 and up.
+            $charid = strtoupper(md5(uniqid(rand(), true)));
+            $hyphen = chr(45);// "-"
+            $uuid = substr($charid, 0, 8).$hyphen
+            .substr($charid, 8, 4).$hyphen
+            .substr($charid,12, 4).$hyphen
+            .substr($charid,16, 4).$hyphen
+            .substr($charid,20,12);
+            return $uuid;
+        }
+    }
+
     ?>

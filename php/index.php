@@ -95,15 +95,19 @@ function eraseCookie( name ) {
     document.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
 }
 
-function login(name, password)
+function login(name, password, newUser)
 {
     var xmlHttp = new XMLHttpRequest();
     xmlHttp.onreadystatechange = function() {
         if (xmlHttp.readyState == 4) {
             if ( xmlHttp.status == 200) {
-                var melloToken = xmlHttp.responseText.trim();
-                //createCookie("melloToken", melloToken, 1000);
-                //window.location.href = window.location.href;
+                var resp = xmlHttp.responseText.trim();
+                if (resp.includes("error")) {
+                    alert(resp);
+                } else {
+                    createCookie("melloToken", resp, 1000);
+                    window.location.href = window.location.href;
+                }
             } else if ( xmlHttp.status != 200) {
                 alert("Something went wrong. Please try again.");
             }
@@ -111,12 +115,12 @@ function login(name, password)
     }
     
     xmlHttp.open("POST", "login.php", true); // true for asynchronous
-    var parameters="name="+name+"&pass="+password;
+    var parameters="name="+name+"&password="+password+"&new="+newUser;
     xmlHttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xmlHttp.send(parameters);
 }
 
-function nameEntered() {
+function nameEntered(newUser) {
     var name = document.getElementById("nameinput").value;
     if (name == null || name.trim() == "" || name.length < 2) {
         alert("Invalid name. Please enter a name with at least 2 characters");
@@ -125,7 +129,7 @@ function nameEntered() {
         if (pass == null || pass.trim() == "" || pass.length < 4) {
             alert("Invalid password. Please enter a password with at least 4 characters");
         } else {
-            login(name, pass);
+            login(name, pass, newUser);
         }
     }
     
