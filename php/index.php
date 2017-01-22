@@ -92,11 +92,17 @@ function createCookie(name,value,days) {
 }
 
 function eraseCookie( name ) {
-    document.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+    document.cookie = name +'=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+}
+
+function logout() {
+    eraseCookie('melloToken');
+    location.reload();
 }
 
 function login(name, password, newUser)
 {
+    alert (name + " " + password + " " + newUser);
     var xmlHttp = new XMLHttpRequest();
     xmlHttp.onreadystatechange = function() {
         if (xmlHttp.readyState == 4) {
@@ -106,7 +112,7 @@ function login(name, password, newUser)
                     alert(resp);
                 } else {
                     createCookie("melloToken", resp, 1000);
-                    window.location.href = window.location.href;
+                    location.reload();
                 }
             } else if ( xmlHttp.status != 200) {
                 alert("Something went wrong. Please try again.");
@@ -148,7 +154,7 @@ function nameEntered(newUser) {
         <img src="images/header_melodifestivalen2.jpg" id="img1" />
     </div>
 <div id="result" class="logoutbutton" <?php if (!$logged_in) { echo "style='visibility:hidden;'"; } ?> >
-        <a href="" onclick="eraseCookie('melloToken');window.location.href = window.location.href;" style="color: white;">Log out</a>
+        <a href="" onclick="logout();" style="color: white;">Log out</a>
     </div>
     <div id="result" style="position: absolute;width: 100%;text-align: center;top: 10; z-index:99;">
 <?php echo $username; ?>
