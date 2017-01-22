@@ -102,7 +102,6 @@ function logout() {
 
 function login(name, password, newUser)
 {
-    alert (name + " " + password + " " + newUser);
     var xmlHttp = new XMLHttpRequest();
     xmlHttp.onreadystatechange = function() {
         if (xmlHttp.readyState == 4) {
@@ -146,18 +145,22 @@ function nameEntered(newUser) {
 
 </head>
 
-<body>
-
+<!-- Hämta username och fbid från server om de inte finns som cookie. Sätt sedan headern nedan -->
+<body onload="fetchUsernameAndFbidAndSetHeader()">
 
 <div class="row">
     <div class="col-12">
         <img src="images/header_melodifestivalen2.jpg" id="img1" />
     </div>
-<div id="result" class="logoutbutton" <?php if (!$logged_in) { echo "style='visibility:hidden;'"; } ?> >
+
+    <div class="logoutbutton" <?php if (!$logged_in) { echo "style='visibility:hidden;'"; } ?> >
         <a href="" onclick="logout();" style="color: white;">Log out</a>
     </div>
-    <div id="result" style="position: absolute;width: 100%;text-align: center;top: 10; z-index:99;">
-<?php echo $username; ?>
+    <div <?php if (!$logged_in) { echo "style='visibility:hidden;'"; } ?> id="user" style="position: absolute;width: 100%;text-align: center;top: 5; z-index:99;">
+        <img src="http://graph.facebook.com/10155002263050955/picture" width="30px" height="30px" />
+        <div id="username" style="position: absolute;width: 100%;text-align: center;top: 30; z-index:99;">
+            <?php echo $name; ?>
+        </div>
     </div>
 </div>
 
