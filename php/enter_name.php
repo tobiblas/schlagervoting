@@ -9,7 +9,7 @@
 </div>
 <div class="row">
 <div class="col-12" style="text-align:center;">
-<input id="nameinput" type="text" placeholder="Password">
+<input id="passwordinput" type="password" placeholder="Password">
 </div>
 </div>
 

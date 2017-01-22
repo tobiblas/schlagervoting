@@ -95,25 +95,40 @@ function eraseCookie( name ) {
     document.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
 }
 
-function checkName() {
-    var name = getCookie("schlagername7");
-    if (name.trim() == "") {
-        eraseCookie("schlagername7");
-        alert ("Du har inte satt något namn. Du blir nu tilldelad namnet JagHarIngetNamn.");
-        document.cookie="schlagername7=" + "JagHarIngetNamm";
-        window.location.href = window.location.href;
+function login(name, password)
+{
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.onreadystatechange = function() {
+        if (xmlHttp.readyState == 4) {
+            if ( xmlHttp.status == 200) {
+                var melloToken = xmlHttp.responseText.trim();
+                //createCookie("melloToken", melloToken, 1000);
+                //window.location.href = window.location.href;
+            } else if ( xmlHttp.status != 200) {
+                alert("Something went wrong. Please try again.");
+            }
+        }
     }
+    
+    xmlHttp.open("POST", "login.php", true); // true for asynchronous
+    var parameters="name="+name+"&pass="+password;
+    xmlHttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xmlHttp.send(parameters);
 }
 
 function nameEntered() {
     var name = document.getElementById("nameinput").value;
-    if (name == null || name.trim() == "") {
-        alert("Ogiltigt namn");
+    if (name == null || name.trim() == "" || name.length < 2) {
+        alert("Invalid name. Please enter a name with at least 2 characters");
     } else {
-        document.cookie="schlagername7=" + name.trim();
-        //save("1-1;2-2;3-3;4-4;5-5;6-6;7-7;");
-        window.location.href = window.location.href;
+        var pass = document.getElementById("passwordinput").value;
+        if (pass == null || pass.trim() == "" || pass.length < 4) {
+            alert("Invalid password. Please enter a password with at least 4 characters");
+        } else {
+            login(name, pass);
+        }
     }
+    
 }
 
 </script>

@@ -126,7 +126,7 @@ html {
     margin: auto;
 }
 
-#nameinput {
+#nameinput, #passwordinput {
     width: 200px;
     margin: 3px;
     height: 28px;
