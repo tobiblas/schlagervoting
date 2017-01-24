@@ -186,7 +186,7 @@ function fetchUsernameAndSetHeader() {
         <a href="" onclick="logout();" style="color: white;">Log out</a>
     </div>
     <div <?php if (!$logged_in) { echo "style='visibility:hidden;'"; } ?> id="user" style="position: absolute;width: 100%;text-align: center;top: 5; z-index:99;">
-        <div id="username" style="position: absolute;width: 100%;text-align: center;top: 30; z-index:99;">
+        <div id="username" style="position: absolute;width: 100%;text-align: center;top: 5; z-index:99;">
         </div>
     </div>
 </div>
