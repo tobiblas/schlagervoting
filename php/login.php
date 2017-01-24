@@ -25,15 +25,22 @@
         }
         
     } else {
-        $sql = "select password from users where name='" . $name . "';";
+        $sql = "select password,mellotoken from users where lower(name)='" . strtolower($name) . "';";
+        $found = false;
         foreach ($dbh->query($sql) as $row)
         {
+            $found = true;
             $password = $row[0];
+            $token = $row[1];
             if (sha1($pass) != $password) {
                 $error = "incorrect password";
             } else {
+                
                 #login ok!
             }
+        }
+        if (!$found) {
+            $error = "No user with that name";
         }
         #what if users does not exist?
     }

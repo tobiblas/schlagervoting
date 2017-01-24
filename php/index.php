@@ -92,11 +92,13 @@ function createCookie(name,value,days) {
 }
 
 function eraseCookie( name ) {
+    document.cookie = name +'=; Path=/mello; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
     document.cookie = name +'=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
 }
 
 function logout() {
     eraseCookie('melloToken');
+    eraseCookie('melloName');
     location.reload();
 }
 
@@ -140,13 +142,40 @@ function nameEntered(newUser) {
     
 }
 
+function fetchUsernameAndSetHeader() {
+    
+    var token = getCookie("melloToken");
+    if (token === undefined) {
+        return;
+    }
+    if (getCookie("melloName") === undefined) {
+            var xmlHttp = new XMLHttpRequest();
+            xmlHttp.onreadystatechange = function() {
+                if (xmlHttp.readyState == 4) {
+                    if ( xmlHttp.status == 200) {
+                        var resp = xmlHttp.responseText.trim();
+                        createCookie("melloName", resp,  1000);
+                        document.getElementById("username").innerHTML = resp;
+                    } else if ( xmlHttp.status != 200) {
+                        alert("Something went wrong. Please try again.");
+                    }
+                }
+            }
+            
+            xmlHttp.open("GET", "getname.php?melloToken=" + token, true); // true for asynchronous
+            xmlHttp.send(null);
+    } else {
+        document.getElementById("username").innerHTML = getCookie("melloName");
+    }
+}
+
 </script>
 
 
 </head>
 
 <!-- Hämta username och fbid från server om de inte finns som cookie. Sätt sedan headern nedan -->
-<body onload="fetchUsernameAndFbidAndSetHeader()">
+<body onload="fetchUsernameAndSetHeader()">
 
 <div class="row">
     <div class="col-12">
@@ -157,9 +186,7 @@ function nameEntered(newUser) {
         <a href="" onclick="logout();" style="color: white;">Log out</a>
     </div>
     <div <?php if (!$logged_in) { echo "style='visibility:hidden;'"; } ?> id="user" style="position: absolute;width: 100%;text-align: center;top: 5; z-index:99;">
-        <img src="http://graph.facebook.com/10155002263050955/picture" width="30px" height="30px" />
         <div id="username" style="position: absolute;width: 100%;text-align: center;top: 30; z-index:99;">
-            <?php echo $name; ?>
         </div>
     </div>
 </div>
