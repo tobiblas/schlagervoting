@@ -1,84 +1,72 @@
 
 <?php
-    $query =  "select vote from votes where name='" . $username . "'";
-    $bidragarray = array();
-    $votes = "";
-    foreach ($dbh->query($query) as $row)
+    
+    $contest = $_GET['contest'];
+    if ($contest != 1 && $contest != 2 && $contest != 3 && $contest != 4) {
+        echo "ERROR! Invalid contestnumber";
+        die();
+    }
+    
+    $contest -=1;
+    
+    class Artist
     {
-        $votes = $row[0];
+        public $song = '';
+        public $name = '';
+        
+        function getSong()
+        { return $this->song; }
+        
+        function getName()
+        { return $this->name; }
+        
+        public function __construct($name='', $song='')
+        {
+            $this->song = $song;
+            $this->name = $name;
+        }
     }
-    $pieces = explode(";", $votes);
-    $i = 0;
-    foreach ($pieces as $piece) {
-        $bidragarray[$i] = explode("-", $piece)[1];
-        $i = $i+1;
+    
+    $artists = array
+    (
+     array(new Artist("Adrijana","Amare"), new Artist("Boris René", "Her kiss"), new Artist("Nano", "Hold on"),new Artist("Charlotte Perrelli","Mitt liv"),new Artist("Dinah Nah","One more night"),new Artist("De vet du","Road trip"),new Artist("Ace Wilder","Wild child")),
+     array(new Artist("Mariette","A million years"), new Artist("Benjamin Ingrosso","Good loving"), new Artist("Roger Pontare", "Himmel och hav"),new Artist("Lisa Ajax","I don't giva a"),new Artist("Etzia","Up"),new Artist("Dismissed","Hearts alined"),new Artist("Allyawan","Vart haru varit")),
+     array(new Artist("Owe Thörnqvist","Boogieman blues"), new Artist("Bella & Filippa","Crucified"), new Artist("The Fooo Conspiracy", "Gotta thing"),new Artist("Jasmine Kara","Gravity"),new Artist("Robin Bengtsson","I can’t go on"),new Artist("Angton hagman","Kiss you goodbye"),new Artist("Krista Sigfrieds","Snurra min jord")),
+     array(new Artist("Wiktoria Johansson","As I lay me down"), new Artist("Les Gordons","Bound to fall"), new Artist("Sara Varga & Juha Mulari", "Du får inte ändra på mig"),new Artist("Jon Henrik Fjellgren feat Aninia","En värld full av strider"),new Artist("Axel Schylström","När ingen ser"),new Artist("Alice Svensson","Running with lions"),new Artist("Loreen","Statements"))
+     );
+    
+    $contestants = $artists[$contest];
+    
+    echo "<div id='items' class='list-group' style='width: 90%'>";
+    
+    $i = 1;
+    foreach ($contestants as $contestant) {
+        $name = $contestant->getName();
+        $song = $contestant->getSong();
+        
+        echo '<div class="row">';
+        echo '<div class="col-4"><img src="images/artists/' . ($contest+1) . '-' . $i . '.jpeg" width="100%"/></div>';
+        echo '<div class="col-8 artistnsong">' . $i . '. ' . $song .'<br><div class="artist">' . $name . '</div></div>';
+        echo '</div>';
+        $i++;
     }
-    #http://www.svt.se/melodifestivalen/artister/
+    
+    echo "</div>";
+    
+    #$query =  "select vote from votes where name='" . $username . "'";
+    #$bidragarray = array();
+    #$votes = "";
+    #foreach ($dbh->query($query) as $row)
+    #{
+    #    $votes = $row[0];
+    #}
+    #$pieces = explode(";", $votes);
+    #$i = 0;
+    #foreach ($pieces as $piece) {
+    #    $bidragarray[$i] = explode("-", $piece)[1];
+    #    $i = $i+1;
+    #}
 ?>
-
-<div id="items" class="list-group" style="width: 90%">
-
-<div class="row">
-<div class="col-4" id="bidrag1"><img src="images/panetoz-jpg.jpeg" width="100%"/></div>
-<div class="col-8 artistnsong">1. HÅLL OM MIG HÅRT<br><div class="artist">PANETOZ</div></div>
-</div>
-
-<div class="row">
-    <div class="col-4"><img src="images/lisaajax-jpg.jpeg" width="100%"/></div>
-    <div class="col-8 artistnsong">2. MY HEART WANTS ME DEAD<br><div class="artist">LISA AJAX</div></div>
-</div>
-
-<div class="row">
-    <div class="col-4" ><img src="images/davidlindgren-jpg.jpeg" width="100%"/></div>
-    <div class="col-8 artistnsong">3. WE ARE YOUR TOMORROW<br><div class="artist">DAVID LINDGREN</div></div>
-</div>
-
-<div class="row">
-<div class="col-4"><img src="images/saraha-jpg.jpeg" width="100%"/></div>
-<div class="col-8 artistnsong">4. KIZUNGUZUNGU<br><div class="artist">SARAHA</div></div>
-</div>
-
-<div class="row">
-<div class="col-4" id="bidrag1"><img src="images/oscarzia-jpg.jpeg" width="100%"/></div>
-<div class="col-8 artistnsong">5. HUMAN<br><div class="artist">OSCAR ZIA</div></div>
-</div>
-
-<div class="row">
-<div class="col-4" id="bidrag1"><img src="images/acewilder-jpg.jpeg" width="100%"/></div>
-<div class="col-8 artistnsong">6. DONT WORRY<br><div class="artist">ACE WILDER</div></div>
-</div>
-
-<div class="row">
-<div class="col-4" id="bidrag1"><img src="images/robinbengtsson-jpg.jpeg" width="100%"/></div>
-<div class="col-8 artistnsong">7. <br>CONSTELLATION PRIZE<div class="artist">ROBIN BENGTSSON</div></div>
-</div>
-
-<div class="row">
-<div class="col-4" id="bidrag1"><img src="images/mollysanden-jpg.jpeg" width="100%"/></div>
-<div class="col-8 artistnsong">8. YOUNIVERSE<br><div class="artist">MOLLY SANDÉN</div></div>
-</div>
-
-<div class="row">
-<div class="col-4" id="bidrag1"><img src="images/borisrene-jpg.jpeg" width="100%"/></div>
-<div class="col-8 artistnsong">9. PUT YOUR LOVE ON ME<br><div class="artist">BORIS RENÉ</div></div>
-</div>
-
-<div class="row">
-<div class="col-4" id="bidrag1"><img src="images/frans-jpg.jpeg" width="100%"/></div>
-<div class="col-8 artistnsong">10. IF I WERE SORRY<br><div class="artist">FRANS</div></div>
-</div>
-
-<div class="row">
-<div class="col-4" id="bidrag1"><img src="images/wiktoria-jpg.jpeg" width="100%"/></div>
-<div class="col-8 artistnsong">11. SAVE ME<br><div class="artist">WIKTORIA</div></div>
-</div>
-
-<div class="row">
-<div class="col-4" id="bidrag1"><img src="images/samir-viktor-jpg.jpeg" width="100%"/></div>
-<div class="col-8 artistnsong">12. BADA NAKNA<br><div class="artist">SAMIR OCH VIKTOR</div></div>
-</div>
-
-</div>
 
 <script>
 
