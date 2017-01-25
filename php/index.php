@@ -194,7 +194,12 @@ function fetchUsernameAndSetHeader() {
 
 <?php
     if ($logged_in) {
-        include("start.php");
+        $contest = $_GET['contest'];
+        if ($contest == null) {
+            include("start.php");
+        } else {
+            include("contest.php");
+        }
     } else {
         include("enter_name.php");
     }
