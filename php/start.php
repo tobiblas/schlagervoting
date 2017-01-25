@@ -31,10 +31,13 @@
     
 ?>
 
-<div class="row">
+
+<div class="row"><div class="col-12 linksheader">DELTÄVLINGAR</div></div>
+
+<div class="row"><div class="col-12" style="text-align:center;">Deltävling 1: Göteborg</div></div>
+<div class="row"><div class="col-12" style="text-align:center;">Deltävling 2: Malmö</div></div>
+<div class="row"><div class="col-12" style="text-align:center;">Deltävling 3: Växjö</div></div>
+<div class="row"><div class="col-12" style="text-align:center;">Deltävling 4: Skellefteå</div></div>
 
 
-
-DELTÄVLINGAR
-</div>
 

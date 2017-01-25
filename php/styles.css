@@ -35,6 +35,13 @@ body {
    font-size: 10px;
 }
 
+.linksheader {
+    text-align: center;
+    font-weight: bold;
+    padding: 30 0 10 0;
+    font-size: small;
+}
+
 .logoutbutton {
     position: absolute;
     width: 100%;
