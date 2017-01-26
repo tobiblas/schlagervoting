@@ -13,14 +13,6 @@
 
 <body>
 
-<div class="row">
-    <div class="col-12">
-        <img src="images/header_melodifestivalen2.jpg" id="img1" />
-    </div>
-</div>
-
-
-
 <div class="row"><div class="col-12 resultheader" style="text-align:center;">Deltävling 4</div></div>
 
 <?php

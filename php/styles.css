@@ -42,12 +42,30 @@ body {
     font-size: small;
 }
 
+.pointsbutton {
+    position: absolute;
+    width: 100%;
+    text-align: right;
+    top: 30;
+    right: 200;
+    z-index:100;
+}
+
 .logoutbutton {
     position: absolute;
     width: 100%;
     text-align: right;
-    top: 10;
+    top: 30;
     right: 10;
+    z-index:100;
+}
+
+.resultbutton {
+    position: absolute;
+    width: 100%;
+    text-align: right;
+    top: 30;
+    right: 100;
     z-index:100;
 }
 
