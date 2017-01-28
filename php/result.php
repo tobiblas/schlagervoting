@@ -19,12 +19,14 @@
     #CREATE TABLE VOTES(NAME TEXT NOT NULL, CONTESTNUMBER INT, VOTE TEXT NOT NULL);
     include("db.php");
     
-    $user = $_COOKIE["schlagername7"];
+    $token = $_REQUEST["token"];
+    $contest = $_REQUEST["contest"];
+    
     
     $correctResult = "";
-    $query = "select * from result where contestnumber=4";
+    $query = "select * from result where contestnumber=" + $contest;
     foreach ($dbh->query($query) as $row) {
-        $correctResult = $row[1];
+        $correctResult = $row[1]; //example: 1-3;2-4;3-5;4-3;5-7;6-1;7-2;
     }
     $correctResultArray = array();
     $i = 0;

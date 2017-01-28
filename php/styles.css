@@ -51,6 +51,15 @@ body {
     z-index:100;
 }
 
+.startbutton {
+    position: absolute;
+    width: 100%;
+    text-align: right;
+    top: 30;
+    right: 300;
+    z-index:100;
+}
+
 .logoutbutton {
     position: absolute;
     width: 100%;

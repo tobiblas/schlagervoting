@@ -192,6 +192,9 @@ function fetchUsernameAndSetHeader() {
 <div class="pointsbutton">
 <a href="?page=points" style="color: white;">Poängberäkning</a>
 </div>
+<div class="startbutton">
+<a href="index.php" style="color: white;">Start</a>
+</div>
 
     <div <?php if (!$logged_in) { echo "style='visibility:hidden;'"; } ?> id="user" style="position: absolute;width: 100%;text-align: center;top: 5; z-index:99;">
         <div id="username" style="position: absolute;width: 100%;text-align: center;top: 5; z-index:99;">
