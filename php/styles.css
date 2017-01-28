@@ -117,6 +117,28 @@ html {
     margin: 10px 100px 10px 100px;
 }
 
+.center {
+    text-align: center;
+}
+
+.link-button a {
+    color: #FFFFFF;
+    text-decoration: none;
+}
+
+.row.link-button {
+    width: 100%;
+    text-align: center;
+}
+
+.link-button button {
+    width: 65%;
+}
+
+.link-button button a {
+    font-family: "Futura", sans-serif;
+}
+
 .artistnsong {
     padding: 10px 10px 10px 10px;
 }
