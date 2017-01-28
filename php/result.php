@@ -13,7 +13,7 @@
 
 <body>
 
-<div class="row"><div class="col-12 resultheader" style="text-align:center;">Deltävling 4</div></div>
+<div class="row"><div class="col-12 resultheader center">Deltävling 4</div></div>
 
 <?php
     #CREATE TABLE VOTES(NAME TEXT NOT NULL, CONTESTNUMBER INT, VOTE TEXT NOT NULL);
@@ -82,7 +82,7 @@
     ?>
 
 
-<div class="row"><div class="col-12 resultheader" style="text-align:center;">Deltävling 3</div></div>
+<div class="row"><div class="col-12 resultheader center"">Deltävling 3</div></div>
 
 <?php
     #CREATE TABLE VOTES(NAME TEXT NOT NULL, CONTESTNUMBER INT, VOTE TEXT NOT NULL);
@@ -151,7 +151,7 @@
 
 
 
-<div class="row"><div class="col-12 resultheader" style="text-align:center;">Deltävling 2</div></div>
+<div class="row"><div class="col-12 resultheader center"">Deltävling 2</div></div>
 
 <?php
     #CREATE TABLE VOTES(NAME TEXT NOT NULL, CONTESTNUMBER INT, VOTE TEXT NOT NULL);
@@ -217,7 +217,7 @@
     
 ?>
 
-<div class="row"><div class="col-12 resultheader" style="text-align:center;">Deltävling 1</div></div>
+<div class="row"><div class="col-12 resultheader center"">Deltävling 1</div></div>
 <div class="row"><div class="col-12 <?php if ($user == 'Johannes') {echo 'resultitemself"';} else {echo 'resultitem"';}?> >1. Johannes 34p</div></div>
 <div class="row"><div class="col-12 <?php if ($user == 'Urban') {echo 'resultitemself"';} else {echo 'resultitem"';}?> >1. Urban 34p</div></div>
 <div class="row"><div class="col-12 <?php if ($user == 'Julia') {echo 'resultitemself"';} else {echo 'resultitem"';}?> >2. Julia 32p</div></div>

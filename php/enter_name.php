@@ -20,12 +20,12 @@ function setupSignin() {
 <div class="signupcontainer">
 
 <div class="row">
-<div class="col-12" style="text-align:center;">
+<div class="col-12 center">
 <input id="nameinput" type="text" placeholder="First name"><br/>
 </div>
 </div>
 <div class="row">
-<div class="col-12" style="text-align:center;">
+<div class="col-12 center">
 <input id="passwordinput" type="password" placeholder="Password">
 </div>
 </div>
@@ -39,7 +39,7 @@ function setupSignin() {
 </div>
 
 <div class="row">
-<div class="col-12" style="text-align:center;">
+<div class="col-12 center">
 <div id="setupSignin">
 Already cool? <a href="#" onclick="setupSignin();">Log in</a>
 </div>
@@ -53,7 +53,7 @@ Already cool? <a href="#" onclick="setupSignin();">Log in</a>
 <br>
 
 <div class="row" id="facebookContainer">
-<div class="col-12" style="text-align:center;">
+<div class="col-12 center">
 <?php echo '<a href="' . htmlspecialchars($loginUrl) . '"><img src="images/facebook-login-button.png" width="200px"/></a>'; ?>
 </div>
 </div>
