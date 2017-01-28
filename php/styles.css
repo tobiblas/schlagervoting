@@ -1,7 +1,12 @@
-
-
+/* General */
 * {
     box-sizing: border-box;
+}
+
+html {
+    font-size: small;
+    font-family: "Futura", sans-serif;
+    color: white;
 }
 
 body {
@@ -17,73 +22,13 @@ body {
     float: left;
 }
 
-.signupcontainer {
-    margin-top: 100px;
-}
-
-.or {
-    padding-top: 10px;
-    text-align:center;
-}
-
-.signupbutton {
-    text-align:center;
-    padding-top: 10px;
-}
-
-#setupSignin {
-   font-size: 10px;
-}
-
-.linksheader {
-    text-align: center;
-    font-weight: bold;
-    padding: 30 0 10 0;
-    font-size: small;
-}
-
-.pointsbutton {
-    position: absolute;
-    width: 100%;
-    text-align: right;
-    top: 30;
-    right: 200;
-    z-index:100;
-}
-
-.startbutton {
-    position: absolute;
-    width: 100%;
-    text-align: right;
-    top: 30;
-    right: 300;
-    z-index:100;
-}
-
-.logoutbutton {
-    position: absolute;
-    width: 100%;
-    text-align: right;
-    top: 30;
-    right: 10;
-    z-index:100;
-}
-
-.resultbutton {
-    position: absolute;
-    width: 100%;
-    text-align: right;
-    top: 30;
-    right: 100;
-    z-index:100;
-}
-
 a {
-    color: #76399E;
+    color: #FFF;
+    text-decoration: none;
 }
 
 button {
-    background-color: #76399E;
+    background-color: #5f3977;
     border: none;
     color: white;
     padding: 12px 32px;
@@ -107,28 +52,78 @@ button {
 .col-10 {width: 83.33%;}
 .col-11 {width: 91.66%;}
 .col-12 {width: 100%;}
-html {
-    font-size: small;
-    font-family: "Futura", sans-serif;
-    color: white;
+
+.center {
+    text-align: center;
+}
+/* End General */
+
+/* Enter name */
+.signupcontainer {
+    margin-top: 100px;
+}
+
+.or {
+    padding-top: 10px;
+    text-align:center;
+}
+
+.signupbutton {
+    text-align:center;
+    padding-top: 10px;
+}
+
+#setupSignin {
+   font-size: 10px;
 }
 
 #container {
     position:relative;
 }
+/* End Enter name */
 
-#bidrags {
-
-}
-
-#nameinputbutton {
-    width: 100px;
-    margin: 10px 100px 10px 100px;
-}
-
-.center {
+/* Points page, */
+.linksheader {
     text-align: center;
+    font-weight: bold;
+    padding: 30 0 10 0;
+    font-size: small;
 }
+/* End Points page */
+
+/* Index page */
+.logoutbutton {
+    position: absolute;
+    width: 100%;
+    text-align: right;
+    top: 30;
+    right: 10;
+    z-index:100;
+}
+/* End Index page*/
+
+/* Menu*/
+.menu-items button {
+    border-top: 1px solid #472061;
+    border-bottom: 1px solid #472061;
+    border-right: 1px solid #472061;
+}
+
+.menu-items:nth-child(odd) {
+    border-left: 1px solid #472061;
+}
+
+.menu-item {
+    font-size: small;
+    font-weight: 600;
+}
+
+button.menu-item {
+    margin: 0;
+
+}
+/* End Menu */
+
 
 
 /* Start page */
@@ -194,6 +189,11 @@ html {
     width: 100%;
 }
 
+#nameinputbutton {
+    width: 100px;
+    margin: 10px 100px 10px 100px;
+}
+
 /*.namediv {*/
     /*width: 300px;*/
     /*height: 100px;*/
@@ -235,8 +235,10 @@ html {
 /* End Admin page*/
 
 
-.song {
-    width: 50%;
-    height:177px;
-    display:inline;
-}
+
+/* ?? */
+/*.song {*/
+    /*width: 50%;*/
+    /*height:177px;*/
+    /*display:inline;*/
+/*}*/

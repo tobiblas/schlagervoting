@@ -186,19 +186,10 @@ function fetchUsernameAndSetHeader() {
     <div class="logoutbutton" <?php if (!$logged_in) { echo "style='visibility:hidden;'"; } ?> >
         <a href="" onclick="logout();" style="color: white;">Logga ut</a>
     </div>
-<div class="resultbutton">
-    <a href="?page=result" style="color: white;">Resultat</a>
-</div>
-<div class="pointsbutton">
-<a href="?page=points" style="color: white;">Poängberäkning</a>
-</div>
-<div class="startbutton">
-<a href="index.php" style="color: white;">Start</a>
-</div>
 
-    <div <?php if (!$logged_in) { echo "style='visibility:hidden;'"; } ?> id="user" style="position: absolute;width: 100%;text-align: center;top: 5; z-index:99;">
-        <div id="username" style="position: absolute;width: 100%;text-align: center;top: 5; z-index:99;">
-        </div>
+    <div class="menu-items">
+        <button class="col-6 menu-item"><a href="index.php">DELTÄVLINGAR</a></button>
+        <button class="col-6 menu-item"><a href="?page=result">RESULTAT</a></button>
     </div>
 </div>
 
