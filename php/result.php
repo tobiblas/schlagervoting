@@ -13,7 +13,7 @@
 
 <body>
 
-<div class="row"><div class="col-12 resultheader" style="text-align:center;">Deltävling 4</div></div>
+<div class="row"><div class="col-12 resultheader center">Deltävling 4</div></div>
 
 <?php
     #CREATE TABLE VOTES(NAME TEXT NOT NULL, CONTESTNUMBER INT, VOTE TEXT NOT NULL);
@@ -108,11 +108,21 @@
                             $scoreForThisItem += 6;
                         }
                         #2 poäng om låt på plats 5 var rätt
+                        if ($place == 5 && $correctResultArray[$song]->getPlace() == 5) {
+                            $scoreForThisItem += 2;
+                        }
                         #2 poäng om låt på plats 6 var rätt
+                        if ($place == 6 && $correctResultArray[$song]->getPlace() == 6) {
+                            $scoreForThisItem += 2;
+                        }
                         #4 poäng om låt på plats 7 var rätt
+                        if ($place == 7 && $correctResultArray[$song]->getPlace() == 7) {
+                            $scoreForThisItem += 4;
+                        }
                         #-5 poäng om du satte låt på plats 7 som gick direkt vidare
-                        #NÄT JÄVLA HELVETES SKIT HÄR
-                        
+                        if ($place == 7 && $correctResultArray[$song]->getBucket() == 1) {
+                            $scoreForThisItem -= 5;
+                        }
                     } else if ($contest <= 6) {
                         $scoreForThisItem = $numberOfSongs - abs($place - $correctResultArray[$song]);
                     }
