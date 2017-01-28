@@ -130,6 +130,8 @@ html {
     text-align: center;
 }
 
+
+/* Start page */
 .link-button a {
     color: #FFFFFF;
     text-decoration: none;
@@ -147,7 +149,10 @@ html {
 .link-button button a {
     font-family: "Futura", sans-serif;
 }
+/* End Start page */
 
+
+/* Contest page*/
 .artistnsong {
     padding: 10px 10px 10px 10px;
 }
@@ -156,6 +161,13 @@ html {
     font-size: x-small;
 }
 
+#items .row:nth-child(odd) {
+    background: #5f3977;
+}
+/* End Contest page */
+
+
+/* Result page */
 .resultheader {
     background: #7E5E94;
     padding: 5px 5px 5px 5px;
@@ -172,23 +184,28 @@ html {
 .resultitemself {
     background: #3B5177;
 }
+/* End Result page*/
 
+
+
+
+/* Admin page */
 #img1 {
     width: 100%;
 }
 
-.namediv {
-    width: 300px;
-    height: 100px;
-    
-    position: absolute;
-    top:0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    
-    margin: auto;
-}
+/*.namediv {*/
+    /*width: 300px;*/
+    /*height: 100px;*/
+    /**/
+    /*position: absolute;*/
+    /*top:0;*/
+    /*bottom: 0;*/
+    /*left: 0;*/
+    /*right: 0;*/
+    /**/
+    /*margin: auto;*/
+/*}*/
 
 #nameinput, #passwordinput {
     width: 200px;
@@ -197,9 +214,9 @@ html {
     font-size: 16px;
 }
 
-.selectorcontainer {
-    position: relative;
-}
+/*.selectorcontainer {*/
+    /*position: relative;*/
+/*}*/
 
 .selector {
     background: #7E5E94;
@@ -211,9 +228,12 @@ html {
     transform: 			translateY(90%);
 }
 
-.selectionheader {
-    width: 100%;
-}
+/*.selectionheader {*/
+    /*width: 100%;*/
+/*}*/
+
+/* End Admin page*/
+
 
 .song {
     width: 50%;

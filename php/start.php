@@ -34,10 +34,10 @@
 
 <div class="row"><div class="col-12 linksheader">DELTÄVLINGAR</div></div>
 
-<div class="row link-button"><button><a href="?contest=1" >1. GÖTEBORG</a></button></div>
-<div class="row link-button"><button><a href="?contest=2">2. MALMÖ</a></button></div>
-<div class="row link-button"><button><a href="?contest=3">3. VÄXJÖ</a></button></div>
-<div class="row link-button"><button><a href="?contest=4">4. SKELLEFTEÅ</a></button></div>
+<div class="row link-button"><button><a href="?page=contest&contest=1" >1. GÖTEBORG</a></button></div>
+<div class="row link-button"><button><a href="?page=contest&contest=2">2. MALMÖ</a></button></div>
+<div class="row link-button"><button><a href="?page=contest&contest=3">3. VÄXJÖ</a></button></div>
+<div class="row link-button"><button><a href="?page=contest&contest=4">4. SKELLEFTEÅ</a></button></div>
 
 
 
