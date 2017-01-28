@@ -13,18 +13,49 @@
 
 <body>
 
-<div class="row"><div class="col-12 resultheader center">Deltävling 4</div></div>
+<div class="row"><div class="col-12 resultheader" style="text-align:center;">Deltävling 4</div></div>
 
 <?php
     #CREATE TABLE VOTES(NAME TEXT NOT NULL, CONTESTNUMBER INT, VOTE TEXT NOT NULL);
     include("db.php");
     
-    $token = $_REQUEST["token"];
-    $contest = $_REQUEST["contest"];
+    class Result
+    {
+        public $place = 0;
+        public $bucket = 0;
+        
+        function getPlace()
+        { return $this->place; }
+        
+        function getBucket()
+        { return $this->bucket; }
+        
+        public function __construct($place=0, $bucket=0)
+        {
+            $this->place = $place;
+            $this->bucket = $bucket;
+        }
+    }
     
+    function getBucketFromPlace($place, $contestNumber) {
+        if ($contestNumber <= 4) {
+            if ($place == 1 || $place == 2) {
+                return 1;
+            } else if ($place == 3 || $place == 4) {
+                return 2;
+            } else {
+                return 3;
+            }
+        } else {
+            return -1;
+        }
+    }
+    
+    $token = $_REQUEST["token"];
+    $contest = 2; #$_REQUEST["contest"]; TODO. Gör en funktion av nedan
     
     $correctResult = "";
-    $query = "select * from result where contestnumber=" + $contest;
+    $query = "select * from result where contestnumber=" . $contest;
     foreach ($dbh->query($query) as $row) {
         $correctResult = $row[1]; //example: 1-3;2-4;3-5;4-3;5-7;6-1;7-2;
     }
@@ -33,20 +64,28 @@
     foreach (explode(";", $correctResult) as $result) {
         if ($result != "") {
             $songNPlace = explode("-", $result);
-            $correctResultArray[$songNPlace[0]] = $songNPlace[1];
+            $correctResultArray[$songNPlace[0]] = new Result(intval($songNPlace[1]), getBucketFromPlace(intval($songNPlace[1]), $contest));
         }
         $i = $i+1;
     }
+    
+    #correct result array: [låtnummer]-->Result(placering,bucket)
     
     if (sizeof($correctResultArray) == 0) {
         echo "<div class='row'><div class='col-12 resultitem'>Inget resultat än</div></div><br>";
     }
     else {
-        $query = "select name,vote from votes where contestnumber=4;";
+        
+        
+        $query = "select name, fbid, vote from users,uservotes where id=userid and contestnumber=" . $contest;
         $resultArray = array();
+        
+        #loop through all users that has voted in a specific contest.
+        
         foreach ($dbh->query($query) as $row) {
             $username = $row[0];
-            $vote = $row[1];
+            $fbid = $row[1];
+            $vote = $row[2];
             $score = 0;
             $votes = explode(";", $vote);
             $numberOfSongs = sizeof($votes) -1;
@@ -55,14 +94,35 @@
                 if ($oneVote != "") {
                     $song = explode("-", $oneVote)[0];
                     $place = explode("-", $oneVote)[1];
-                    $scoreForThisItem = $numberOfSongs - abs($place - $correctResultArray[$song]);
+                    $scoreForThisItem = 0;
+                    if ($contest <= 4) {
+                        $bucketDiff = abs($correctResultArray[$song]->getBucket() - getBucketFromPlace((int)$place, 1));
+                        #6 poäng om du satte den i rätt grupp (direkt vidare/andra chansen/utslagen)
+                        #3 poäng om du satte den 1 steg ifrån rätt grupp (exempel: du satte direkt vidare men den hamnade i andra chansen)
+                        #1 poäng om du satte den 2 steg ifrån rätt grupp (exempel: du satte direkt vidare men den hamnade i utslagen)
+                        if ($bucketDiff == 2) {
+                            $scoreForThisItem += 1;
+                        } else if ($bucketDiff == 1) {
+                            $scoreForThisItem += 3;
+                        } else  {
+                            $scoreForThisItem += 6;
+                        }
+                        #2 poäng om låt på plats 5 var rätt
+                        #2 poäng om låt på plats 6 var rätt
+                        #4 poäng om låt på plats 7 var rätt
+                        #-5 poäng om du satte låt på plats 7 som gick direkt vidare
+                        #NÄT JÄVLA HELVETES SKIT HÄR
+                        
+                    } else if ($contest <= 6) {
+                        $scoreForThisItem = $numberOfSongs - abs($place - $correctResultArray[$song]);
+                    }
                     $score = $score + $scoreForThisItem;
                 }
             }
             $resultArray[$username] = $score;
         }
         arsort($resultArray);
-        $preciousValue = -1;
+        $previousValue = -1;
         $i = 0;
         foreach ($resultArray as $key => $value) {
             if ($previousValue != $value) {
@@ -80,155 +140,6 @@
     }
     
     ?>
-
-
-<div class="row"><div class="col-12 resultheader center"">Deltävling 3</div></div>
-
-<?php
-    #CREATE TABLE VOTES(NAME TEXT NOT NULL, CONTESTNUMBER INT, VOTE TEXT NOT NULL);
-    include("db.php");
-    
-    $user = $_COOKIE["schlagername7"];
-    
-    $correctResult = "";
-    $query = "select * from result where contestnumber=3";
-    foreach ($dbh->query($query) as $row) {
-        $correctResult = $row[1];
-    }
-    $correctResultArray = array();
-    $i = 0;
-    foreach (explode(";", $correctResult) as $result) {
-        if ($result != "") {
-            $songNPlace = explode("-", $result);
-            $correctResultArray[$songNPlace[0]] = $songNPlace[1];
-        }
-        $i = $i+1;
-    }
-    
-    if (sizeof($correctResultArray) == 0) {
-        echo "<div class='row'><div class='col-12 resultitem'>Inget resultat än</div></div><br>";
-    }
-    else {
-        $query = "select name,vote from votes where contestnumber=3;";
-        $resultArray = array();
-        foreach ($dbh->query($query) as $row) {
-            $username = $row[0];
-            $vote = $row[1];
-            $score = 0;
-            $votes = explode(";", $vote);
-            $numberOfSongs = sizeof($votes) -1;
-            
-            foreach ($votes as $oneVote) {
-                if ($oneVote != "") {
-                    $song = explode("-", $oneVote)[0];
-                    $place = explode("-", $oneVote)[1];
-                    $scoreForThisItem = $numberOfSongs - abs($place - $correctResultArray[$song]);
-                    $score = $score + $scoreForThisItem;
-                }
-            }
-            $resultArray[$username] = $score;
-        }
-        arsort($resultArray);
-        $preciousValue = -1;
-        $i = 0;
-        foreach ($resultArray as $key => $value) {
-            if ($previousValue != $value) {
-                $i++;
-            }
-            $previousValue = $value;
-            if ($key == $user) {
-                echo "<div class='row'><div class='col-12 resultitemself'>" . $i . ". " . $key . " " . $value . "p</div></div>";
-            } else {
-                echo "<div class='row'><div class='col-12 resultitem'>" . $i . ". " . $key . " " . $value . "p</div></div>";
-            }
-            
-        }
-        echo "<br>";
-    }
-    
-    ?>
-
-
-
-
-<div class="row"><div class="col-12 resultheader center"">Deltävling 2</div></div>
-
-<?php
-    #CREATE TABLE VOTES(NAME TEXT NOT NULL, CONTESTNUMBER INT, VOTE TEXT NOT NULL);
-    include("db.php");
-    
-    $user = $_COOKIE["schlagername7"];
-    
-    $correctResult = "";
-    $query = "select * from result where contestnumber=2";
-    foreach ($dbh->query($query) as $row) {
-        $correctResult = $row[1];
-    }
-    $correctResultArray = array();
-    $i = 0;
-    foreach (explode(";", $correctResult) as $result) {
-        if ($result != "") {
-            $songNPlace = explode("-", $result);
-            $correctResultArray[$songNPlace[0]] = $songNPlace[1];
-        }
-        $i = $i+1;
-    }
-    
-    if (sizeof($correctResultArray) == 0) {
-        echo "<div class='row'><div class='col-12 resultitem'>Inget resultat än</div></div><br>";
-    }
-    else {
-        $query = "select name,vote from votes where contestnumber=2;";
-        $resultArray = array();
-        foreach ($dbh->query($query) as $row) {
-            $username = $row[0];
-            $vote = $row[1];
-            $score = 0;
-            $votes = explode(";", $vote);
-            $numberOfSongs = sizeof($votes) -1;
-            
-            foreach ($votes as $oneVote) {
-                if ($oneVote != "") {
-                    $song = explode("-", $oneVote)[0];
-                    $place = explode("-", $oneVote)[1];
-                    $scoreForThisItem = $numberOfSongs - abs($place - $correctResultArray[$song]);
-                    $score = $score + $scoreForThisItem;
-                }
-            }
-            $resultArray[$username] = $score;
-        }
-        arsort($resultArray);
-        $preciousValue = -1;
-        $i = 0;
-        foreach ($resultArray as $key => $value) {
-            if ($previousValue != $value) {
-                $i++;
-            }
-            $previousValue = $value;
-            if ($key == $user) {
-                echo "<div class='row'><div class='col-12 resultitemself'>" . $i . ". " . $key . " " . $value . "p</div></div>";
-            } else {
-                echo "<div class='row'><div class='col-12 resultitem'>" . $i . ". " . $key . " " . $value . "p</div></div>";
-            }
-            
-        }
-        echo "<br>";
-    }
-    
-?>
-
-<div class="row"><div class="col-12 resultheader center"">Deltävling 1</div></div>
-<div class="row"><div class="col-12 <?php if ($user == 'Johannes') {echo 'resultitemself"';} else {echo 'resultitem"';}?> >1. Johannes 34p</div></div>
-<div class="row"><div class="col-12 <?php if ($user == 'Urban') {echo 'resultitemself"';} else {echo 'resultitem"';}?> >1. Urban 34p</div></div>
-<div class="row"><div class="col-12 <?php if ($user == 'Julia') {echo 'resultitemself"';} else {echo 'resultitem"';}?> >2. Julia 32p</div></div>
-<div class="row"><div class="col-12 <?php if ($user == 'JOHANNA') {echo 'resultitemself"';} else {echo 'resultitem"';}?> >2. JOHANNA 32p</div></div>
-<div class="row"><div class="col-12 <?php if ($user == 'Adam') {echo 'resultitemself"';} else {echo 'resultitem"';}?> >3. Adam 30p</div></div>
-<div class="row"><div class="col-12 <?php if ($user == 'Fredrik') {echo 'resultitemself"';} else {echo 'resultitem"';}?> >4. Fredrik 28p</div></div>
-<div class="row"><div class="col-12 <?php if ($user == 'Alexandra') {echo 'resultitemself"';} else {echo 'resultitem"';}?> >5. Alexandra 27p</div></div>
-<div class="row"><div class="col-12 <?php if ($user == 'Tobias') {echo 'resultitemself"';} else {echo 'resultitem"';}?> >6. Tobias 26p</div></div>
-<div class="row"><div class="col-12 <?php if ($user == 'Dessi') {echo 'resultitemself"';} else {echo 'resultitem"';}?> >7. Dessi 25p</div></div>
-
-
 
 </body>
 </html>
