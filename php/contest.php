@@ -37,7 +37,7 @@
     
     $contestants = $artists[$contest];
     
-    echo "<div id='items' class='list-group' style='width: 90%'>";
+    echo "<div id='items' class='list-group'>";
     
     $i = 1;
     foreach ($contestants as $contestant) {
@@ -45,13 +45,35 @@
         $song = $contestant->getSong();
         
         echo '<div class="row">';
-        echo '<div class="col-4"><img src="images/artists/' . ($contest+1) . '-' . $i . '.jpeg" width="100%"/></div>';
+        echo '<div class="col-4"><img id="image' . $i . '" src="images/artists/' . ($contest+1) . '-' . $i . '.jpeg" width="100%"/></div>';
         echo '<div class="col-8 artistnsong">' . $i . '. ' . $song .'<br><div class="artist">' . $name . '</div></div>';
         echo '</div>';
+
         $i++;
     }
-    
+
     echo "</div>";
+
+    echo '<div class="contest-sidebar">';
+
+    $i = 1;
+    foreach ($contestants as $contestant) {
+            switch($i) {
+                case 1 :
+                    echo '<div id="final" class="sidebar-item final">Final</div>';
+                    break;
+                case 3 :
+                    echo '<div id="second-chance" class="sidebar-item second-chance">2 Chans</div>';
+                    break;
+                case 5 :
+                    echo '<div id="looser" class="sidebar-item looser">Utslagna</div>';
+                    break;
+            }
+
+            $i++;
+        }
+        echo "</div>";
+
     
     #$query =  "select vote from votes where name='" . $username . "'";
     #$bidragarray = array();

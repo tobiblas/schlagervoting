@@ -15,6 +15,10 @@
 
 <script src="http://rubaxa.github.io/Sortable/Sortable.js"></script>
 
+
+
+
+
 <?php
     include("db.php");
     
@@ -179,6 +183,21 @@ function nameEntered(newUser) {
         include("enter_name.php");
     }
 ?>
+
+<script>
+
+    function load() {
+        var imageHeight = document.getElementById('image1').clientHeight;
+        var divHeight = imageHeight + 'px;';
+
+        document.getElementById('final').style.height = imageHeight * 2 + 'px';
+        document.getElementById('second-chance').style.height = imageHeight * 2 + 'px';
+        document.getElementById('looser').style.height = imageHeight * 3 + 'px';
+    }
+
+    window.onload = load();
+
+</script>
 
 
 </body>

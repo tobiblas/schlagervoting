@@ -156,8 +156,44 @@ button.menu-item {
     font-size: x-small;
 }
 
+.list-group {
+    width: 90%;
+    display: inline-block;
+}
+
 #items .row:nth-child(odd) {
     background: #5f3977;
+}
+
+.contest-sidebar {
+    width: 10%;
+    float: right;
+}
+
+.sidebar-item {
+    width: 100%;
+    writing-mode: vertical-lr;
+    text-orientation: upright;
+    font-size: small;
+    font-weight: 600;
+    font-family: "Futura", sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+}
+
+#final {
+    background-color: #F6D2DC;
+    padding-top: 15px;
+}
+
+#second-chance {
+    background-color: #F6ACC2;
+    padding-top: 15px;
+}
+
+#looser {
+    background-color: #D2506E;
+    padding-top: 15px;
 }
 /* End Contest page */
 
