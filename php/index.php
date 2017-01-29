@@ -188,8 +188,8 @@ function fetchUsernameAndSetHeader() {
     </div>
 
     <div class="menu-items">
-        <button class="col-6 menu-item"><a href="index.php">DELTÄVLINGAR</a></button>
-        <button class="col-6 menu-item"><a href="?page=result">RESULTAT</a></button>
+        <button class="col-6 menu-item" onClick="window.location='index.php'">DELTÄVLINGAR</button>
+        <button class="col-6 menu-item" onClick="window.location='?page=result'">RESULTAT</button>
     </div>
 </div>
 
