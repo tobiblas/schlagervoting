@@ -5,10 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta charset="utf-8">
 
-
-
-
-
 </head>
 
 <body>
@@ -49,10 +45,17 @@
         }
     }
     
-    $token = $_REQUEST["token"];
-    #todo highlighta dig själv
     
-    function calculateResultForContest($contest, $dbh) {
+    
+    $token = $_COOKIE["melloToken"];
+    $query = "select name from users where mellotoken='" . $token . "'";
+    $name = "";
+    foreach ($dbh->query($query) as $row)
+    {
+        $name = $row[0];
+    }
+    
+    function calculateResultForContest($contest, $dbh, $name) {
         
         $contestName = "Deltävling " . $contest;
         if ($contest == 5) {
@@ -146,7 +149,7 @@
                     $i++;
                 }
                 $previousValue = $value;
-                if ($key == $user) {
+                if ($key == $name) {
                     echo "<div class='row'><div class='col-12 resultitemself'>" . $i . ". " . $key . " " . $value . "p</div></div>";
                 } else {
                     echo "<div class='row'><div class='col-12 resultitem'>" . $i . ". " . $key . " " . $value . "p</div></div>";
@@ -156,12 +159,12 @@
         }
     }
     
-    calculateResultForContest(1, $dbh);
-    calculateResultForContest(2, $dbh);
-    calculateResultForContest(3, $dbh);
-    calculateResultForContest(4, $dbh);
-    calculateResultForContest(5, $dbh);
-    calculateResultForContest(6, $dbh);
+    calculateResultForContest(1, $dbh, $name);
+    calculateResultForContest(2, $dbh, $name);
+    calculateResultForContest(3, $dbh, $name);
+    calculateResultForContest(4, $dbh, $name);
+    calculateResultForContest(5, $dbh, $name);
+    calculateResultForContest(6, $dbh, $name);
     ?>
 
 </body>

@@ -139,41 +139,13 @@ function nameEntered(newUser) {
     
 }
 
-function fetchUsernameAndSetHeader() {
-    return;
-    
-    var token = getCookie("melloToken");
-    if (token === undefined) {
-        return;
-    }
-    if (getCookie("melloName") === undefined) {
-            var xmlHttp = new XMLHttpRequest();
-            xmlHttp.onreadystatechange = function() {
-                if (xmlHttp.readyState == 4) {
-                    if ( xmlHttp.status == 200) {
-                        var resp = xmlHttp.responseText.trim();
-                        createCookie("melloName", resp,  1000);
-                        document.getElementById("username").innerHTML = resp;
-                    } else if ( xmlHttp.status != 200) {
-                        alert("Something went wrong. Please try again.");
-                    }
-                }
-            }
-            
-            xmlHttp.open("GET", "getname.php?melloToken=" + token, true); // true for asynchronous
-            xmlHttp.send(null);
-    } else {
-        document.getElementById("username").innerHTML = getCookie("melloName");
-    }
-}
-
 </script>
+
 
 
 </head>
 
-<!-- Hämta username och fbid från server om de inte finns som cookie. Sätt sedan headern nedan -->
-<body onload="fetchUsernameAndSetHeader()">
+<body>
 
 <div class="row">
     <div class="col-12">
