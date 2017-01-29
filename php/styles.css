@@ -197,23 +197,40 @@ button.menu-item {
 }
 /* End Contest page */
 
-
 /* Result page */
 .resultheader {
     background: #7E5E94;
     padding: 5px 5px 5px 5px;
-}
-
-.resultitem, .resultitemself {
-    border-style: solid;
-    padding: 5px 5px 5px 5px;
-    background: #5F3978;
-    border-color:#321149;
-    border-width: 1px 0px 0px 0px;
+    font-size: large;
 }
 
 .resultitemself {
     color: #70dc69;
+}
+
+.resultitem {
+    border-style: solid;
+    background: #5F3978;
+    border-color:#321149;
+    border-width: 1px 0px 0px 0px;
+    font-size: large;
+    text-align: center;
+    padding: 10px;
+}
+
+td {
+    border:none;
+}
+
+tr {
+    background: #5F3978;
+    font-size: large;
+}
+
+table {
+    border-collapse: collapse;
+    border: solid #19191b;
+    border-width: 1px 0px 0px 0px;
 }
 /* End Result page*/
 

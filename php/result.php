@@ -84,7 +84,7 @@
         #correct result array: [låtnummer]-->Result(placering,bucket)
     
         if (sizeof($correctResultArray) == 0) {
-            echo "<div class='row'><div class='col-12 resultitem'>Inget resultat än</div></div><br>";
+            echo "<div class='row'><div class='col-12 resultitem'>Inget resultat än</div></div><br><br><br>";
         }
         else {
             $query = "select name, fbid, vote from users,uservotes where id=userid and contestnumber=" . $contest;
@@ -150,15 +150,16 @@
                 }
                 $previousValue = $value;
                 if ($key == $name) {
-                    echo "<div class='row'><div class='col-12 resultitemself'>" . $i . ". " . $key . " " . $value . "p</div></div>";
+                    echo "<table><tr><td style='text-align:center; width:20px;' >" . $i . "</td><td style='width: 20%;'><img style='max-width:100%' src='images/kermit.jpg'></td><td  style='width: 60%; padding-left: 10px;' class='resultitemself'>" . $key . "</td><td>" . $value . "p</td></tr></table>";
                 } else {
-                    echo "<div class='row'><div class='col-12 resultitem'>" . $i . ". " . $key . " " . $value . "p</div></div>";
+                    echo "<table><tr><td style='text-align:center; width:20px;'>" . $i . "</td><td style='width: 20%;'><img style='max-width:100%' src='images/kermit.jpg'></td><td style='width: 60%; padding-left: 10px;'>" . $key . "</td><td>" . $value . "p</td></tr></table>";
                 }
             }
-            echo "<br>";
+            echo "<br><br><br>";
         }
     }
     
+    echo "<br><br>";
     calculateResultForContest(1, $dbh, $name);
     calculateResultForContest(2, $dbh, $name);
     calculateResultForContest(3, $dbh, $name);
