@@ -187,7 +187,7 @@ function fetchUsernameAndSetHeader() {
         <a href="" onclick="logout();" style="color: white;">Logga ut</a>
     </div>
 
-    <div class="menu-items">
+    <div class="menu-items" <?php if (!$logged_in) { echo "style='visibility:hidden;'"; } ?> >
         <button class="col-6 menu-item" onClick="window.location='index.php'">DELTÄVLINGAR</button>
         <button class="col-6 menu-item" onClick="window.location='?page=result'">RESULTAT</button>
     </div>
