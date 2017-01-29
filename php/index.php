@@ -49,15 +49,13 @@ function getCookie(cname) {
     return "";
 }
 
-function saveList(vote, sortable)
+function saveList(vote, sortable, contestnumber)
 {
-    var contestnumber = 6;
-
     var xmlHttp = new XMLHttpRequest();
     xmlHttp.onreadystatechange = function() {
         if (xmlHttp.readyState == 4) {
             if ( xmlHttp.status == 200 && xmlHttp.responseText.trim() == 'CLOSED') {
-                alert("Voting is closed. Shop opens again in one week!");
+                alert("Voting is closed.");
                 window.location.href = window.location.href;
             } else if ( xmlHttp.status != 200) {
                 alert("Something went wrong. Please try again.");
@@ -66,11 +64,10 @@ function saveList(vote, sortable)
                 var order = sortable.toArray();
                 localStorage.setItem(sortable.options.group, order.join('|'));
             }
-            //alert ();
         }
     }
     
-    var query = "save.php?name=" + getCookie("schlagername7") + "&vote=" + vote + "&contestnumber=" + contestnumber;
+    var query = "save.php?token=" + getCookie("melloToken") + "&vote=" + vote + "&contestnumber=" + contestnumber;
     xmlHttp.open("GET", query, true); // true for asynchronous
     xmlHttp.send(null);
 }

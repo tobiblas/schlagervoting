@@ -96,7 +96,7 @@ Sortable.create(el, {
                         var artistText = itemsInList[i].children[1].innerHTML;
                         vote += artistText.substring(0,1) + "-" + (i+1) + ";";
                     }
-                    saveList(vote, sortable);
+                saveList(vote, sortable, <?php echo $contest+1; ?>);
                 }
                 }
                 })

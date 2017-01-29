@@ -13,14 +13,20 @@
     }
     
     if ($voteOn) {
-        $name = $_GET['name'];
+        $token = $_GET['token'];
         $vote = $_GET['vote'];
         $contestnumber = $_GET['contestnumber'];
         
-        $query = "delete from votes where contestnumber=" . $contestnumber . " and name='".$name."';";
+        $query = "select id from users where mellotoken='" . $token . "'";
+        $id = "";
+        foreach ($dbh->query($query) as $row)
+        {
+            $id = $row[0];
+        }
+        $query = "delete from uservotes where contestnumber=" . $contestnumber . " and userid='".$id."';";
         $dbh->query($query);
         
-        $query =  "insert into votes values ('" . $name . "'," .$contestnumber . ",'" . $vote . "');";
+        $query =  "insert into uservotes values (" . $id . "," .$contestnumber . ",'" . $vote . "');";
         $dbh->query($query);
     } else {
         #bad reuest.
