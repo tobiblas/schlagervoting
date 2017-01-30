@@ -187,12 +187,16 @@ function nameEntered(newUser) {
 <script>
 
     function load() {
-        var imageHeight = document.getElementById('image1').clientHeight;
-        var divHeight = imageHeight + 'px;';
-
-        document.getElementById('final').style.height = imageHeight * 2 + 'px';
-        document.getElementById('second-chance').style.height = imageHeight * 2 + 'px';
-        document.getElementById('looser').style.height = imageHeight * 3 + 'px';
+        
+        setTimeOut(
+            function() {
+                var imageHeight = document.getElementById('image1').clientHeight;
+                console.log("imageHeight", imageHeight)
+                   
+                document.getElementById('final').style.height = imageHeight * 2 + 'px';
+                document.getElementById('second-chance').style.height = imageHeight * 2 + 'px';
+                document.getElementById('looser').style.height = imageHeight * 3 + 'px';
+            }, 500);
     }
 
     window.onload = load();
