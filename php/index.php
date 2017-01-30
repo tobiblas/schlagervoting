@@ -188,7 +188,7 @@ function nameEntered(newUser) {
 
     function load() {
         
-        setTimeOut(
+        setTimeout(
             function() {
                 var imageHeight = document.getElementById('image1').clientHeight;
                 console.log("imageHeight", imageHeight)
