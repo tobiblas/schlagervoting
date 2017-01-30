@@ -139,7 +139,14 @@
                         $score = $score + $scoreForThisItem;
                     }
                 }
-                $resultArray[$username] = $score;
+                $key = "";
+                if (fbid != null) {
+                    $key = $username . "#:#" . $fbid;
+                } else {
+                    $key = $username;
+                }
+                
+                $resultArray[$key] = $score;
             }
             arsort($resultArray);
             $previousValue = -1;
@@ -149,10 +156,18 @@
                     $i++;
                 }
                 $previousValue = $value;
+                
+                $imageurl = "images/kermit.jpg";
+                $nameAndFbid = explode("#:#", $key);
+                if (count($nameAndFbid) == 2) {
+                    $imageUrl = "http://graph.facebook.com/" . $nameAndFbid[1] . "/picture";
+                    $key = $nameAndFbid[0];
+                }
+                
                 if ($key == $name) {
-                    echo "<table><tr><td style='text-align:center; width:20px;' >" . $i . "</td><td style='width: 20%;'><img style='max-width:100%' src='images/kermit.jpg'></td><td  style='width: 60%; padding-left: 10px;' class='resultitemself'>" . $key . "</td><td>" . $value . "p</td></tr></table>";
+                    echo "<table><tr><td style='text-align:center; width:20px;' >" . $i . "</td><td style='width: 20%;'><img style='max-width:100%' src='" . $imageurl . "'></td><td  style='width: 60%; padding-left: 10px;' class='resultitemself'>" . $key . "</td><td>" . $value . "p</td></tr></table>";
                 } else {
-                    echo "<table><tr><td style='text-align:center; width:20px;'>" . $i . "</td><td style='width: 20%;'><img style='max-width:100%' src='images/kermit.jpg'></td><td style='width: 60%; padding-left: 10px;'>" . $key . "</td><td>" . $value . "p</td></tr></table>";
+                    echo "<table><tr><td style='text-align:center; width:20px;'>" . $i . "</td><td style='width: 20%;'><img style='max-width:100%' src='" . $imageurl . "'></td><td style='width: 60%; padding-left: 10px;'>" . $key . "</td><td>" . $value . "p</td></tr></table>";
                 }
             }
             echo "<br><br><br>";
