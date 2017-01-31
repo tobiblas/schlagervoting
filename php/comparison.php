@@ -23,8 +23,8 @@
     
     $token = $_COOKIE["melloToken"];
 
-    $queryGetMe = "select name, fbid, vote from users,uservotes where mellotoken='" . $token . "' and contestnumber=" . $contest;
-    $queryGetOther = "select name, fbid, vote from users,uservotes where name='" . $user2Name . "' and contestnumber=" . $contest;
+    $queryGetMe = "select name, fbid, vote from users,uservotes where mellotoken='" . $token . "' and contestnumber=" . $contest . " and users.id=uservotes.userid";
+    $queryGetOther = "select name, fbid, vote from users,uservotes where name='" . $user2Name . "' and contestnumber=" . $contest . " and users.id=uservotes.userid";
     
     foreach ($dbh->query($queryGetMe) as $row)
     {
@@ -60,8 +60,8 @@
             $voteArray[intval($songNPlace[1])] = $songNPlace[0];
         }
     }
-    foreach ($voteArray as $vote) {
-        echo '<img class="comparisonArtist" src="images/artists/' . $contest . '-' . $vote . '.jpeg" style="width: 100%"/>';
+    for ($x = 1; $x <= 7; $x++) {
+        echo '<img class="comparisonArtist" src="images/artists/' . $contest . '-' . $voteArray[$x] . '.jpeg" style="width: 100%"/>';
     }
 ?>
 
@@ -80,7 +80,6 @@
 <div class="comparisonUsername"><?php echo $user2Name;?></div>
 
 <?php
-    
     $voteArray = array();
     foreach (explode(";", $voteOther) as $vote) {
         if ($vote != "") {
@@ -88,8 +87,8 @@
             $voteArray[intval($songNPlace[1])] = $songNPlace[0];
         }
     }
-    foreach ($voteArray as $vote) {
-        echo '<img class="comparisonArtist" src="images/artists/' . $contest . '-' . $vote . '.jpeg" style="width: 100%"/>';
+    for ($x = 1; $x <= 7; $x++) {
+        echo '<img class="comparisonArtist" src="images/artists/' . $contest . '-' . $voteArray[$x] . '.jpeg" style="width: 100%"/>';
     }
     ?>
 
