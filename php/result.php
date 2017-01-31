@@ -65,7 +65,7 @@
             $contestName = "Final";
         }
         echo '<div class="row"><div class="col-12 resultheader center">' . $contestName . '</div></div>';
-    
+        
         $correctResult = "";
         $query = "select * from result where contestnumber=" . $contest;
         foreach ($dbh->query($query) as $row) {
@@ -80,18 +80,18 @@
             }
             $i = $i+1;
         }
-    
+        
         #correct result array: [låtnummer]-->Result(placering,bucket)
-    
+        
         if (sizeof($correctResultArray) == 0) {
             echo "<div class='row'><div class='col-12 resultitem'>Inget resultat än</div></div><br><br><br>";
         }
         else {
             $query = "select name, fbid, vote from users,uservotes where id=userid and contestnumber=" . $contest;
             $resultArray = array();
-        
+            
             #loop through all users that has voted in a specific contest.
-        
+            
             foreach ($dbh->query($query) as $row) {
                 $username = $row[0];
                 $fbid = $row[1];
@@ -99,7 +99,7 @@
                 $score = 0;
                 $votes = explode(";", $vote);
                 $numberOfSongs = sizeof($votes) -1;
-            
+                
                 foreach ($votes as $oneVote) {
                     if ($oneVote != "") {
                         $song = explode("-", $oneVote)[0];
@@ -107,9 +107,9 @@
                         $scoreForThisItem = 0;
                         if ($contest <= 4) {
                             $bucketDiff = abs($correctResultArray[$song]->getBucket() - getBucketFromPlace((int)$place, 1));
-                        #6 poäng om du satte den i rätt grupp (direkt vidare/andra chansen/utslagen)
-                        #3 poäng om du satte den 1 steg ifrån rätt grupp (exempel: du satte direkt vidare men den hamnade i andra chansen)
-                        #1 poäng om du satte den 2 steg ifrån rätt grupp (exempel: du satte direkt vidare men den hamnade i utslagen)
+                            #6 poäng om du satte den i rätt grupp (direkt vidare/andra chansen/utslagen)
+                            #3 poäng om du satte den 1 steg ifrån rätt grupp (exempel: du satte direkt vidare men den hamnade i andra chansen)
+                            #1 poäng om du satte den 2 steg ifrån rätt grupp (exempel: du satte direkt vidare men den hamnade i utslagen)
                             if ($bucketDiff == 2) {
                                 $scoreForThisItem += 1;
                             } else if ($bucketDiff == 1) {
@@ -117,19 +117,19 @@
                             } else  {
                                 $scoreForThisItem += 6;
                             }
-                        #2 poäng om låt på plats 5 var rätt
+                            #2 poäng om låt på plats 5 var rätt
                             if ($place == 5 && $correctResultArray[$song]->getPlace() == 5) {
                                 $scoreForThisItem += 2;
                             }
-                        #2 poäng om låt på plats 6 var rätt
+                            #2 poäng om låt på plats 6 var rätt
                             if ($place == 6 && $correctResultArray[$song]->getPlace() == 6) {
                                 $scoreForThisItem += 2;
                             }
-                        #4 poäng om låt på plats 7 var rätt
+                            #4 poäng om låt på plats 7 var rätt
                             if ($place == 7 && $correctResultArray[$song]->getPlace() == 7) {
                                 $scoreForThisItem += 4;
                             }
-                        #-5 poäng om du satte låt på plats 7 som gick direkt vidare
+                            #-5 poäng om du satte låt på plats 7 som gick direkt vidare
                             if ($place == 7 && $correctResultArray[$song]->getBucket() == 1) {
                                 $scoreForThisItem -= 5;
                             }
@@ -140,7 +140,8 @@
                     }
                 }
                 $key = "";
-                if (fbid != null) {
+                $fbidstr = "" . $fbid;
+                if (fbid != null && strlen($fbidstr) > 1) {
                     $key = $username . "#:#" . $fbid;
                 } else {
                     $key = $username;
@@ -156,11 +157,10 @@
                     $i++;
                 }
                 $previousValue = $value;
-                
                 $imageurl = "images/kermit.jpg";
                 $nameAndFbid = explode("#:#", $key);
-                if (count($nameAndFbid) == 2) {
-                    $imageUrl = "http://graph.facebook.com/" . $nameAndFbid[1] . "/picture";
+                if (strlen($nameAndFbid[1]) > 1) {
+                    $imageurl = "http://graph.facebook.com/" . $nameAndFbid[1] . "/picture?width=500&height=500";
                     $key = $nameAndFbid[0];
                 }
                 
