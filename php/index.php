@@ -178,6 +178,8 @@ function nameEntered(newUser) {
             include("points.php");
         } else if ($page == "contest") {
             include("contest.php");
+        } else if ($page == "comparison") {
+            include("comparison.php");
         }
     } else {
         include("enter_name.php");
@@ -187,7 +189,9 @@ function nameEntered(newUser) {
 <script>
 
     function load() {
-        
+        if (!window.location.search.substr(1).includes("page=contest")) {
+            return;
+        }
         setTimeout(
             function() {
                 var imageHeight = document.getElementById('image1').clientHeight;
@@ -196,7 +200,7 @@ function nameEntered(newUser) {
                 document.getElementById('final').style.height = imageHeight * 2 + 'px';
                 document.getElementById('second-chance').style.height = imageHeight * 2 + 'px';
                 document.getElementById('looser').style.height = imageHeight * 3 + 'px';
-            }, 500);
+            }, 300);
     }
 
     window.onload = load();

@@ -5,10 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta charset="utf-8">
 
-
-
-
-
 </head>
 
 <body>
@@ -17,152 +13,89 @@
     
     include("db.php");
     
-    class Result
+    $contest = $_REQUEST["contest"];
+    $user2Name = $_REQUEST["u2"];
+    $userNameMe = "";
+    $fbidMe = "";
+    $fbidOther = "";
+    $voteMe = "";
+    $voteOther = "";
+    
+    $token = $_COOKIE["melloToken"];
+
+    $queryGetMe = "select name, fbid, vote from users,uservotes where mellotoken='" . $token . "' and contestnumber=" . $contest;
+    $queryGetOther = "select name, fbid, vote from users,uservotes where name='" . $user2Name . "' and contestnumber=" . $contest;
+    
+    foreach ($dbh->query($queryGetMe) as $row)
     {
-        public $place = 0;
-        public $bucket = 0;
-        
-        function getPlace()
-        { return $this->place; }
-        
-        function getBucket()
-        { return $this->bucket; }
-        
-        public function __construct($place=0, $bucket=0)
-        {
-            $this->place = $place;
-            $this->bucket = $bucket;
-        }
+        $userNameMe = $row[0];
+        $fbidMe = $row[1];
+        $voteMe = $row[2];
     }
-    
-    function getBucketFromPlace($place, $contestNumber) {
-        if ($contestNumber <= 4) {
-            if ($place == 1 || $place == 2) {
-                return 1;
-            } else if ($place == 3 || $place == 4) {
-                return 2;
-            } else {
-                return 3;
-            }
-        } else {
-            return -1;
-        }
+    foreach ($dbh->query($queryGetOther) as $row)
+    {
+        $fbidOther = $row[1];
+        $voteOther = $row[2];
     }
-    
-    $token = $_REQUEST["token"];
-    #todo highlighta dig själv
-    
-    function calculateResultForContest($contest, $dbh) {
-        
-        $contestName = "Deltävling " . $contest;
-        if ($contest == 5) {
-            $contestName = "Andra chansen";
-        }
-        if ($contest == 6) {
-            $contestName = "Final";
-        }
-        echo '<div class="row"><div class="col-12 resultheader center">' . $contestName . '</div></div>';
-    
-        $correctResult = "";
-        $query = "select * from result where contestnumber=" . $contest;
-        foreach ($dbh->query($query) as $row) {
-            $correctResult = $row[1]; //example: 1-3;2-4;3-5;4-3;5-7;6-1;7-2;
-        }
-        $correctResultArray = array();
-        $i = 0;
-        foreach (explode(";", $correctResult) as $result) {
-            if ($result != "") {
-                $songNPlace = explode("-", $result);
-                $correctResultArray[$songNPlace[0]] = new Result(intval($songNPlace[1]), getBucketFromPlace(intval($songNPlace[1]), $contest));
-            }
-            $i = $i+1;
-        }
-    
-        #correct result array: [låtnummer]-->Result(placering,bucket)
-    
-        if (sizeof($correctResultArray) == 0) {
-            echo "<div class='row'><div class='col-12 resultitem'>Inget resultat än</div></div><br>";
-        }
-        else {
-            $query = "select name, fbid, vote from users,uservotes where id=userid and contestnumber=" . $contest;
-            $resultArray = array();
-        
-            #loop through all users that has voted in a specific contest.
-        
-            foreach ($dbh->query($query) as $row) {
-                $username = $row[0];
-                $fbid = $row[1];
-                $vote = $row[2];
-                $score = 0;
-                $votes = explode(";", $vote);
-                $numberOfSongs = sizeof($votes) -1;
-            
-                foreach ($votes as $oneVote) {
-                    if ($oneVote != "") {
-                        $song = explode("-", $oneVote)[0];
-                        $place = explode("-", $oneVote)[1];
-                        $scoreForThisItem = 0;
-                        if ($contest <= 4) {
-                            $bucketDiff = abs($correctResultArray[$song]->getBucket() - getBucketFromPlace((int)$place, 1));
-                        #6 poäng om du satte den i rätt grupp (direkt vidare/andra chansen/utslagen)
-                        #3 poäng om du satte den 1 steg ifrån rätt grupp (exempel: du satte direkt vidare men den hamnade i andra chansen)
-                        #1 poäng om du satte den 2 steg ifrån rätt grupp (exempel: du satte direkt vidare men den hamnade i utslagen)
-                            if ($bucketDiff == 2) {
-                                $scoreForThisItem += 1;
-                            } else if ($bucketDiff == 1) {
-                                $scoreForThisItem += 3;
-                            } else  {
-                                $scoreForThisItem += 6;
-                            }
-                        #2 poäng om låt på plats 5 var rätt
-                            if ($place == 5 && $correctResultArray[$song]->getPlace() == 5) {
-                                $scoreForThisItem += 2;
-                            }
-                        #2 poäng om låt på plats 6 var rätt
-                            if ($place == 6 && $correctResultArray[$song]->getPlace() == 6) {
-                                $scoreForThisItem += 2;
-                            }
-                        #4 poäng om låt på plats 7 var rätt
-                            if ($place == 7 && $correctResultArray[$song]->getPlace() == 7) {
-                                $scoreForThisItem += 4;
-                            }
-                        #-5 poäng om du satte låt på plats 7 som gick direkt vidare
-                            if ($place == 7 && $correctResultArray[$song]->getBucket() == 1) {
-                                $scoreForThisItem -= 5;
-                            }
-                        } else if ($contest <= 6) {
-                            $scoreForThisItem = $numberOfSongs - abs($place - $correctResultArray[$song]);
-                        }
-                        $score = $score + $scoreForThisItem;
-                    }
-                }
-                $resultArray[$username] = $score;
-            }
-            arsort($resultArray);
-            $previousValue = -1;
-            $i = 0;
-            foreach ($resultArray as $key => $value) {
-                if ($previousValue != $value) {
-                    $i++;
-                }
-                $previousValue = $value;
-                if ($key == $user) {
-                    echo "<div class='row'><div class='col-12 resultitemself'>" . $i . ". " . $key . " " . $value . "p</div></div>";
-                } else {
-                    echo "<div class='row'><div class='col-12 resultitem'>" . $i . ". " . $key . " " . $value . "p</div></div>";
-                }
-            }
-            echo "<br>";
-        }
-    }
-    
-    calculateResultForContest(1, $dbh);
-    calculateResultForContest(2, $dbh);
-    calculateResultForContest(3, $dbh);
-    calculateResultForContest(4, $dbh);
-    calculateResultForContest(5, $dbh);
-    calculateResultForContest(6, $dbh);
     ?>
+
+<div id="container">
+
+<div id="leftPlayer">
+<?php
+    $imageurl = "images/kermit.jpg";
+    if (strlen($fbidMe) > 1) {
+        $imageurl = "http://graph.facebook.com/" . $fbidMe . "/picture?width=100&height=100";
+    }
+?>
+<img class="comparisonArtist" src=<?php echo "'" . $imageurl . "'";?> style="width: 100%"/>
+<div class="comparisonUsername"><?php echo $userNameMe;?></div>
+
+<?php
+    
+    $voteArray = array();
+    foreach (explode(";", $voteMe) as $vote) {
+        if ($vote != "") {
+            $songNPlace = explode("-", $vote);
+            $voteArray[intval($songNPlace[1])] = $songNPlace[0];
+        }
+    }
+    foreach ($voteArray as $vote) {
+        echo '<img class="comparisonArtist" src="images/artists/' . $contest . '-' . $vote . '.jpeg" style="width: 100%"/>';
+    }
+?>
+
+</div>
+
+<div id="rightPlayer">
+
+<?php
+    $imageurl = "images/kermit.jpg";
+    if (strlen($fbidOther) > 1) {
+        $imageurl = "http://graph.facebook.com/" . $fbidOther . "/picture?width=100&height=100";
+    }
+    ?>
+<img class="comparisonArtist" src=<?php echo "'" . $imageurl . "'";?> style="width: 100%"/>
+
+<div class="comparisonUsername"><?php echo $user2Name;?></div>
+
+<?php
+    
+    $voteArray = array();
+    foreach (explode(";", $voteOther) as $vote) {
+        if ($vote != "") {
+            $songNPlace = explode("-", $vote);
+            $voteArray[intval($songNPlace[1])] = $songNPlace[0];
+        }
+    }
+    foreach ($voteArray as $vote) {
+        echo '<img class="comparisonArtist" src="images/artists/' . $contest . '-' . $vote . '.jpeg" style="width: 100%"/>';
+    }
+    ?>
+
+</div>
+
+</div>
 
 </body>
 </html>

@@ -160,14 +160,14 @@
                 $imageurl = "images/kermit.jpg";
                 $nameAndFbid = explode("#:#", $key);
                 if (strlen($nameAndFbid[1]) > 1) {
-                    $imageurl = "http://graph.facebook.com/" . $nameAndFbid[1] . "/picture?width=500&height=500";
+                    $imageurl = "http://graph.facebook.com/" . $nameAndFbid[1] . "/picture?width=100&height=100";
                     $key = $nameAndFbid[0];
                 }
                 
                 if ($key == $name) {
-                    echo "<table><tr><td style='text-align:center; width:20px;' >" . $i . "</td><td style='width: 20%;'><img style='max-width:100%' src='" . $imageurl . "'></td><td  style='width: 60%; padding-left: 10px;' class='resultitemself'>" . $key . "</td><td>" . $value . "p</td></tr></table>";
+                    echo "<a href='?page=comparison&contest=" . $contest . "&u2=" . $key . "'><table><tr><td style='text-align:center; min-width:25px;' >" . $i . "</td><td><img style='width:65px' src='" . $imageurl . "'></td><td  style='width: 60%; padding-left: 10px;' class='resultitemself'>" . $key . "</td><td style='width: 50%; text-align:right; padding-right:10px;'>" . $value . "p</td></tr></table></a>";
                 } else {
-                    echo "<table><tr><td style='text-align:center; width:20px;'>" . $i . "</td><td style='width: 20%;'><img style='max-width:100%' src='" . $imageurl . "'></td><td style='width: 60%; padding-left: 10px;'>" . $key . "</td><td>" . $value . "p</td></tr></table>";
+                    echo "<a href='?page=comparison&contest=" . $contest . "&u2=" . $key . "'><table><tr><td style='text-align:center; min-width:25px;'>" . $i . "</td><td><img style='width:65px' src='" . $imageurl . "'></td><td style='width: 60%; padding-left: 10px;'>" . $key . "</td><td style='width: 50%; text-align:right; padding-right:10px;'>" . $value . "p</td></tr></table></a>";
                 }
             }
             echo "<br><br><br>";

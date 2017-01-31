@@ -287,11 +287,32 @@ table {
 
 /* End Admin page*/
 
+#container {
+    padding-top: 20px;
+}
 
+#leftPlayer {
+    float: left;
+    width: 50%;
+    padding: 0 10 0 30;
+}
 
-/* ?? */
-/*.song {*/
-    /*width: 50%;*/
-    /*height:177px;*/
-    /*display:inline;*/
-/*}*/
+#rightPlayer {
+    float: left;
+    width: 50%;
+    padding: 0 30 0 10;
+}
+
+.comparisonUsername {
+    text-align: center;
+    padding: 10 0 30 0;
+    font-size: medium;
+}
+
+.comparisonArtist {
+    max-width: 200px;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    padding: 2 0 2 0;
+}
