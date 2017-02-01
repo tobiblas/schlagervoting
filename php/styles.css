@@ -24,10 +24,6 @@ ol.example li.placeholder:before {
     box-sizing: border-box;
 }
 
-li {
-    display: inline;
-}
-
 ol {
     padding: 0px;
     margin: 0px;
@@ -187,6 +183,7 @@ button.menu-item {
 }
 
 .list-group {
+    list-style-type: none;
     width: 90%;
     display: inline-block;
 }
@@ -202,28 +199,30 @@ button.menu-item {
 
 .sidebar-item {
     width: 100%;
-    writing-mode: vertical-lr;
-    text-orientation: upright;
+    /*writing-mode: vertical-lr;*/
+    /*text-orientation: upright;*/
     font-size: small;
-    font-weight: 600;
-    font-family: "Futura", sans-serif;
+    font-weight: 800;
+    font-family: "AppleSDGothicNeo-Regular";
     text-transform: uppercase;
-    letter-spacing: 3px;
+    /*letter-spacing: 3px;*/
+    text-align: center;
+    overflow: hidden;
 }
 
 #final {
     background-color: #F6D2DC;
-    padding-top: 15px;
+    padding-top: 8px;
 }
 
 #second-chance {
     background-color: #F6ACC2;
-    padding-top: 15px;
+    padding-top: 8px;
 }
 
 #looser {
     background-color: #D2506E;
-    padding-top: 15px;
+    padding-top: 8px;
 }
 /* End Contest page */
 
