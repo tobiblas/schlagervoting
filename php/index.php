@@ -14,6 +14,9 @@
 <link rel="stylesheet" href="styles.css?<?php echo date('l jS \of F Y h:i:s A'); ?>">
 
 <script src="http://rubaxa.github.io/Sortable/Sortable.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+
+<script src='jquery-sortable.js'></script>
 
 
 
@@ -176,8 +179,10 @@ function nameEntered(newUser) {
             include("result.php");
         } else if ($page == "points") {
             include("points.php");
-        } else if ($page == "contest") {
-            include("contest.php");
+        } else if ($page == "contestios") {
+            include("contest_ios.php");
+        }  else if ($page == "contestandroid") {
+            include("contest_android.php");
         } else if ($page == "comparison") {
             include("comparison.php");
         }

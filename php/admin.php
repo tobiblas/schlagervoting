@@ -50,7 +50,7 @@ function setVoteEnabled(enabled)
         }
     }
     
-    var query = "togglestate.php?state=" + enabled;
+    var query = "togglestate.php?state=" + enabled + "&contest=" + contestnumber;
     xmlHttp.open("GET", query, true); // true for asynchronous
     xmlHttp.send(null);
 }
