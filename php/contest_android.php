@@ -60,13 +60,13 @@
     foreach ($contestants as $contestant) {
             switch($i) {
                 case 1 :
-                    echo '<div id="final" class="sidebar-item final">Final</div>';
+                    echo '<div id="final" class="sidebar-item final">F<br>i<br>n<br>a<br>l</div>';
                     break;
                 case 3 :
-                    echo '<div id="second-chance" class="sidebar-item second-chance">2 Chans</div>';
+                    echo '<div id="second-chance" class="sidebar-item second-chance">2<br>C<br>h<br>a<br>n<br>s</div>';
                     break;
                 case 5 :
-                    echo '<div id="looser" class="sidebar-item looser">Utslagna</div>';
+                    echo '<div id="looser" class="sidebar-item looser">U<br>t<br>s<br>l<br>a<br>g<br>n<br>a</div>';
                     break;
             }
 
