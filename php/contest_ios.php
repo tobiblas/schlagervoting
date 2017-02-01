@@ -92,8 +92,39 @@
 
 <script>
 
+//when page loads load from localstorage:
+var savedOrder = localStorage.getItem("mello");
+if (savedOrder != null) {
+    alert("läste ut en sparad lista. men det är ju bara text! " + savedOrder);
+    //TODO: stoppa in. Ta bort det gamla möget.
+}
+
+
 $(function  () {
-  $("ol.list-group").sortable();
+  $("ol.list-group").sortable({
+                              
+                              onDrop: function ($item, container, _super) {
+                              
+                              
+                              
+                              setTimeout(
+                                         function() {
+                                         var container = document.getElementById('items');
+                                         var itemsInList = container.children;
+                                         var vote = "";
+                                         for (var i = 0; i < itemsInList.length; i++) {
+                                         var artistText = itemsInList[i].children[1].innerHTML;
+                                         vote += artistText.substring(0,1) + "-" + (i+1) + ";";
+                                         }
+                                         saveList(vote, container, <?php echo $contest+1; ?>, true);
+                                         
+                                         }, 100);
+                              
+                              
+                              
+                              _super($item, container);
+                              }
+                              });
   });
 
 /*var el = document.getElementById('items');
