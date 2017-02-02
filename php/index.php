@@ -58,6 +58,11 @@ function getCookie(cname) {
 
 function saveList(vote, sortable, contestnumber, isIos, iosSaveArray)
 {
+    if (contestNUmber > 1) {
+        alert("Voting is closed.");
+        return;
+    }
+    
     var xmlHttp = new XMLHttpRequest();
     xmlHttp.onreadystatechange = function() {
         if (xmlHttp.readyState == 4) {
