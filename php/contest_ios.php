@@ -44,7 +44,7 @@
         $name = $contestant->getName();
         $song = $contestant->getSong();
         
-        echo '<li class="row listitem">';
+        echo '<li class="row listitem" id="item' . $i . '" >';
         echo '<div class="col-4"><img id="image' . $i . '" src="images/artists/' . ($contest+1) . '-' . $i . '.jpeg" width="100%"/></div>';
         echo '<div class="col-8 artistnsong">' . $i . '. ' . $song .'<br><div class="artist">' . $name . '</div></div>';
         echo '</li>';
@@ -95,8 +95,14 @@
 //when page loads load from localstorage:
 var savedOrder = localStorage.getItem("mello");
 if (savedOrder != null) {
-    alert("läste ut en sparad lista. men det är ju bara text! " + savedOrder);
-    //TODO: stoppa in. Ta bort det gamla möget.
+    itemNumbers = savedOrder.split(";");
+    document.getElementById('items').appendChild(document.getElementById('item' + itemNumbers[0]));
+    document.getElementById('items').appendChild(document.getElementById('item' + itemNumbers[1]));
+    document.getElementById('items').appendChild(document.getElementById('item' + itemNumbers[2]));
+    document.getElementById('items').appendChild(document.getElementById('item' + itemNumbers[3]));
+    document.getElementById('items').appendChild(document.getElementById('item' + itemNumbers[4]));
+    document.getElementById('items').appendChild(document.getElementById('item' + itemNumbers[5]));
+    document.getElementById('items').appendChild(document.getElementById('item' + itemNumbers[6]));
 }
 
 
@@ -112,11 +118,13 @@ $(function  () {
                                          var container = document.getElementById('items');
                                          var itemsInList = container.children;
                                          var vote = "";
+                                         var saveData = "";
                                          for (var i = 0; i < itemsInList.length; i++) {
                                          var artistText = itemsInList[i].children[1].innerHTML;
                                          vote += artistText.substring(0,1) + "-" + (i+1) + ";";
+                                         saveData += artistText.substring(0,1) + ";";
                                          }
-                                         saveList(vote, container, <?php echo $contest+1; ?>, true);
+                                         saveList(vote, container, <?php echo $contest+1; ?>, true, saveData);
                                          
                                          }, 100);
                               

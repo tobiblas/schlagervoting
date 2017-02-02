@@ -56,9 +56,8 @@ function getCookie(cname) {
     return "";
 }
 
-function saveList(vote, sortable, contestnumber, isIos)
+function saveList(vote, sortable, contestnumber, isIos, iosSaveArray)
 {
-    alert ("saving:" + vote);
     var xmlHttp = new XMLHttpRequest();
     xmlHttp.onreadystatechange = function() {
         if (xmlHttp.readyState == 4) {
@@ -70,8 +69,7 @@ function saveList(vote, sortable, contestnumber, isIos)
                 window.location.href = window.location.href;
             } else {
                 if (isIos) {
-                    localStorage.setItem("mello", sortable);
-                    alert("Sparar listan lokalt!");
+                    localStorage.setItem("mello", iosSaveArray);
                 } else {
                     var order = sortable.toArray();
                     localStorage.setItem(sortable.options.group, order.join('|'));
