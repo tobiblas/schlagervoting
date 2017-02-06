@@ -21,7 +21,7 @@
     $voteMe = "";
     $voteOther = "";
     
-    $token = $_COOKIE["melloToken"];
+    $token = $_COOKIE["melloToken2"];
 
     $queryGetMe = "select name, fbid, vote from users,uservotes where mellotoken='" . $token . "' and contestnumber=" . $contest . " and users.id=uservotes.userid";
     $queryGetOther = "select name, fbid, vote from users,uservotes where name='" . $user2Name . "' and contestnumber=" . $contest . " and users.id=uservotes.userid";

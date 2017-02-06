@@ -31,7 +31,7 @@ function saveresult(contestnumber)
         result += (i+1) + "-" + document.getElementById("bidrag" + (i+1)).value + ";";
     }
     var query = "saveresult.php?contestnumber=" + contestnumber+ "&result=" + result;
-    //alert(query);
+    alert(query);
     xmlHttp.open("GET", query, true); // true for asynchronous
     xmlHttp.send(null);
 }
@@ -50,7 +50,7 @@ function setVoteEnabled(enabled)
         }
     }
     
-    var query = "togglestate.php?state=" + enabled + "&contest=" + contestnumber;
+    var query = "togglestate.php?state=" + enabled;
     xmlHttp.open("GET", query, true); // true for asynchronous
     xmlHttp.send(null);
 }
@@ -69,30 +69,15 @@ function setVoteEnabled(enabled)
 
 <?php
     
-    $bidrag = $_GET['bidrag'];
-    if ($bidrag == null || $bidrag == "") {
-        $bidrag = 7;
-    }
+    include("db.php");
+    
+    $bidrag = 7; #CHANGE THIS WHEN FINAL OR ANDRA CHANSEN
     $contestnumber = $_GET['contestnumber'];
     if ($contestnumber == null || $contestnumber == "") {
-        $contestnumber = -1;
+        echo "MISSING CONTESTNUMBER!";
     }
-    
-    include("db.php");
-    $query =  "select vote from votes where name='" . $username . "'";
-    $bidragarray = array();
-    $votes = "";
-    foreach ($dbh->query($query) as $row)
-    {
-        $votes = $row[0];
-    }
-    $pieces = explode(";", $votes);
-    $i = 0;
-    foreach ($pieces as $piece) {
-        $bidragarray[$i] = explode("-", $piece)[1];
-        $i = $i+1;
-    }
-    echo "skicka med parameter 'bidrag=7', 'contestnumber=3'. Sen bidrag x kom på plats nummer...<br>";
+   
+    echo "skicka med parameter 'contestnumber=X'. Sen bidrag x kom på plats nummer...<br>";
 for ($j = 0; $j < $bidrag; $j++) {
 echo "<div class='row'><div class='col-12'><select id='bidrag".($j+1)."' class='selector'>";
     for ($i = 0; $i < $bidrag; $i++) {

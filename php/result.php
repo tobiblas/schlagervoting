@@ -47,7 +47,7 @@
     
     
     
-    $token = $_COOKIE["melloToken"];
+    $token = $_COOKIE["melloToken2"];
     $query = "select name from users where mellotoken='" . $token . "'";
     $name = "";
     foreach ($dbh->query($query) as $row)

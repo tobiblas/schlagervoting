@@ -1,7 +1,7 @@
 <?php
     include("db.php");
     
-    $token = $_GET['melloToken'];
+    $token = $_GET['melloToken2'];
     $name = "nisse";
         
     $sql ="select name from users where mellotoken='" . $token . "';";

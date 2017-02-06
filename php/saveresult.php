@@ -7,6 +7,9 @@
     $query = "delete from result where contestnumber=" . $contestnumber . ";";
     $dbh->query($query);
     
+    echo $query;
     $query =  "insert into result values (" . $contestnumber . ",'" . $result . "');";
     $dbh->query($query);
+    
+    echo $query;
 ?>

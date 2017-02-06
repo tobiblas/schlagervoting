@@ -1,4 +1,8 @@
-
+<?php
+    date_default_timezone_set('Europe/Istanbul');
+    require_once __DIR__ . '/php-graph-sdk-5.0.0/src/Facebook/autoload.php';
+    session_start();
+    ?>
 <html>
 <head>
 <title>Schlager</title>
@@ -11,8 +15,6 @@
 
 
 <?php
-    require_once __DIR__ . '/php-graph-sdk-5.0.0/src/Facebook/autoload.php';
-    session_start();
     
     include("db.php");
     
@@ -93,7 +95,7 @@ if (isset($accessToken)) {
     ?>
 
 <script>
-document.cookie="melloToken=" + <?php echo "\"" . $token . "\"";?>;
+document.cookie="melloToken2=" + <?php echo "\"" . $token . "\"";?>;
         window.location.href = "index.php";
 
 </script>

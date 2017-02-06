@@ -27,7 +27,7 @@
     
     #check if we are logged in
     $logged_in = false;
-    if (isset($_COOKIE["melloToken"])) {
+    if (isset($_COOKIE["melloToken2"])) {
         $logged_in = true;
     }
     
@@ -40,7 +40,7 @@
     $helper = $fb->getRedirectLoginHelper();
     
     $permissions = []; // Optional permissions
-    $loginUrl = $helper->getLoginUrl('http://84.217.38.36:8081/mello/fb_callback.php', $permissions);
+    $loginUrl = $helper->getLoginUrl('http://84.217.38.36:8081/schlager/schlagervoting/php/fb_callback.php', $permissions);
    ?>
 
 <script>
@@ -83,7 +83,7 @@ function saveList(vote, sortable, contestnumber, isIos, iosSaveArray)
         }
     }
     
-    var query = "save.php?token=" + getCookie("melloToken") + "&vote=" + vote + "&contestnumber=" + contestnumber;
+    var query = "save.php?token=" + getCookie("melloToken2") + "&vote=" + vote + "&contestnumber=" + contestnumber;
     xmlHttp.open("GET", query, true); // true for asynchronous
     xmlHttp.send(null);
 }
@@ -105,12 +105,12 @@ function createCookie(name,value,days) {
 }
 
 function eraseCookie( name ) {
-    document.cookie = name +'=; Path=/mello; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+    document.cookie = name +'=; Path=/schlager/schlagervoting/php; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
     document.cookie = name +'=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
 }
 
 function logout() {
-    eraseCookie('melloToken');
+    eraseCookie('melloToken2');
     eraseCookie('melloName');
     location.reload();
 }
@@ -125,7 +125,7 @@ function login(name, password, newUser)
                 if (resp.includes("error")) {
                     alert(resp);
                 } else {
-                    createCookie("melloToken", resp, 1000);
+                    createCookie("melloToken2", resp, 1000);
                     location.reload();
                 }
             } else if ( xmlHttp.status != 200) {
