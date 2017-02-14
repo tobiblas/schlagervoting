@@ -68,7 +68,7 @@
         $name = $contestant->getName();
         $song = $contestant->getSong();
         
-        echo '<div class="row">';
+        echo '<div class="row listitem" id="item' . $i . '" >';
         echo '<div class="col-4"><img id="image' . $i . '" src="images/artists/' . ($contest+1) . '-' . $i . '.jpeg" width="100%"/></div>';
         echo '<div class="col-8 artistnsong">' . $i . '. ' . $song .'<br><div class="artist">' . $name . '</div></div>';
         echo '</div>';
@@ -97,24 +97,40 @@
             $i++;
         }
         echo "</div>";
-
-    
-    #$query =  "select vote from votes where name='" . $username . "'";
-    #$bidragarray = array();
-    #$votes = "";
-    #foreach ($dbh->query($query) as $row)
-    #{
-    #    $votes = $row[0];
-    #}
-    #$pieces = explode(";", $votes);
-    #$i = 0;
-    #foreach ($pieces as $piece) {
-    #    $bidragarray[$i] = explode("-", $piece)[1];
-    #    $i = $i+1;
-    #}
 ?>
 
 <script>
+
+function getSavedList(contestnumber)
+{
+    
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.onreadystatechange = function() {
+        if (xmlHttp.readyState == 4) {
+            if ( xmlHttp.status == 200) {
+                var resp = xmlHttp.responseText.trim();
+                if (resp.length > 0) {
+                    itemNumbers = resp.split(";");
+                    document.getElementById('items').appendChild(document.getElementById('item' + itemNumbers[0]));
+                    document.getElementById('items').appendChild(document.getElementById('item' + itemNumbers[1]));
+                    document.getElementById('items').appendChild(document.getElementById('item' + itemNumbers[2]));
+                    document.getElementById('items').appendChild(document.getElementById('item' + itemNumbers[3]));
+                    document.getElementById('items').appendChild(document.getElementById('item' + itemNumbers[4]));
+                    document.getElementById('items').appendChild(document.getElementById('item' + itemNumbers[5]));
+                    document.getElementById('items').appendChild(document.getElementById('item' + itemNumbers[6]));
+                }
+            } else {
+                alert("Something went wrong. Please try again.");
+            }
+        }
+    }
+    
+    var query = "getlist.php?token=" + getCookie("melloToken2") + "&contestnumber=" + contestnumber;
+    xmlHttp.open("GET", query, true); // true for asynchronous
+    xmlHttp.send(null);
+}
+
+getSavedList(<?php echo ($contest+1); ?>);
 
 var el = document.getElementById('items');
 Sortable.create(el, {
@@ -125,8 +141,8 @@ Sortable.create(el, {
                  * @returns {Array}
                  */
                 get: function (sortable) {
-                var order = localStorage.getItem(sortable.options.group);
-                return order ? order.split('|') : [];
+                //var order = localStorage.getItem(sortable.options.group);
+                return  [];
                 },
                 
                 /**

@@ -97,37 +97,42 @@
             $i++;
         }
         echo "</div>";
-
-    
-    #$query =  "select vote from votes where name='" . $username . "'";
-    #$bidragarray = array();
-    #$votes = "";
-    #foreach ($dbh->query($query) as $row)
-    #{
-    #    $votes = $row[0];
-    #}
-    #$pieces = explode(";", $votes);
-    #$i = 0;
-    #foreach ($pieces as $piece) {
-    #    $bidragarray[$i] = explode("-", $piece)[1];
-    #    $i = $i+1;
-    #}
 ?>
 
 <script>
 
-//when page loads load from localstorage:
-var savedOrder = localStorage.getItem("mello");
-if (savedOrder != null) {
-    itemNumbers = savedOrder.split(";");
-    document.getElementById('items').appendChild(document.getElementById('item' + itemNumbers[0]));
-    document.getElementById('items').appendChild(document.getElementById('item' + itemNumbers[1]));
-    document.getElementById('items').appendChild(document.getElementById('item' + itemNumbers[2]));
-    document.getElementById('items').appendChild(document.getElementById('item' + itemNumbers[3]));
-    document.getElementById('items').appendChild(document.getElementById('item' + itemNumbers[4]));
-    document.getElementById('items').appendChild(document.getElementById('item' + itemNumbers[5]));
-    document.getElementById('items').appendChild(document.getElementById('item' + itemNumbers[6]));
+function getSavedList(contestnumber)
+{
+    
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.onreadystatechange = function() {
+        if (xmlHttp.readyState == 4) {
+            if ( xmlHttp.status == 200) {
+                var resp = xmlHttp.responseText.trim();
+                if (resp.length > 0) {
+                    alert ("got saved order from server: " + resp);
+                    itemNumbers = resp.split(";");
+                    document.getElementById('items').appendChild(document.getElementById('item' + itemNumbers[0]));
+                    document.getElementById('items').appendChild(document.getElementById('item' + itemNumbers[1]));
+                    document.getElementById('items').appendChild(document.getElementById('item' + itemNumbers[2]));
+                    document.getElementById('items').appendChild(document.getElementById('item' + itemNumbers[3]));
+                    document.getElementById('items').appendChild(document.getElementById('item' + itemNumbers[4]));
+                    document.getElementById('items').appendChild(document.getElementById('item' + itemNumbers[5]));
+                    document.getElementById('items').appendChild(document.getElementById('item' + itemNumbers[6]));
+                }
+            } else {
+                alert("Something went wrong. Please try again.");
+            }
+        }
+    }
+    
+    var query = "getlist.php?token=" + getCookie("melloToken2") + "&contestnumber=" + contestnumber;
+    alert (query);
+    xmlHttp.open("GET", query, true); // true for asynchronous
+    xmlHttp.send(null);
 }
+
+getSavedList(<?php echo ($contest+1); ?>);
 
 
 $(function  () {
@@ -159,34 +164,4 @@ $(function  () {
                               });
   });
 
-/*var el = document.getElementById('items');
-Sortable.create(el, {
-                store: {
-                /**
-                 * Get the order of elements. Called once during initialization.
-                 * @param   {Sortable}  sortable
-                 * @returns {Array}
-                 */
-/*                get: function (sortable) {
-                var order = localStorage.getItem(sortable.options.group);
-                return order ? order.split('|') : [];
-                },
-                
-                /**
-                 * Save the order of elements. Called onEnd (when the item is dropped).
-                 * @param {Sortable}  sortable
-                 */
-/*                set: function (sortable) {
-                
-                
-                    var itemsInList = sortable.el.children;
-                    var vote = "";
-                    for (var i = 0; i < itemsInList.length; i++) {
-                        var artistText = itemsInList[i].children[1].innerHTML;
-                        vote += artistText.substring(0,1) + "-" + (i+1) + ";";
-                    }
-                saveList(vote, sortable, <?php echo $contest+1; ?>);
-                }
-                }
-                })*/
 </script>
