@@ -58,7 +58,7 @@ function getCookie(cname) {
 
 function saveList(vote, sortable, contestnumber, isIos, iosSaveArray)
 {
-    if (contestnumber > 1) {
+    if (contestnumber > 2) {
         alert("Voting is closed.");
         return;
     }

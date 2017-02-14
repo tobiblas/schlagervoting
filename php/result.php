@@ -175,12 +175,12 @@
     }
     
     echo "<br><br>";
-    calculateResultForContest(1, $dbh, $name);
-    calculateResultForContest(2, $dbh, $name);
     calculateResultForContest(3, $dbh, $name);
-    calculateResultForContest(4, $dbh, $name);
-    calculateResultForContest(5, $dbh, $name);
-    calculateResultForContest(6, $dbh, $name);
+    calculateResultForContest(2, $dbh, $name);
+    calculateResultForContest(1, $dbh, $name);
+    #calculateResultForContest(4, $dbh, $name);
+    #calculateResultForContest(5, $dbh, $name);
+    #calculateResultForContest(6, $dbh, $name);
     ?>
 
 </body>
