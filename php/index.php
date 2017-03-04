@@ -47,7 +47,7 @@
 
 function saveList(vote, sortable, contestnumber, isIos, iosSaveArray)
 {
-    if (contestnumber != 3) {
+    if (contestnumber != 5) {
         alert("Voting is closed.");
         window.location.href = window.location.href;
         return;
@@ -201,9 +201,16 @@ function nameEntered(newUser) {
                 var imageHeight = document.getElementById('image1').clientHeight;
                 console.log("imageHeight", imageHeight)
                    
-                document.getElementById('final').style.height = imageHeight * 2 + 'px';
-                document.getElementById('second-chance').style.height = imageHeight * 2 + 'px';
-                document.getElementById('looser').style.height = imageHeight * 3 + 'px';
+                if (document.getElementById('final2')) {
+                   document.getElementById('final2').style.height = imageHeight * 4 + 'px';
+                   document.getElementById('looser2').style.height = imageHeight * 4 + 'px';
+                }
+                   
+                if (document.getElementById('final')) {
+                   document.getElementById('final').style.height = imageHeight * 2 + 'px';
+                   document.getElementById('second-chance').style.height = imageHeight * 2 + 'px';
+                   document.getElementById('looser').style.height = imageHeight * 3 + 'px';
+                }
             }, 300);
     }
 

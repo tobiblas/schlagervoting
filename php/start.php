@@ -52,6 +52,7 @@ function closeNav() {
 <div class="row link-button"><button onClick="loadContest(2);" >2. MALMÖ</button></div>
 <div class="row link-button"><button onClick="loadContest(3);" >3. VÄXJÖ</button></div>
 <div class="row link-button"><button onClick="loadContest(4);" >4. SKELLEFTEÅ</button></div>
+<div class="row link-button"><button onClick="loadContest(5);" >ANDRA CHANSEN</button></div>
 
 
 <div id="myNav" class="overlay">

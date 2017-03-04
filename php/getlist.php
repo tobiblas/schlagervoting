@@ -21,7 +21,7 @@
         }
     }
     $savedVote = "";
-    for ($x = 1; $x <= 7; $x++) {
+    for ($x = 1; $x <= 8; $x++) {
         if ($voteArray[$x] != null) {
             $savedVote = $savedVote . $voteArray[$x] . ";";
         }

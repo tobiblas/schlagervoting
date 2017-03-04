@@ -2,7 +2,7 @@
 <?php
     
     $contest = $_GET['contest'];
-    if ($contest != 1 && $contest != 2 && $contest != 3 && $contest != 4) {
+    if ($contest != 1 && $contest != 2 && $contest != 3 && $contest != 4 && $contest != 5) {
         echo "ERROR! Invalid contestnumber";
         die();
     }
@@ -56,6 +56,14 @@
            new Artist("Wiktoria Johansson","As I lay me down"),
            new Artist("Axel Schylström","När ingen ser"),
            new Artist("Sara Varga & Juha Mulari", "Du får inte ändra på mig"),
+           new Artist("Loreen","Statements")),
+     array(new Artist("FO&O", "Gotta thing about you"),
+           new Artist("De vet du","Road trip"),
+           new Artist("Axel Schylström","När ingen ser"),
+           new Artist("Lisa Ajax","I don't giva a"),
+           new Artist("Boris René", "Her kiss"),
+           new Artist("Dismissed","Hearts alined"),
+           new Artist("Anton hagman","Kiss you goodbye"),
            new Artist("Loreen","Statements"))
      );
     
@@ -82,6 +90,16 @@
 
     $i = 1;
     foreach ($contestants as $contestant) {
+        if ($contest == (5-1)) {
+            switch($i) {
+                case 1 :
+                    echo '<div id="final2" class="sidebar-item final">F<br>i<br>n<br>a<br>l</div>';
+                    break;
+                case 5 :
+                    echo '<div id="looser2" class="sidebar-item looser">U<br>t<br>s<br>l<br>a<br>g<br>n<br>a</div>';
+                    break;
+            }
+        } else if ($contest < (5-1)) {
             switch($i) {
                 case 1 :
                     echo '<div id="final" class="sidebar-item final">F<br>i<br>n<br>a<br>l</div>';
@@ -93,9 +111,10 @@
                     echo '<div id="looser" class="sidebar-item looser">U<br>t<br>s<br>l<br>a<br>g<br>n<br>a</div>';
                     break;
             }
-
-            $i++;
         }
+        
+        $i++;
+    }
         echo "</div>";
 ?>
 
@@ -110,15 +129,11 @@ function getSavedList(contestnumber)
             if ( xmlHttp.status == 200) {
                 var resp = xmlHttp.responseText.trim();
                 if (resp.length > 0) {
-                    alert ("got saved order from server: " + resp);
                     itemNumbers = resp.split(";");
-                    document.getElementById('items').appendChild(document.getElementById('item' + itemNumbers[0]));
-                    document.getElementById('items').appendChild(document.getElementById('item' + itemNumbers[1]));
-                    document.getElementById('items').appendChild(document.getElementById('item' + itemNumbers[2]));
-                    document.getElementById('items').appendChild(document.getElementById('item' + itemNumbers[3]));
-                    document.getElementById('items').appendChild(document.getElementById('item' + itemNumbers[4]));
-                    document.getElementById('items').appendChild(document.getElementById('item' + itemNumbers[5]));
-                    document.getElementById('items').appendChild(document.getElementById('item' + itemNumbers[6]));
+                    var a = document.getElementById('items');
+                    for (var i = 0; i < a.childNodes.length; ++i) {
+                        document.getElementById('items').appendChild(document.getElementById('item' + itemNumbers[i]));
+                    }
                 }
             } else {
                 alert("Something went wrong. Please try again.");
@@ -127,7 +142,7 @@ function getSavedList(contestnumber)
     }
     
     var query = "getlist.php?token=" + getCookie("melloToken2") + "&contestnumber=" + contestnumber;
-    alert (query);
+    //alert (query);
     xmlHttp.open("GET", query, true); // true for asynchronous
     xmlHttp.send(null);
 }

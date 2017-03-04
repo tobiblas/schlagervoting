@@ -214,6 +214,10 @@ button.menu-item {
     background-color: #F6D2DC;
     padding-top: 8px;
 }
+#final2 {
+    background-color: #F6D2DC;
+    padding-top: 8px;
+}
 
 #second-chance {
     background-color: #F6ACC2;
@@ -224,6 +228,11 @@ button.menu-item {
     background-color: #D2506E;
     padding-top: 8px;
 }
+#looser2 {
+    background-color: #D2506E;
+    padding-top: 8px;
+}
+
 
 #start-footer {
     position: absolute;
