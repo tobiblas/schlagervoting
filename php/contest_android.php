@@ -2,7 +2,7 @@
 <?php
     
     $contest = $_GET['contest'];
-    if ($contest != 1 && $contest != 2 && $contest != 3 && $contest != 4 && $contest != 5) {
+    if ($contest != 1 && $contest != 2 && $contest != 3 && $contest != 4 && $contest != 5 && $contest != 6) {
         echo "ERROR! Invalid contestnumber";
         die();
     }
@@ -64,7 +64,19 @@
            new Artist("Boris René", "Her kiss"),
            new Artist("Dismissed","Hearts alined"),
            new Artist("Anton hagman","Kiss you goodbye"),
-           new Artist("Loreen","Statements"))
+           new Artist("Loreen","Statements")),
+     array(new Artist("Ace Wilder","Wild child"),
+           new Artist("Boris René", "Her kiss"),
+           new Artist("Lisa Ajax","I don't giva a"),
+           new Artist("Robin Bengtsson","I can’t go on"),
+           new Artist("Jon Henrik Fjellgren feat Aninia","En värld full av strider"),
+           new Artist("Anton hagman","Kiss you goodbye"),
+           new Artist("Mariette","A million years"),
+           new Artist("FO&O", "Gotta thing about you"),
+           new Artist("Nano", "Hold on"),
+           new Artist("Wiktoria Johansson","As I lay me down"),
+           new Artist("Benjamin Ingrosso","Good loving"),
+           new Artist("Owe Thörnqvist","Boogieman blues"))
      );
     
     $contestants = $artists[$contest];
@@ -174,7 +186,7 @@ Sortable.create(el, {
                     var vote = "";
                     for (var i = 0; i < itemsInList.length; i++) {
                         var artistText = itemsInList[i].children[1].innerHTML;
-                        vote += artistText.substring(0,1) + "-" + (i+1) + ";";
+                        vote += artistText.substr(0, artistText.indexOf('.')) + "-" + (i+1) + ";";
                     }
                 saveList(vote, sortable, <?php echo $contest+1; ?>, false);
                 }

@@ -45,9 +45,29 @@
 
 <script>
 
+function isIos() {
+    var userAgent = navigator.userAgent || navigator.vendor || window.opera;
+    
+    // Windows Phone must come first because its UA also contains "Android"
+    if (/windows phone/i.test(userAgent)) {
+        return false;
+    }
+    
+    if (/android/i.test(userAgent)) {
+        return false;
+    }
+    
+    // iOS detection from: http://stackoverflow.com/a/9039885/177710
+    if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
+        return true;
+    }
+    
+    return false;
+}
+
 function saveList(vote, sortable, contestnumber, isIos, iosSaveArray)
 {
-    if (contestnumber != 5) {
+    if (contestnumber != 6) {
         alert("Voting is closed.");
         window.location.href = window.location.href;
         return;
@@ -184,6 +204,8 @@ function nameEntered(newUser) {
             include("contest_android.php");
         } else if ($page == "comparison") {
             include("comparison.php");
+        } else if ($page == "finalresult") {
+            include("result_final.php");
         }
     } else {
         include("enter_name.php");

@@ -7,7 +7,15 @@
 
 </head>
 
+<script>
+function loadFinalResult() {
+    window.location='?page=finalresult';
+}
+</script>
+
 <body>
+
+
 
 <?php
     
@@ -39,6 +47,12 @@
                 return 2;
             } else {
                 return 3;
+            }
+        } else if ($contestNumber == 5) {
+            if ($place == 1 || $place == 2 || $place == 3 || $place == 4) {
+                return 1;
+            } else if ($place == 5 || $place == 6 || $place == 7 || $place == 8) {
+                return 2;
             }
         } else {
             return -1;
@@ -91,6 +105,8 @@
             $resultArray = array();
             
             #loop through all users that has voted in a specific contest.
+
+            echo "<br>";
             
             foreach ($dbh->query($query) as $row) {
                 $username = $row[0];
@@ -133,8 +149,19 @@
                             if ($place == 7 && $correctResultArray[$song]->getBucket() == 1) {
                                 $scoreForThisItem -= 5;
                             }
-                        } else if ($contest <= 6) {
-                            $scoreForThisItem = $numberOfSongs - abs($place - $correctResultArray[$song]);
+                        } else if ($contest == 5) {
+
+                            $bucketDiff = abs($correctResultArray[$song]->getBucket() - getBucketFromPlace((int)$place, 5));
+                            
+                            if ($bucketDiff == 1) {
+                                $scoreForThisItem += 0;
+                            } else  {
+                                $scoreForThisItem += 3;
+                            }
+                        } else if ($contest == 6) {
+                            
+                            $scoreForThisItem = $numberOfSongs - abs($place - $correctResultArray[$song]->getPlace());
+                            
                         }
                         $score = $score + $scoreForThisItem;
                     }
@@ -175,13 +202,18 @@
     }
     
     echo "<br><br>";
+    
+    $topListArray = array();
+    $query = "select name, fbid from users";
+    
+    echo "<div class='row link-button'><button onClick='loadFinalResult();' >KLICKA HÄR FÖR SUMMERAT SLUTRESULTAT</button></div><br><br>";
+    
+    calculateResultForContest(6, $dbh, $name);
+    calculateResultForContest(5, $dbh, $name);
     calculateResultForContest(4, $dbh, $name);
     calculateResultForContest(3, $dbh, $name);
     calculateResultForContest(2, $dbh, $name);
     calculateResultForContest(1, $dbh, $name);
-    #calculateResultForContest(4, $dbh, $name);
-    #calculateResultForContest(5, $dbh, $name);
-    #calculateResultForContest(6, $dbh, $name);
     ?>
 
 </body>

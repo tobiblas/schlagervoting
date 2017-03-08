@@ -8,7 +8,7 @@
 <script>
 function saveresult(contestnumber)
 {
-    var numberofcontestants = 7;
+    var numberofcontestants = 12;
     
     if (contestnumber == -1) {
         alert("missing contestnumber!");
@@ -71,7 +71,7 @@ function setVoteEnabled(enabled)
     
     include("db.php");
     
-    $bidrag = 7; #CHANGE THIS WHEN FINAL OR ANDRA CHANSEN
+    $bidrag = 12; #CHANGE THIS WHEN FINAL OR ANDRA CHANSEN
     $contestnumber = $_GET['contestnumber'];
     if ($contestnumber == null || $contestnumber == "") {
         echo "MISSING CONTESTNUMBER!";
