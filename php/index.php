@@ -223,15 +223,18 @@ function nameEntered(newUser) {
                 var imageHeight = document.getElementById('image1').clientHeight;
                 console.log("imageHeight", imageHeight)
                    
-                if (document.getElementById('final2')) {
-                   document.getElementById('final2').style.height = imageHeight * 4 + 'px';
-                   document.getElementById('looser2').style.height = imageHeight * 4 + 'px';
+                if (document.getElementById('second-chance-final')) {
+                   document.getElementById('second-chance-final').style.height = imageHeight * 4 + 'px';
+                   document.getElementById('second-chance-looser').style.height = imageHeight * 4 + 'px';
                 }
                    
                 if (document.getElementById('final')) {
                    document.getElementById('final').style.height = imageHeight * 2 + 'px';
                    document.getElementById('second-chance').style.height = imageHeight * 2 + 'px';
                    document.getElementById('looser').style.height = imageHeight * 3 + 'px';
+                }
+                if (document.getElementById('grand-final')) {
+                   document.getElementById('grand-final').style.height = imageHeight * 12 + 'px';
                 }
             }, 300);
     }

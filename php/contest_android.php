@@ -104,12 +104,13 @@
 
     foreach ($contestants as $contestant) {
         if ($contest == (5-1)) {
+            # Andra chansen
             switch($i) {
                 case 1 :
-                    echo '<div id="final2" class="sidebar-item final">F<br>i<br>n<br>a<br>l</div>';
+                    echo '<div id="second-chance-final" class="sidebar-item second-chance final">F<br>i<br>n<br>a<br>l</div>';
                     break;
                 case 5 :
-                    echo '<div id="looser2" class="sidebar-item looser">U<br>t<br>s<br>l<br>a<br>g<br>n<br>a</div>';
+                    echo '<div id="second-chance-looser" class="sidebar-item second-chance looser">U<br>t<br>s<br>l<br>a<br>g<br>n<br>a</div>';
                     break;
             }
         } else if ($contest < (5-1)) {
@@ -122,6 +123,12 @@
                     break;
                 case 5 :
                     echo '<div id="looser" class="sidebar-item looser">U<br>t<br>s<br>l<br>a<br>g<br>n<br>a</div>';
+                    break;
+            }
+        } else if ($contest == 5) {
+            switch($i) {
+                case 1 :
+                    echo '<div id="grand-final" class="sidebar-item final"><br>S<br>C<br>O<br>L<br>L<br>A<br><br>H<br>Ä<br>R<br></div>';
                     break;
             }
         }

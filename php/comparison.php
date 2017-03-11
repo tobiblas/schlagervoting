@@ -60,7 +60,15 @@
             $voteArray[intval($songNPlace[1])] = $songNPlace[0];
         }
     }
-    for ($x = 1; $x <= 7; $x++) {
+    $max = 7;
+    if ($contest == 5) {
+        $max = 8;
+    }
+    if ($contest == 6) {
+        $max = 12;
+    }
+    
+    for ($x = 1; $x <= $max; $x++) {
         echo '<img class="comparisonArtist" src="images/artists/' . $contest . '-' . $voteArray[$x] . '.jpeg" style="width: 100%"/>';
     }
 ?>
@@ -87,7 +95,7 @@
             $voteArray[intval($songNPlace[1])] = $songNPlace[0];
         }
     }
-    for ($x = 1; $x <= 7; $x++) {
+    for ($x = 1; $x <= $max; $x++) {
         echo '<img class="comparisonArtist" src="images/artists/' . $contest . '-' . $voteArray[$x] . '.jpeg" style="width: 100%"/>';
     }
     ?>

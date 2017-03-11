@@ -210,25 +210,17 @@ button.menu-item {
     overflow: hidden;
 }
 
-#final {
-    background-color: #F6D2DC;
-    padding-top: 8px;
-}
-#final2 {
+.final {
     background-color: #F6D2DC;
     padding-top: 8px;
 }
 
-#second-chance {
+.second-chance {
     background-color: #F6ACC2;
     padding-top: 8px;
 }
 
-#looser {
-    background-color: #D2506E;
-    padding-top: 8px;
-}
-#looser2 {
+.looser {
     background-color: #D2506E;
     padding-top: 8px;
 }
