@@ -1,62 +1,62 @@
 
 <?php
-    
+
     $contest = $_GET['contest'];
     if ($contest != 1 && $contest != 2 && $contest != 3 && $contest != 4 && $contest != 5 && $contest != 6) {
         echo "ERROR! Invalid contestnumber";
         die();
     }
-    
+
     $contest -=1;
-    
+
     class Artist
     {
         public $song = '';
         public $name = '';
-        
+
         function getSong()
         { return $this->song; }
-        
+
         function getName()
         { return $this->name; }
-        
+
         public function __construct($name='', $song='')
         {
             $this->song = $song;
             $this->name = $name;
         }
     }
-    
+
     $artists = array
     (
-     array(new Artist("Boris René", "Her kiss"),
-           new Artist("Adrijana","Amare"),
-           new Artist("Dinah Nah","One more night"),
-           new Artist("De vet du","Road trip"),
-           new Artist("Charlotte Perrelli","Mitt liv"),
-           new Artist("Ace Wilder","Wild child"),
-           new Artist("Nano", "Hold on")),
-     array(new Artist("Mariette","A million years"),
-           new Artist("Roger Pontare", "Himmel och hav"),
-           new Artist("Etzia","Up"),
-           new Artist("Allyawan","Vart haru varit"),
-           new Artist("Dismissed","Hearts alined"),
-           new Artist("Lisa Ajax","I don't giva a"),
-           new Artist("Benjamin Ingrosso","Good loving")),
-     array(new Artist("Robin Bengtsson","I can’t go on"),
-           new Artist("Krista Sigfrieds","Snurra min jord"),
-           new Artist("Anton hagman","Kiss you goodbye"),
-           new Artist("Jasmine Kara","Gravity"),
-           new Artist("Owe Thörnqvist","Boogieman blues"),
-           new Artist("Bella & Filippa","Crucified"),
-           new Artist("FO&O", "Gotta thing about you")),
-     array(new Artist("Jon Henrik Fjellgren feat Aninia","En värld full av strider"),
-           new Artist("Alice Svensson","Running with lions"),
-           new Artist("Les Gordons","Bound to fall"),
-           new Artist("Wiktoria Johansson","As I lay me down"),
-           new Artist("Axel Schylström","När ingen ser"),
-           new Artist("Sara Varga & Juha Mulari", "Du får inte ändra på mig"),
-           new Artist("Loreen","Statements")),
+     array(new Artist("Sigrid Bernson", "Patrick Swayze"),
+           new Artist("John Lundvik","My Turn"),
+           new Artist("Renaida","All The Feels"),
+           new Artist("Edward Blom","Livet på en pinne"),
+           new Artist("Kikki Danielsson","Osby Tennessee"),
+           new Artist("Kamferdrops","Solen lever kvar hos dig"),
+           new Artist("Benjamin Ingrosso", "Dance You Off")),
+     array(new Artist("Samir & Viktor","Shuffla"),
+           new Artist("Ida Redig", "Allting som vi sa"),
+           new Artist("Jonas Gardell","Det finns en väg"),
+           new Artist("Margaret","In My Cabana"),
+           new Artist("Stiko Per Larsson","Titta vi flyger"),
+           new Artist("Mimi Werner","Songburning"),
+           new Artist("LIAMOO","Last Breath")),
+     array(new Artist("Martin Almgren","A Bitter Lullaby"),
+           new Artist("Barbi Escobar","Stark"),
+           new Artist("Moncho","Cuba Libre"),
+           new Artist("Jessica Andersson","Party Voice"),
+           new Artist("Kalle Moraeus & Orsa Spelmän","Min dröm"),
+           new Artist("Dotter","Cry"),
+           new Artist("Mendez", "Everyday")),
+     array(new Artist("Emmi Christensson","Icarus"),
+           new Artist("Elias Abbas","Mitt paradis"),
+           new Artist("Felicia Olsson","Break That Chain"),
+           new Artist("Rolandz","Fuldans"),
+           new Artist("Olivia Eliasson","Never Learn"),
+           new Artist("FELIX SANDMAN", "Every Single Day"),
+           new Artist("Mariette","For You")),
      array(new Artist("FO&O", "Gotta thing about you"),
            new Artist("De vet du","Road trip"),
            new Artist("Axel Schylström","När ingen ser"),
@@ -78,16 +78,16 @@
            new Artist("Benjamin Ingrosso","Good loving"),
            new Artist("Owe Thörnqvist","Boogieman blues"))
      );
-    
+
     $contestants = $artists[$contest];
-    
+
     echo "<div id='items' class='list-group'>";
-    
+
     $i = 1;
     foreach ($contestants as $contestant) {
         $name = $contestant->getName();
         $song = $contestant->getSong();
-        
+
         echo '<div class="row listitem" id="item' . $i . '" >';
         echo '<div class="col-4"><img id="image' . $i . '" src="images/artists/' . ($contest+1) . '-' . $i . '.jpeg" width="100%"/></div>';
         echo '<div class="col-8 artistnsong">' . $i . '. ' . $song .'<br><div class="artist">' . $name . '</div></div>';
@@ -142,7 +142,7 @@
 
 function getSavedList(contestnumber)
 {
-    
+
     var xmlHttp = new XMLHttpRequest();
     xmlHttp.onreadystatechange = function() {
         if (xmlHttp.readyState == 4) {
@@ -154,14 +154,14 @@ function getSavedList(contestnumber)
                     for (var i = 0; i < a.childNodes.length; ++i) {
                         document.getElementById('items').appendChild(document.getElementById('item' + itemNumbers[i]));
                     }
-                    
+
                 }
             } else {
                 alert("Something went wrong. Please try again.");
             }
         }
     }
-    
+
     var query = "getlist.php?token=" + getCookie("melloToken2") + "&contestnumber=" + contestnumber;
     xmlHttp.open("GET", query, true); // true for asynchronous
     xmlHttp.send(null);
@@ -181,14 +181,14 @@ Sortable.create(el, {
                 //var order = localStorage.getItem(sortable.options.group);
                 return  [];
                 },
-                
+
                 /**
                  * Save the order of elements. Called onEnd (when the item is dropped).
                  * @param {Sortable}  sortable
                  */
                 set: function (sortable) {
-                
-                
+
+
                     var itemsInList = sortable.el.children;
                     var vote = "";
                     for (var i = 0; i < itemsInList.length; i++) {

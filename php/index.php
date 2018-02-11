@@ -1,7 +1,7 @@
 <?php
     require_once __DIR__ . '/php-graph-sdk-5.0.0/src/Facebook/autoload.php';
     session_start();
-    
+    date_default_timezone_set("Europe/Paris");
 ?>
 <html>
 <head>
@@ -9,7 +9,6 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta charset="utf-8">
-
 
 <link rel="stylesheet" href="styles.css?<?php echo date('l jS \of F Y h:i:s A'); ?>">
 
@@ -24,21 +23,21 @@
 
 <?php
     include("db.php");
-    
+
     #check if we are logged in
     $logged_in = false;
     if (isset($_COOKIE["melloToken2"])) {
         $logged_in = true;
     }
-    
+
     $fb = new Facebook\Facebook([
                                 'app_id' => '1615633848746410', // Replace {app-id} with your app id
                                 'app_secret' => 'c6105888a635b10a5800f1f261d80e34',
                                 'default_graph_version' => 'v2.2',
                                 ]);
-    
+
     $helper = $fb->getRedirectLoginHelper();
-    
+
     $permissions = []; // Optional permissions
     $loginUrl = $helper->getLoginUrl('http://84.217.38.36:8081/schlager/schlagervoting/php/fb_callback.php', $permissions);
    ?>
@@ -47,32 +46,32 @@
 
 function isIos() {
     var userAgent = navigator.userAgent || navigator.vendor || window.opera;
-    
+
     // Windows Phone must come first because its UA also contains "Android"
     if (/windows phone/i.test(userAgent)) {
         return false;
     }
-    
+
     if (/android/i.test(userAgent)) {
         return false;
     }
-    
+
     // iOS detection from: http://stackoverflow.com/a/9039885/177710
     if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
         return true;
     }
-    
+
     return false;
 }
 
 function saveList(vote, sortable, contestnumber, isIos, iosSaveArray)
 {
-    if (contestnumber != 6) {
+    if (contestnumber != 2) {
         alert("Voting is closed.");
         window.location.href = window.location.href;
         return;
     }
-    
+
     var xmlHttp = new XMLHttpRequest();
     xmlHttp.onreadystatechange = function() {
         if (xmlHttp.readyState == 4) {
@@ -92,7 +91,7 @@ function saveList(vote, sortable, contestnumber, isIos, iosSaveArray)
             }
         }
     }
-    
+
     var query = "save.php?token=" + getCookie("melloToken2") + "&vote=" + vote + "&contestnumber=" + contestnumber;
     xmlHttp.open("GET", query, true); // true for asynchronous
     xmlHttp.send(null);
@@ -143,7 +142,7 @@ function login(name, password, newUser)
             }
         }
     }
-    
+
     xmlHttp.open("POST", "login.php", true); // true for asynchronous
     var parameters="name="+name+"&password="+password+"&new="+newUser;
     xmlHttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -162,7 +161,7 @@ function nameEntered(newUser) {
             login(name, pass, newUser);
         }
     }
-    
+
 }
 
 </script>
@@ -222,12 +221,12 @@ function nameEntered(newUser) {
             function() {
                 var imageHeight = document.getElementById('image1').clientHeight;
                 console.log("imageHeight", imageHeight)
-                   
+
                 if (document.getElementById('second-chance-final')) {
                    document.getElementById('second-chance-final').style.height = imageHeight * 4 + 'px';
                    document.getElementById('second-chance-looser').style.height = imageHeight * 4 + 'px';
                 }
-                   
+
                 if (document.getElementById('final')) {
                    document.getElementById('final').style.height = imageHeight * 2 + 'px';
                    document.getElementById('second-chance').style.height = imageHeight * 2 + 'px';

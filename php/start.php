@@ -22,20 +22,20 @@ function closeNav() {
 
 <?php
 
-    #Deltävling 1: Göteborg 4/2 2017
-    #Deltävling 2: Malmö 11/2 2017
-    #Deltävling 3: Växjö 18/2 2017
-    #Deltävling 4: Skellefteå 25/2 2017
+    #Deltävling 1: Karlstad 3/2 2018
+    #Deltävling 2: Göteborg 10/2 2018
+    #Deltävling 3: Malmö 17/2 2018
+    #Deltävling 4: Örnsköldsvik 24/2 2018
 ?>
 
 <div class="row"><div class="col-12 linksheader">DELTÄVLINGAR</div></div>
 
-<div class="row link-button"><button onClick="loadContest(1);" >1. GÖTEBORG</button></div>
-<div class="row link-button"><button onClick="loadContest(2);" >2. MALMÖ</button></div>
-<div class="row link-button"><button onClick="loadContest(3);" >3. VÄXJÖ</button></div>
-<div class="row link-button"><button onClick="loadContest(4);" >4. SKELLEFTEÅ</button></div>
-<div class="row link-button"><button onClick="loadContest(5);" >ANDRA CHANSEN</button></div>
-<div class="row link-button"><button onClick="loadContest(6);" >FINAL</button></div>
+<div class="row link-button"><button onClick="loadContest(1);" >1. KARLSTAD</button></div>
+<div class="row link-button"><button onClick="loadContest(2);" >2. GÖTEBORG</button></div>
+<div class="row link-button"><button onClick="loadContest(3);" >3. MALMÖ</button></div>
+<div class="row link-button"><button onClick="loadContest(4);" >4. ÖRNSKÖLDSVIK</button></div>
+<!--<div class="row link-button"><button onClick="loadContest(5);" >ANDRA CHANSEN</button></div>
+<div class="row link-button"><button onClick="loadContest(6);" >FINAL</button></div>-->
 
 <div id="myNav" class="overlay">
 
@@ -64,5 +64,3 @@ function closeNav() {
 </div>
 
 <div id="start-footer" onClick="openNav()">Så här funkar poängberäkningen</div>
-
-

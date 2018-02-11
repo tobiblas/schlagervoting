@@ -1,7 +1,7 @@
 <html>
 <head>
 <title>Schlager</title>
-<link rel="stylesheet" href="styles.css?<?php echo date('l jS \of F Y h:i:s A'); ?>">
+<link rel="stylesheet" href="styles.css?<?php echo date_default_timezone_set('l jS \of F Y h:i:s A'); ?>">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta charset="utf-8">
 
@@ -18,27 +18,27 @@ function loadFinalResult() {
 
 
 <?php
-    
+
     include("db.php");
-    
+
     class Result
     {
         public $place = 0;
         public $bucket = 0;
-        
+
         function getPlace()
         { return $this->place; }
-        
+
         function getBucket()
         { return $this->bucket; }
-        
+
         public function __construct($place=0, $bucket=0)
         {
             $this->place = $place;
             $this->bucket = $bucket;
         }
     }
-    
+
     function getBucketFromPlace($place, $contestNumber) {
         if ($contestNumber <= 4) {
             if ($place == 1 || $place == 2) {
@@ -58,9 +58,9 @@ function loadFinalResult() {
             return -1;
         }
     }
-    
-    
-    
+
+
+
     $token = $_COOKIE["melloToken2"];
     $query = "select name from users where mellotoken='" . $token . "'";
     $name = "";
@@ -68,9 +68,9 @@ function loadFinalResult() {
     {
         $name = $row[0];
     }
-    
+
     function calculateResultForContest($contest, $dbh, $name) {
-        
+
         $contestName = "Deltävling " . $contest;
         if ($contest == 5) {
             $contestName = "Andra chansen";
@@ -79,7 +79,7 @@ function loadFinalResult() {
             $contestName = "Final";
         }
         echo '<div class="row"><div class="col-12 resultheader center">' . $contestName . '</div></div>';
-        
+
         $correctResult = "";
         $query = "select * from result where contestnumber=" . $contest;
         foreach ($dbh->query($query) as $row) {
@@ -94,20 +94,20 @@ function loadFinalResult() {
             }
             $i = $i+1;
         }
-        
+
         #correct result array: [låtnummer]-->Result(placering,bucket)
-        
+
         if (sizeof($correctResultArray) == 0) {
             echo "<div class='row'><div class='col-12 resultitem'>Inget resultat än</div></div><br><br><br>";
         }
         else {
             $query = "select name, fbid, vote from users,uservotes where id=userid and contestnumber=" . $contest;
             $resultArray = array();
-            
+
             #loop through all users that has voted in a specific contest.
 
-            echo "<br>";
-            
+            #echo "<br>";
+
             foreach ($dbh->query($query) as $row) {
                 $username = $row[0];
                 $fbid = $row[1];
@@ -115,7 +115,7 @@ function loadFinalResult() {
                 $score = 0;
                 $votes = explode(";", $vote);
                 $numberOfSongs = sizeof($votes) -1;
-                
+
                 foreach ($votes as $oneVote) {
                     if ($oneVote != "") {
                         $song = explode("-", $oneVote)[0];
@@ -152,16 +152,16 @@ function loadFinalResult() {
                         } else if ($contest == 5) {
 
                             $bucketDiff = abs($correctResultArray[$song]->getBucket() - getBucketFromPlace((int)$place, 5));
-                            
+
                             if ($bucketDiff == 1) {
                                 $scoreForThisItem += 0;
                             } else  {
                                 $scoreForThisItem += 3;
                             }
                         } else if ($contest == 6) {
-                            
+
                             $scoreForThisItem = $numberOfSongs - abs($place - $correctResultArray[$song]->getPlace());
-                            
+
                         }
                         $score = $score + $scoreForThisItem;
                     }
@@ -173,7 +173,7 @@ function loadFinalResult() {
                 } else {
                     $key = $username;
                 }
-                
+
                 $resultArray[$key] = $score;
             }
             arsort($resultArray);
@@ -190,9 +190,9 @@ function loadFinalResult() {
                     $imageurl = "http://graph.facebook.com/" . $nameAndFbid[1] . "/picture?width=100&height=100";
                     $key = $nameAndFbid[0];
                 }
-                
+
                 if ($key == $name) {
-                    echo "<a href='?page=comparison&contest=" . $contest . "&u2=" . $key . "'><table><tr><td style='text-align:center; min-width:25px;' >" . $i . "</td><td><img style='width:65px' src='" . $imageurl . "'></td><td  style='width: 60%; padding-left: 10px;' class='resultitemself'>" . $key . "</td><td style='width: 50%; text-align:right; padding-right:10px;'>" . $value . "p</td></tr></table></a>";
+                    echo "<a href='?page=comparison&contest=" . $contest . "&u2=" . $key . "'><table><tr class='resultitemself'><td style='text-align:center; min-width:25px;' ><div class='resulttext'>" . $i . "</div></td><td><img style='width:65px' src='" . $imageurl . "'></td><td  style='width: 60%; padding-left: 10px;' ><div class='resulttext'>" . $key . "</div></td><td style='width: 50%; text-align:right; padding-right:10px;'><div class='resulttext'>" . $value . "p</div></td></tr></table></a>";
                 } else {
                     echo "<a href='?page=comparison&contest=" . $contest . "&u2=" . $key . "'><table><tr><td style='text-align:center; min-width:25px;'>" . $i . "</td><td><img style='width:65px' src='" . $imageurl . "'></td><td style='width: 60%; padding-left: 10px;'>" . $key . "</td><td style='width: 50%; text-align:right; padding-right:10px;'>" . $value . "p</td></tr></table></a>";
                 }
@@ -200,14 +200,14 @@ function loadFinalResult() {
             echo "<br><br><br>";
         }
     }
-    
+
     echo "<br><br>";
-    
+
     $topListArray = array();
     $query = "select name, fbid from users";
-    
-    echo "<div class='row link-button'><button onClick='loadFinalResult();' >KLICKA HÄR FÖR SUMMERAT SLUTRESULTAT</button></div><br><br>";
-    
+
+    #echo "<div class='row link-button'><button onClick='loadFinalResult();' >KLICKA HÄR FÖR SUMMERAT SLUTRESULTAT</button></div><br><br>";
+
     calculateResultForContest(6, $dbh, $name);
     calculateResultForContest(5, $dbh, $name);
     calculateResultForContest(4, $dbh, $name);

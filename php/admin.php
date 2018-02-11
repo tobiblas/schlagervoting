@@ -1,7 +1,7 @@
 <html>
 <head>
 <title>Schlager</title>
-<link rel="stylesheet" href="styles.css?<?php echo date('l jS \of F Y h:i:s A'); ?>">
+<link rel="stylesheet" href="styles.css?<?php echo date_default_timezone_set('l jS \of F Y h:i:s A'); ?>">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta charset="utf-8">
 
@@ -9,12 +9,12 @@
 function saveresult(contestnumber)
 {
     var numberofcontestants = 12;
-    
+
     if (contestnumber == -1) {
         alert("missing contestnumber!");
         return;
     }
-    
+
     var xmlHttp = new XMLHttpRequest();
     xmlHttp.onreadystatechange = function() {
         if (xmlHttp.readyState == 4) {
@@ -25,7 +25,7 @@ function saveresult(contestnumber)
             window.location.href = window.location.href;
         }
     }
-    
+
     var result = "";
     for (var i = 0; i < numberofcontestants; i++) {
         result += (i+1) + "-" + document.getElementById("bidrag" + (i+1)).value + ";";
@@ -38,7 +38,7 @@ function saveresult(contestnumber)
 
 function setVoteEnabled(enabled)
 {
-    
+
     var xmlHttp = new XMLHttpRequest();
     xmlHttp.onreadystatechange = function() {
         if (xmlHttp.readyState == 4) {
@@ -49,7 +49,7 @@ function setVoteEnabled(enabled)
             window.location.href = window.location.href;
         }
     }
-    
+
     var query = "togglestate.php?state=" + enabled;
     xmlHttp.open("GET", query, true); // true for asynchronous
     xmlHttp.send(null);
@@ -68,15 +68,15 @@ function setVoteEnabled(enabled)
 
 
 <?php
-    
+
     include("db.php");
-    
+
     $bidrag = 12; #CHANGE THIS WHEN FINAL OR ANDRA CHANSEN
     $contestnumber = $_GET['contestnumber'];
     if ($contestnumber == null || $contestnumber == "") {
         echo "MISSING CONTESTNUMBER!";
     }
-   
+
     echo "skicka med parameter 'contestnumber=X'. Sen bidrag x kom på plats nummer...<br>";
 for ($j = 0; $j < $bidrag; $j++) {
 echo "<div class='row'><div class='col-12'><select id='bidrag".($j+1)."' class='selector'>";
@@ -103,7 +103,7 @@ echo "</select></div></div>";
     if ($enabled == 'false') {
         $voteOn = false;
     }
-    
+
 ?>
 <div class="col-12">Röstning är <?php if ($voteOn) { echo "PÅ"; } else { echo "AV";}?></div>
 </div>

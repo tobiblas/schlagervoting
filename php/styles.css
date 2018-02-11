@@ -4,6 +4,10 @@ body.dragging, body.dragging * {
     cursor: move !important;
 }
 
+.underlined {
+  text-decoration: underline;
+}
+
 .dragged {
     position: absolute;
     opacity: 0.5;
@@ -241,7 +245,11 @@ button.menu-item {
 }
 
 .resultitemself {
-    color: #70dc69;
+    background: #8CA84A;
+}
+
+.resulttext {
+  color: #FFFFFF;
 }
 
 .resultitem {

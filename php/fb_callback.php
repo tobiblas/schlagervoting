@@ -11,13 +11,13 @@
 <meta charset="utf-8">
 
 
-<link rel="stylesheet" href="styles.css?<?php echo date('l jS \of F Y h:i:s A'); ?>">
+<link rel="stylesheet" href="styles.css?<?php echo date_default_timezone_set('l jS \of F Y h:i:s A'); ?>">
 
 
 <?php
-    
+
     include("db.php");
-    
+
    # login-callback.php
 $fb = new Facebook\Facebook([
                             'app_id' => '1615633848746410', // Replace {app-id} with your app id
@@ -45,7 +45,7 @@ if (isset($accessToken)) {
     // Now you can redirect to another page and use the
     // access token from $_SESSION['facebook_access_token']
 }
-    
+
     try {
         $response = $fb->get('/me?fields=id,name', $accessToken );
         $userNode = $response->getGraphUser();
@@ -58,24 +58,24 @@ if (isset($accessToken)) {
         echo 'Facebook SDK returned an error: ' . $e->getMessage();
         exit;
     }
-    
+
     #TODO get picture as http://graph.facebook.com/userid_here/picture
-    
+
     #LOGIN TO MELLO
     #1 GENERATE MELLOTOKEN,
     $token = getGUID();
     $name = $userNode->getName();
     $fbid = $userNode->getId();
-    
+
     $sql = "insert into users (name, fbid, mellotoken) values ('" . $name . "'," . $fbid . ",'" . $token . "')";
-    
+
     if (!$dbh->query($sql)) {
         $sql ="update users set mellotoken='" . $token  . "' where fbid=" . $fbid;
         $dbh->query($sql);
     }
 
     #then set cookie an redirect to index page.
-    
+
     function getGUID(){
         if (function_exists('com_create_guid')){
             return com_create_guid();
@@ -91,7 +91,7 @@ if (isset($accessToken)) {
             return $uuid;
         }
     }
-    
+
     ?>
 
 <script>

@@ -1,7 +1,7 @@
 <html>
 <head>
 <title>Schlager</title>
-<link rel="stylesheet" href="styles.css?<?php echo date('l jS \of F Y h:i:s A'); ?>">
+<link rel="stylesheet" href="styles.css?<?php echo date_default_timezone_set('l jS \of F Y h:i:s A'); ?>">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta charset="utf-8">
 
@@ -10,9 +10,9 @@
 <body>
 
 <?php
-    
+
     include("db.php");
-    
+
     class User
     {
         public $name = NULL;
@@ -23,7 +23,7 @@
         public $score4 = -1;
         public $score5 = -1;
         public $score6 = -1;
-        
+
         static function cmp_obj($a, $b)
         {
             $al = $a->score1 + $a->score2 +$a->score3 +$a->score4 +$a->score5 +$a->score6 ;
@@ -33,40 +33,40 @@
             }
             return ($al > $bl) ? -1 : +1;
         }
-        
+
         function getScore()
         { return $this->score1 + $this->score2 +$this->score3 +$this->score4 +$this->score5 +$this->score6 ; }
-        
+
         function getFbId()
         { return $this->fbid; }
         function getName()
         { return $this->name; }
-        
+
         public function __construct($fbid=NULL,$name="")
         {
             $this->fbid = $fbid;
             $this->name = $name;
         }
     }
-    
+
     class Result
     {
         public $place = 0;
         public $bucket = 0;
-        
+
         function getPlace()
         { return $this->place; }
-        
+
         function getBucket()
         { return $this->bucket; }
-        
+
         public function __construct($place=0, $bucket=0)
         {
             $this->place = $place;
             $this->bucket = $bucket;
         }
     }
-    
+
     function getBucketFromPlace($place, $contestNumber) {
         if ($contestNumber <= 4) {
             if ($place == 1 || $place == 2) {
@@ -86,9 +86,9 @@
             return -1;
         }
     }
-    
-    
-    
+
+
+
     $token = $_COOKIE["melloToken2"];
     $query = "select name from users where mellotoken='" . $token . "'";
     $name = "";
@@ -96,34 +96,34 @@
     {
         $name = $row[0];
     }
-    
+
     function calculateResultForAllContests($dbh, $name) {
-        
+
         $topListArray = array();
-        
+
         $query = "select name, fbid from users";
-        
+
         foreach ($dbh->query($query) as $row) {
             $topListArray[$row[0]] = new User($row[1], $row[0]);
         }
         #print_r($topListArray);
-        
+
         #return $topListArray;
-        
+
         $contestName = "Summerat slutresultat";
-        
+
         echo '<div class="row"><div class="col-12 resultheader center">' . $contestName . '</div></div>';
-        
+
         for ($contest = 1; $contest < 7; $contest++) {
-        
+
             $correctResult = "";
-            
+
             $query = "select * from result where contestnumber=" . $contest;
             #echo $query;
             foreach ($dbh->query($query) as $row) {
                 $correctResult = $row[1]; //example: 1-3;2-4;3-5;4-3;5-7;6-1;7-2;
             }
-            
+
             $correctResultArray = array();
             $i = 0;
             foreach (explode(";", $correctResult) as $result) {
@@ -133,21 +133,21 @@
                 }
                 $i = $i+1;
             }
-            
-            
+
+
             #correct result array: [låtnummer]-->Result(placering,bucket)
-            
+
             if (sizeof($correctResultArray) == 0) {
                 continue;
             }
             else {
                 $query = "select name, fbid, vote from users,uservotes where id=userid and contestnumber=" . $contest;
                 $resultArray = array();
-                
+
                 #loop through all users that has voted in a specific contest.
 
-                
-                
+
+
                 foreach ($dbh->query($query) as $row) {
                     $username = $row[0];
                     $fbid = $row[1];
@@ -155,7 +155,7 @@
                     $score = 0;
                     $votes = explode(";", $vote);
                     $numberOfSongs = sizeof($votes) -1;
-                    
+
                     foreach ($votes as $oneVote) {
                         if ($oneVote != "") {
                             $song = explode("-", $oneVote)[0];
@@ -192,22 +192,22 @@
                             } else if ($contest == 5) {
 
                                 $bucketDiff = abs($correctResultArray[$song]->getBucket() - getBucketFromPlace((int)$place, 5));
-                                
+
                                 if ($bucketDiff == 1) {
                                     $scoreForThisItem += 0;
                                 } else  {
                                     $scoreForThisItem += 3;
                                 }
                             } else if ($contest == 6) {
-                                
+
                                 $scoreForThisItem = $numberOfSongs - abs($place - $correctResultArray[$song]->getPlace());
-                                
+
                             }
                             $score = $score + $scoreForThisItem;
                         }
                     }
                     #echo "score is " . $score . " for " . $username . " contest " . $contest . "<br>";
-                    
+
                     if ($contest == 1) {
                         $topListArray[$username]->score1 = $score;
                     } else if ($contest == 2) {
@@ -226,9 +226,9 @@
         }
         return $topListArray;
     }
-    
+
     echo "<br><br>";
-    
+
     $topListArray = calculateResultForAllContests($dbh, $name);
 
     foreach ($topListArray as $key => $value) {
@@ -248,24 +248,24 @@
             }
         }
     }
-    
+
     usort($topListArray, array("User", "cmp_obj"));
-    
+
     $previousValue = -1;
     $i = 0;
-    
+
     foreach ($topListArray as $key => $value) {
         if ($previousValue != $value->getScore()) {
             $i++;
         }
         $previousValue = $value->getScore();
-        
+
         $imageurl = "images/kermit.jpg";
-        
+
         if ($value->getFbId() != NULL) {
             $imageurl = "http://graph.facebook.com/" . $value->getFbId() . "/picture?width=100&height=100";
         }
-        
+
         if ($value->getName() == $name) {
             echo "<table><tr><td style='text-align:center; min-width:25px;' >" . $i . "</td><td><img style='width:65px' src='" . $imageurl . "'></td><td  style='width: 60%; padding-left: 10px;' class='resultitemself'>" . $value->getName() . "</td><td style='width: 50%; text-align:right; padding-right:10px;'>" . $value->getScore() . "p</td></tr></table>";
         } else {
@@ -273,10 +273,10 @@
         }
     }
     echo "<br><br><br>";
-    
-    
-    
-    
+
+
+
+
     ?>
 
 </body>

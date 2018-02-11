@@ -41,7 +41,7 @@ function setupSignin() {
 <div class="row">
 <div class="col-12 center">
 <div id="setupSignin">
-Already cool? <a href="#" onclick="setupSignin();">Log in</a>
+Already have an account? <a class="underlined" href="#" onclick="setupSignin();">Log in</a>
 </div>
 </div>
 </div>
@@ -62,6 +62,3 @@ Already cool? <a href="#" onclick="setupSignin();">Log in</a>
 
 
 </div>
-
-
-

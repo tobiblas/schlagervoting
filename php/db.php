@@ -11,5 +11,5 @@
     
     #CREATE TABLE uservotes (userid integer not null, contestnumber integer, vote text not null);
     
-    $dbh  = new PDO('mysql:host=127.0.0.1;dbname=mello;charset=utf8', "root", "root") or die("cannot open the database");
+    $dbh  = new PDO('mysql:host=127.0.0.1;dbname=mello2018;charset=utf8', "root", "root") or die("cannot open the database");
 ?>
