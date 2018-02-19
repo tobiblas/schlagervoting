@@ -337,23 +337,49 @@ table {
 
 #leftPlayer {
     float: left;
-    width: 50%;
-    padding: 0 10 0 30;
+    width: 33%;
+    padding: 0 10 0 20;
 }
 
 #rightPlayer {
     float: left;
-    width: 50%;
-    padding: 0 30 0 10;
+    width: 33%;
+    padding: 0 15 0 15;
+}
+
+#correctPlayer {
+    float: left;
+    width: 33%;
+    padding: 0 20 0 10;
 }
 
 .comparisonUsername {
     text-align: center;
-    padding: 10 0 30 0;
-    font-size: medium;
+    padding: 3 0 10 0;
+    font-size: x-small;
+}
+
+.comparisonArtistContainer {
+    position: relative;
+    width: 100%;
+    max-width: 200px;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+}
+
+.comparisonThumbsup {
+    position: absolute;
+    right: 2;
+    bottom: 4;
+    width: 10%;
 }
 
 .comparisonArtist {
+  width: 100%;
+}
+
+.comparisonUser {
     max-width: 200px;
     margin-left: auto;
     margin-right: auto;

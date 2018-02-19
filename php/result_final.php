@@ -227,22 +227,22 @@
         return $topListArray;
     }
 
-    echo "<br><br>";
+    echo "<br><div class='center'>Missar man en tävling får man hälften av maxpoängen för denna tävling (gäller ej finalen)<div><br><br>";
 
     $topListArray = calculateResultForAllContests($dbh, $name);
 
     foreach ($topListArray as $key => $value) {
         for ($i = 1; $i < 7; $i++) {
             if ($i == 1) {
-                if ($value->score1 == -1) { $value->score1 = 30;}
+                if ($value->score1 == -1) { $value->score1 = 25;}
             } else if ($i == 2) {
-                if ($value->score2 == -1) { $value->score2 = 30;}
+                if ($value->score2 == -1) { $value->score2 = 25;}
             } else if ($i == 3) {
-                if ($value->score3 == -1) { $value->score3 = 30;}
+                if ($value->score3 == -1) { $value->score3 = 25;} #FYLL I HÄR EFTER VAJE TÄVLING
             } else if ($i == 4) {
-                if ($value->score4 == -1) { $value->score4 = 30;}
+                if ($value->score4 == -1) { $value->score4 = 0;}
             } else if ($i == 5) {
-                if ($value->score5 == -1) { $value->score5 = 12;}
+                if ($value->score5 == -1) { $value->score5 = 0;}
             } else if ($i == 6) {
                 if ($value->score6 == -1) { $value->score6 = 0;}
             }
@@ -267,7 +267,7 @@
         }
 
         if ($value->getName() == $name) {
-            echo "<table><tr><td style='text-align:center; min-width:25px;' >" . $i . "</td><td><img style='width:65px' src='" . $imageurl . "'></td><td  style='width: 60%; padding-left: 10px;' class='resultitemself'>" . $value->getName() . "</td><td style='width: 50%; text-align:right; padding-right:10px;'>" . $value->getScore() . "p</td></tr></table>";
+            echo "<table><tr><td class='resultitemself' style='text-align:center; min-width:25px;' >" . $i . "</td><td class='resultitemself'><img style='width:65px' src='" . $imageurl . "'></td><td  style='width: 60%; padding-left: 10px;' class='resultitemself'>" . $value->getName() . "</td><td class='resultitemself' style='width: 50%; text-align:right; padding-right:10px;'>" . $value->getScore() . "p</td></tr></table>";
         } else {
             echo "<table><tr><td style='text-align:center; min-width:25px;'>" . $i . "</td><td><img style='width:65px' src='" . $imageurl . "'></td><td style='width: 60%; padding-left: 10px;'>" . $value->getName() . "</td><td style='width: 50%; text-align:right; padding-right:10px;'>" . $value->getScore() . "p</td></tr></table>";
         }
