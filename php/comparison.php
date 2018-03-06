@@ -13,7 +13,7 @@
 
     include("result_helper.php");
 
-    function addResultIcon($contest, $correctResultArray, $voteArray, $x) {
+    function addResultIcon($contest, $correctResultArray, $voteArray, $x, $correct) {
         if ($contest <= 4) {
             $bucketDiff = abs($correctResultArray[$voteArray[$x]]->getBucket() - getBucketFromPlace((int)$x, 1));
             if ($bucketDiff == 0) {
@@ -27,6 +27,16 @@
                 } else {
                     echo '<img class="comparisonThumbsup" src="images/thumbsup2.png"/>';
                 }
+            } else {
+                echo '<img class="comparisonThumbsup" src="images/thumbsdown.png"/>';
+            }
+        } else if ($contest == 5) {
+
+        } else if ($contest == 6) {
+            $place = $correctResultArray[$voteArray[$x]]->getPlace();
+            $score = 12 - abs ($x - $place);
+            if ( ((int)$x) == $place) {
+                echo '<img class="comparisonThumbsup" src="images/thumbsup2.png"/>';
             } else {
                 echo '<img class="comparisonThumbsup" src="images/thumbsdown.png"/>';
             }
@@ -99,9 +109,9 @@
     for ($x = 1; $x <= $max; $x++) {
       echo '<div class="comparisonArtistContainer">';
       echo '<img class="comparisonArtist" src="images/artists/' . $contest . '-' . $voteArray[$x] . '.jpeg"/>';
-      addResultIcon($contest, $correctResultArray, $voteArray, $x);
+      addResultIcon($contest, $correctResultArray, $voteArray, $x, FALSE);
       echo '</div>';
-      if ($contest <= 4 && $x == 2 || $x == 4) {
+      if ( ($contest <= 4 && ($x == 2 || $x == 4)) || $contest == 5 && $x == 4) {
           echo '<br>';
       }
     }
@@ -132,9 +142,9 @@
     for ($x = 1; $x <= $max; $x++) {
         echo '<div class="comparisonArtistContainer">';
         echo '<img class="comparisonArtist" src="images/artists/' . $contest . '-' . $voteArray[$x] . '.jpeg"/>';
-        addResultIcon($contest, $correctResultArray, $voteArray, $x);
+        addResultIcon($contest, $correctResultArray, $voteArray, $x, FALSE);
         echo '</div>';
-        if ($contest <= 4 && $x == 2 || $x == 4) {
+        if ( ($contest <= 4 && ($x == 2 || $x == 4)) || $contest == 5 && $x == 4) {
             echo '<br>';
         }
     }
@@ -170,9 +180,9 @@
     for ($x = 1; $x <= $max; $x++) {
         echo '<div class="comparisonArtistContainer">';
         echo '<img class="comparisonArtist" src="images/artists/' . $contest . '-' . $voteArray[$x] . '.jpeg"/>';
-        addResultIcon($contest, $correctResultArray, $voteArray, $x);
+        addResultIcon($contest, $correctResultArray, $voteArray, $x, TRUE);
         echo '</div>';
-        if ($contest <= 4 && $x == 2 || $x == 4) {
+        if ( ($contest <= 4 && ($x == 2 || $x == 4)) || $contest == 5 && $x == 4) {
             echo '<br>';
         }
     }

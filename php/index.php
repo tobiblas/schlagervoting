@@ -66,7 +66,7 @@ function isIos() {
 
 function saveList(vote, sortable, contestnumber, isIos, iosSaveArray)
 {
-    if (contestnumber != 3) {
+    if (contestnumber != 6) {
         alert("Voting is closed.");
         window.location.href = window.location.href;
         return;

@@ -240,9 +240,9 @@
             } else if ($i == 3) {
                 if ($value->score3 == -1) { $value->score3 = 25;} #FYLL I HÄR EFTER VAJE TÄVLING
             } else if ($i == 4) {
-                if ($value->score4 == -1) { $value->score4 = 0;}
+                if ($value->score4 == -1) { $value->score4 = 25;}
             } else if ($i == 5) {
-                if ($value->score5 == -1) { $value->score5 = 0;}
+                if ($value->score5 == -1) { $value->score5 = 6;}
             } else if ($i == 6) {
                 if ($value->score6 == -1) { $value->score6 = 0;}
             }

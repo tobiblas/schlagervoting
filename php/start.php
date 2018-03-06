@@ -34,8 +34,8 @@ function closeNav() {
 <div class="row link-button"><button onClick="loadContest(2);" >2. GÖTEBORG</button></div>
 <div class="row link-button"><button onClick="loadContest(3);" >3. MALMÖ</button></div>
 <div class="row link-button"><button onClick="loadContest(4);" >4. ÖRNSKÖLDSVIK</button></div>
-<!--<div class="row link-button"><button onClick="loadContest(5);" >ANDRA CHANSEN</button></div>
-<div class="row link-button"><button onClick="loadContest(6);" >FINAL</button></div>-->
+<div class="row link-button"><button onClick="loadContest(5);" >ANDRA CHANSEN</button></div>
+<div class="row link-button"><button onClick="loadContest(6);" >FINAL</button></div>
 
 <div id="myNav" class="overlay">
 

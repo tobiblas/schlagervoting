@@ -57,26 +57,26 @@
            new Artist("Olivia Eliasson","Never Learn"),
            new Artist("FELIX SANDMAN", "Every Single Day"),
            new Artist("Mariette","For You")),
-     array(new Artist("FO&O", "Gotta thing about you"),
-           new Artist("De vet du","Road trip"),
-           new Artist("Axel Schylström","När ingen ser"),
-           new Artist("Lisa Ajax","I don't giva a"),
-           new Artist("Boris René", "Her kiss"),
-           new Artist("Dismissed","Hearts alined"),
-           new Artist("Anton hagman","Kiss you goodbye"),
-           new Artist("Loreen","Statements")),
-     array(new Artist("Ace Wilder","Wild child"),
-           new Artist("Boris René", "Her kiss"),
-           new Artist("Lisa Ajax","I don't giva a"),
-           new Artist("Robin Bengtsson","I can’t go on"),
-           new Artist("Jon Henrik Fjellgren feat Aninia","En värld full av strider"),
-           new Artist("Anton hagman","Kiss you goodbye"),
-           new Artist("Mariette","A million years"),
-           new Artist("FO&O", "Gotta thing about you"),
-           new Artist("Nano", "Hold on"),
-           new Artist("Wiktoria Johansson","As I lay me down"),
-           new Artist("Benjamin Ingrosso","Good loving"),
-           new Artist("Owe Thörnqvist","Boogieman blues"))
+     array(new Artist("Margaret","Duell 1 - In My Cabana"),
+           new Artist("Moncho","Duell 1 - Cuba Libre"),
+           new Artist("Renaida","Duell 2 - All The Feels"),
+           new Artist("Olivia Eliasson","Duell 2 - Never Learn"),
+           new Artist("Felix Sandman", "Duell 3 - Every Single Day"),
+           new Artist("Mimi Werner","Duell 3 - Songburning"),
+           new Artist("Sigrid Bernson", "Duell 4 - Patrick Swayze"),
+           new Artist("Mendez", "Duell 4 - Everyday")),
+     array(new Artist("Mendez", "Everyday"),
+           new Artist("Renaida","All The Feels"),
+           new Artist("Martin Almgren","A Bitter Lullaby"),
+           new Artist("John Lundvik","My Turn"),
+           new Artist("Jessica Andersson","Party Voice"),
+           new Artist("LIAMOO","Last Breath"),
+           new Artist("Samir & Viktor","Shuffla"),
+           new Artist("Mariette","For You"),
+           new Artist("Felix Sandman", "Every Single Day"),
+           new Artist("Margaret","In My Cabana"),
+           new Artist("Benjamin Ingrosso", "Dance You Off"),
+           new Artist("Rolandz","Fuldans"))
      );
 
     $contestants = $artists[$contest];
@@ -89,7 +89,7 @@
         $song = $contestant->getSong();
 
         echo '<div class="row listitem" id="item' . $i . '" >';
-        echo '<div class="col-4"><img id="image' . $i . '" src="images/artists/' . ($contest+1) . '-' . $i . '.jpeg" width="100%"/></div>';
+        echo '<div class="col-4"><img id="image' . $i . '" src="images/artists/' . ($contest+1) . '-' . $i . '.jpeg?d=D" width="100%"/></div>';
         echo '<div class="col-8 artistnsong">' . $i . '. ' . $song .'<br><div class="artist">' . $name . '</div></div>';
         echo '</div>';
 

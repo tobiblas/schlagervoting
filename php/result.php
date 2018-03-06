@@ -153,7 +153,7 @@ function loadFinalResult() {
     $topListArray = array();
     $query = "select name, fbid from users";
 
-    echo "<div class='row link-button'><button onClick='loadFinalResult();' >KLICKA HÄR FÖR SUMMERAT SLUTRESULTAT</button></div><br><br>";
+    echo "<div class='row link-button'><button onClick='loadFinalResult();' >KLICKA HÄR FÖR SUMMERAT RESULTAT</button></div><br><br>";
 
     calculateResultForContest(6, $dbh, $name);
     calculateResultForContest(5, $dbh, $name);
