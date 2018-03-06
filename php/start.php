@@ -56,6 +56,13 @@ function closeNav() {
     <div class="row"><div class="col-12 center">MAX poäng: 144</div></div>
     <div class="row"><div class="col-12 center">MIN poäng: 72</div></div>
 <br>
+<div class="row"><div class="col-12 linksheader">Poängberäkning Final</div></div>
+<br>
+<div class="row"><div class="col-12 center">FÖR VARJE BIDRAG I FINALEN FÅR MAN:</div></div>
+<div class="row"><div class="col-12" style="padding: 3 3 3 10"><b>12 poäng</b> minus antal steg ifrån rätt position den kom på. Exempel:</div></div>
+<div class="row"><div class="col-12" style="padding: 3 3 3 10">Ace Wilder kom på plats 5. Bo gissade på att hon skulle komma på plats 7. Bo får då 12 - 2 poäng -> <b>10 poäng</b> för detta bidrag. Samma princip tillämpas för alla bidragen och summeras.</div></div>
+
+
    <div class="row"><div class="col-12 linksheader">Poängberäkning Deltävling 1-4</div></div>
     <br>
     <div class="row"><div class="col-12 center">FÖR VARJE BIDRAG FÅR MAN:</div></div>
