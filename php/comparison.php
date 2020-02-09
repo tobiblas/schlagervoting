@@ -5,6 +5,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta charset="utf-8">
 
+<script>
+function openNav() {
+    document.getElementById("myNav").style.width = "100%";
+}
+function closeNav() {
+    document.getElementById("myNav").style.width = "0%";
+}
+</script>
+
 </head>
 
 <body>
@@ -18,7 +27,7 @@
             $bucketDiff = abs($correctResultArray[$voteArray[$x]]->getBucket() - getBucketFromPlace((int)$x, 1));
             if ($bucketDiff == 0) {
                 $place = $correctResultArray[$voteArray[$x]]->getPlace();
-                if ($place == 5 || $place == 6 || $place == 7) {
+                if ($place == 5) {
                     if ( ((int)$x) == $place) {
                         echo '<img class="comparisonThumbsup" src="images/thumbsup2.png"/>';
                     } else {
@@ -30,6 +39,14 @@
             } else {
                 echo '<img class="comparisonThumbsup" src="images/thumbsdown.png"/>';
             }
+            $score = $bucketDiff == 0 ? 6 : ($bucketDiff == 1 ? 3 : 1);
+            if ($place == 5 && ((int)$x) == $place) {
+              $score +=2;
+            }
+            if ((((int)$x) == 6 || ((int)$x) == 7) && $bucketDiff == 2) {
+              $score -=5;
+            }
+            echo "<div id='scoreOverlay'>" . $score . "p</div>";
         } else if ($contest == 5) {
 
         } else if ($contest == 6) {
@@ -40,6 +57,7 @@
             } else {
                 echo '<img class="comparisonThumbsup" src="images/thumbsdown.png"/>';
             }
+            echo "<div id='scoreOverlay'>" . $score . "</div>";
         }
     }
 
@@ -74,6 +92,10 @@
         $voteOther = $row[2];
     }
     ?>
+
+<?php require 'rules.php';?>
+
+<div id="comparisonRules" onClick="openNav()">Så här funkar poängberäkningen</div>
 
 <div id="container">
 

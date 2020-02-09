@@ -178,15 +178,15 @@
                                     $scoreForThisItem += 2;
                                 }
                                 #2 poäng om låt på plats 6 var rätt
-                                if ($place == 6 && $correctResultArray[$song]->getPlace() == 6) {
-                                    $scoreForThisItem += 2;
-                                }
+                                #if ($place == 6 && $correctResultArray[$song]->getPlace() == 6) {
+                                #    $scoreForThisItem += 2;
+                                #}
                                 #4 poäng om låt på plats 7 var rätt
-                                if ($place == 7 && $correctResultArray[$song]->getPlace() == 7) {
-                                    $scoreForThisItem += 4;
-                                }
-                                #-5 poäng om du satte låt på plats 7 som gick direkt vidare
-                                if ($place == 7 && $correctResultArray[$song]->getBucket() == 1) {
+                                #if ($place == 7 && $correctResultArray[$song]->getPlace() == 7) {
+                                #      $scoreForThisItem += 4;
+                                #}
+                                #-5 poäng om du satte låt på plats 7 eller 6 som gick direkt vidare
+                                if (($place == 7 || $place == 6) && $correctResultArray[$song]->getBucket() == 1) {
                                     $scoreForThisItem -= 5;
                                 }
                             } else if ($contest == 5) {
@@ -231,18 +231,51 @@
 
     $topListArray = calculateResultForAllContests($dbh, $name);
 
+    $query = "select count(*) from result;";
+    $numberOfResultsStmt = $dbh->query($query);
+    $contestsWithResult = (int) $numberOfResultsStmt->fetch()[0];
     foreach ($topListArray as $key => $value) {
         for ($i = 1; $i < 7; $i++) {
             if ($i == 1) {
-                if ($value->score1 == -1) { $value->score1 = 25;}
+                if ($value->score1 == -1) {
+                  if ($i > $contestsWithResult) {
+                    $value->score1 = 0;
+                  } else {
+                    $value->score1 = 25;
+                  }
+                }
             } else if ($i == 2) {
-                if ($value->score2 == -1) { $value->score2 = 25;}
+                if ($value->score2 == -1) {
+                  if ($i > $contestsWithResult) {
+                    $value->score2 = 0;
+                  } else {
+                    $value->score2 = 25;
+                  }
+                }
             } else if ($i == 3) {
-                if ($value->score3 == -1) { $value->score3 = 25;} #FYLL I HÄR EFTER VAJE TÄVLING
+              if ($value->score3 == -1) {
+                if ($i > $contestsWithResult) {
+                  $value->score3 = 0;
+                } else {
+                  $value->score3 = 25;
+                }
+              }
             } else if ($i == 4) {
-                if ($value->score4 == -1) { $value->score4 = 25;}
+              if ($value->score4 == -1) {
+                if ($i > $contestsWithResult) {
+                  $value->score4 = 0;
+                } else {
+                  $value->score4 = 25;
+                }
+              }
             } else if ($i == 5) {
-                if ($value->score5 == -1) { $value->score5 = 6;}
+              if ($value->score5 == -1) {
+                if ($i > $contestsWithResult) {
+                  $value->score5 = 0;
+                } else {
+                  $value->score5 = 6;
+                }
+              }
             } else if ($i == 6) {
                 if ($value->score6 == -1) { $value->score6 = 0;}
             }

@@ -43,6 +43,13 @@ body {
     margin: 0px;
     background: #4A2463;
 }
+
+.melodi {
+  text-align: right;
+  padding-right: 10px;
+  line-height: 30px;
+}
+
 .row:after {
     content: "";
     clear: both;
@@ -68,6 +75,29 @@ button {
     font-size: 16px;
     margin: 4px 2px;
     cursor: pointer;
+}
+
+#togglebutton {
+  display: block;
+  margin-top: 10px;
+  margin-top: 10px;
+  float:right;
+}
+
+#toggletext {
+  line-height: 66px;
+}
+
+#savebutton {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 20px;
+}
+
+#pickcontesttext {
+  float: right;
+  line-height: 30px;
 }
 
 .col-1 {width: 8.33%;}
@@ -214,6 +244,11 @@ button.menu-item {
     overflow: hidden;
 }
 
+#items img {
+  height: 65px;
+  object-fit: cover;
+}
+
 .final {
     background-color: #F6D2DC;
     padding-top: 8px;
@@ -317,12 +352,11 @@ table {
 
 .selector {
     background: #7E5E94;
-    color: white;
-    width: 95%;
     height: 30px;
-    position: relative;
+    color: white;
+    /*position: relative;
     top: 50%;
-    transform: 			translateY(90%);
+    transform: 			translateY(90%);*/
 }
 
 /*.selectionheader {*/
@@ -377,6 +411,13 @@ table {
   text-shadow: 0px 0px 5px #000;
 }
 
+#scoreOverlay {
+  position: absolute;
+  z-index: 1;
+  left: 2;
+  top: 2;
+}
+
 .comparisonThumbsup {
     position: absolute;
     right: 2;
@@ -386,6 +427,8 @@ table {
 
 .comparisonArtist {
   width: 100%;
+  height: 86px;
+  object-fit: cover;
 }
 
 .comparisonUser {
@@ -396,7 +439,10 @@ table {
     padding: 2 0 2 0;
 }
 
-
+#comparisonRules {
+    text-align: center;
+    padding: 10 0 0 0;
+}
 
 /* Overlay */
 
@@ -412,7 +458,7 @@ table {
     background-color: rgb(0,0,0); /* Black fallback color */
     background-color: rgba(0,0,0, 0.9); /* Black w/opacity */
     overflow-x: hidden; /* Disable horizontal scroll */
-    transition: 0.5s; /* 0.5 second transition effect to slide in or slide down the overlay (height or width, depending on reveal) */
+    transition: 0.1s; /* 0.5 second transition effect to slide in or slide down the overlay (height or width, depending on reveal) */
 }
 
 /* Position the content inside the overlay */

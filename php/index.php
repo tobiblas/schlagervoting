@@ -12,7 +12,7 @@
 
 <link rel="stylesheet" href="styles.css?<?php echo date('l jS \of F Y h:i:s A'); ?>">
 
-<script src="http://rubaxa.github.io/Sortable/Sortable.js"></script>
+<script src="Sortable.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 
 <script src='jquery-sortable.js'></script>
@@ -66,7 +66,12 @@ function isIos() {
 
 function saveList(vote, sortable, contestnumber, isIos, iosSaveArray)
 {
-    if (contestnumber != 6) {
+  <?php
+      $query = "select count(*) from result;";
+      $numberOfResultsStmt = $dbh->query($query);
+      $contestsWithResult = (int) $numberOfResultsStmt->fetch()[0];
+  ?>
+    if (contestnumber != <?php echo ($contestsWithResult +1) ?>) {
         alert("Voting is closed.");
         window.location.href = window.location.href;
         return;
@@ -220,8 +225,7 @@ function nameEntered(newUser) {
         setTimeout(
             function() {
                 var imageHeight = document.getElementById('image1').clientHeight;
-                console.log("imageHeight", imageHeight)
-
+                
                 if (document.getElementById('second-chance-final')) {
                    document.getElementById('second-chance-final').style.height = imageHeight * 4 + 'px';
                    document.getElementById('second-chance-looser').style.height = imageHeight * 4 + 'px';

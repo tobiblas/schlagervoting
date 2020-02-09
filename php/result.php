@@ -85,15 +85,15 @@ function loadFinalResult() {
                                 $scoreForThisItem += 2;
                             }
                             #2 poäng om låt på plats 6 var rätt
-                            if ($place == 6 && $correctResultArray[$song]->getPlace() == 6) {
-                                $scoreForThisItem += 2;
-                            }
+                            #if ($place == 6 && $correctResultArray[$song]->getPlace() == 6) {
+                            #    $scoreForThisItem += 2;
+                            #}
                             #4 poäng om låt på plats 7 var rätt
-                            if ($place == 7 && $correctResultArray[$song]->getPlace() == 7) {
-                                $scoreForThisItem += 4;
-                            }
-                            #-5 poäng om du satte låt på plats 7 som gick direkt vidare
-                            if ($place == 7 && $correctResultArray[$song]->getBucket() == 1) {
+                            #if ($place == 7 && $correctResultArray[$song]->getPlace() == 7) {
+                            #    $scoreForThisItem += 4;
+                            #}
+                            #-5 poäng om du satte låt på plats 7 eller 6 som gick direkt vidare
+                            if (($place == 7 || $place == 6) && $correctResultArray[$song]->getBucket() == 1) {
                                 $scoreForThisItem -= 5;
                             }
                         } else if ($contest == 5) {

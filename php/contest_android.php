@@ -29,57 +29,74 @@
 
     $artists = array
     (
-     array(new Artist("Sigrid Bernson", "Patrick Swayze"),
-           new Artist("John Lundvik","My Turn"),
-           new Artist("Renaida","All The Feels"),
-           new Artist("Edward Blom","Livet på en pinne"),
-           new Artist("Kikki Danielsson","Osby Tennessee"),
-           new Artist("Kamferdrops","Solen lever kvar hos dig"),
-           new Artist("Benjamin Ingrosso", "Dance You Off")),
-     array(new Artist("Samir & Viktor","Shuffla"),
-           new Artist("Ida Redig", "Allting som vi sa"),
-           new Artist("Jonas Gardell","Det finns en väg"),
-           new Artist("Margaret","In My Cabana"),
-           new Artist("Stiko Per Larsson","Titta vi flyger"),
-           new Artist("Mimi Werner","Songburning"),
-           new Artist("LIAMOO","Last Breath")),
-     array(new Artist("Martin Almgren","A Bitter Lullaby"),
-           new Artist("Barbi Escobar","Stark"),
-           new Artist("Moncho","Cuba Libre"),
-           new Artist("Jessica Andersson","Party Voice"),
-           new Artist("Kalle Moraeus & Orsa Spelmän","Min dröm"),
-           new Artist("Dotter","Cry"),
-           new Artist("Mendez", "Everyday")),
-     array(new Artist("Emmi Christensson","Icarus"),
-           new Artist("Elias Abbas","Mitt paradis"),
-           new Artist("Felicia Olsson","Break That Chain"),
-           new Artist("Rolandz","Fuldans"),
-           new Artist("Olivia Eliasson","Never Learn"),
-           new Artist("FELIX SANDMAN", "Every Single Day"),
-           new Artist("Mariette","For You")),
-     array(new Artist("Margaret","Duell 1 - In My Cabana"),
-           new Artist("Moncho","Duell 1 - Cuba Libre"),
-           new Artist("Renaida","Duell 2 - All The Feels"),
-           new Artist("Olivia Eliasson","Duell 2 - Never Learn"),
-           new Artist("Felix Sandman", "Duell 3 - Every Single Day"),
-           new Artist("Mimi Werner","Duell 3 - Songburning"),
-           new Artist("Sigrid Bernson", "Duell 4 - Patrick Swayze"),
-           new Artist("Mendez", "Duell 4 - Everyday")),
-     array(new Artist("Mendez", "Everyday"),
-           new Artist("Renaida","All The Feels"),
-           new Artist("Martin Almgren","A Bitter Lullaby"),
-           new Artist("John Lundvik","My Turn"),
-           new Artist("Jessica Andersson","Party Voice"),
-           new Artist("LIAMOO","Last Breath"),
-           new Artist("Samir & Viktor","Shuffla"),
-           new Artist("Mariette","For You"),
-           new Artist("Felix Sandman", "Every Single Day"),
-           new Artist("Margaret","In My Cabana"),
-           new Artist("Benjamin Ingrosso", "Dance You Off"),
-           new Artist("Rolandz","Fuldans"))
+     array(new Artist("The Mamas", "Move"),
+           new Artist("Suzi P","Moves"),
+           new Artist("Robin Bengtsson","Take a chance"),
+           new Artist("Malou Prytz","Ballerina"),
+           new Artist("OVÖ","Inga problem"),
+           new Artist("Sonja Aldén","Sluta aldrig gå"),
+           new Artist("Felix Sandman", "Boys with emotions")),
+     array(new Artist("Klara Hammarström","Nobody"),
+           new Artist("Jan Johansen", "Miraklernas tid"),
+           new Artist("Dotter","Bulletproof"),
+           new Artist("Méndez feat. Alvaro Estrella","Vamos Amigos"),
+           new Artist("Linda Bengtzing","Alla mina sorger"),
+           new Artist("Paul Rey","Talking in My Sleep"),
+           new Artist("Anna Bergendahl","Kingdom Come")),
+     array(new Artist("Mariette","Shout it out"),
+           new Artist("Albin Johnsén","Livet börjar nu"),
+           new Artist("Drängarna","Piga & dräng"),
+           new Artist("Amanda Aasa","Late"),
+           new Artist("Anis Don Demina","Vem e som oss"),
+           new Artist("Faith Kakembo","Crying rivers"),
+           new Artist("Mohombi","Winners")),
+     array(new Artist("Frida Öhrn","We are one"),
+           new Artist("William Stridh","Molnljus"),
+           new Artist("Nanne Grönvall","Carpool karaoke"),
+           new Artist("Victor Crone","Troubled waters"),
+           new Artist("Ellen & Simon","Surface"),
+           new Artist("Jakob Karlberg","Om du tror att jag saknar dig"),
+           new Artist("Hanna Ferm","Brave")),
+     array(new Artist("","Duell 1 - "),
+           new Artist("","Duell 1 - "),
+           new Artist("","Duell 2 - "),
+           new Artist("","Duell 2 - "),
+           new Artist("", "Duell 3 - "),
+           new Artist("","Duell 3 - "),
+           new Artist("", "Duell 4 - "),
+           new Artist("", "Duell 4 - ")),
+     array(new Artist("Jon Henrik Fjällgren", "Norrsken"),
+           new Artist("Lisa Ajax","Torn"),
+           new Artist("Mohombi","Hello"),
+           new Artist("Lina Hedlund","Victorious"),
+           new Artist("Bishara","On my own"),
+           new Artist("Anna Bergendahl","Ashes to ashes"),
+           new Artist("Nano","Chasing rivers"),
+           new Artist("Hanna Ferm & Liamoo", "Hold you"),
+           new Artist("Malou Prytz","I do me"),
+           new Artist("John Lundvik", "Too late for love"),
+           new Artist("Wiktoria","Not with me"),
+           new Artist("Arvingarna","I do"))
+
      );
 
     $contestants = $artists[$contest];
+
+    include("db.php");
+
+    $query = "select count(*) from song where contestnumber =" . ($contest+1) .";";
+    $numberOfResultsStmt = $dbh->query($query);
+    $songs = (int) $numberOfResultsStmt->fetch()[0];
+    if ($songs == 0) {
+      $index = 1;
+      foreach ($contestants as $contestant) {
+          $name = $contestant->getName();
+          $song = $contestant->getSong();
+          $q = "insert into song values (" . ($contest+1) . ", " . $index . ",'" . $name . "','" . $song . "');";
+          $index += 1;
+          $dbh->query($q);
+        }
+    }
 
     echo "<div id='items' class='list-group'>";
 

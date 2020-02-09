@@ -3,3 +3,6 @@ mysql command line interface
 
 start mysql:
 sudo /usr/local/mysql/support-files/mysql.server start
+
+TODO:
+Fixa så att artisterna hamnar i databasen så man inte riskerar göra fel i admin.php

@@ -47,7 +47,7 @@ Already have an account? <a class="underlined" href="#" onclick="setupSignin();"
 </div>
 
 
-<div class="or" id="or">
+<!--<div class="or" id="or">
 --------------------------------- OR ---------------------------------
 </div>
 <br>
@@ -58,7 +58,7 @@ Already have an account? <a class="underlined" href="#" onclick="setupSignin();"
 </div>
 </div>
 
-
+-->
 
 
 </div>
