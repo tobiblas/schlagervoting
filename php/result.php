@@ -68,7 +68,7 @@ function loadFinalResult() {
                         $song = explode("-", $oneVote)[0];
                         $place = explode("-", $oneVote)[1];
                         $scoreForThisItem = 0;
-                        if ($contest <= 4) {
+                        /*if ($contest <= 4) {
                             $bucketDiff = abs($correctResultArray[$song]->getBucket() - getBucketFromPlace((int)$place, 1));
                             #6 poäng om du satte den i rätt grupp (direkt vidare/andra chansen/utslagen)
                             #3 poäng om du satte den 1 steg ifrån rätt grupp (exempel: du satte direkt vidare men den hamnade i andra chansen)
@@ -96,7 +96,7 @@ function loadFinalResult() {
                             if (($place == 7 || $place == 6) && $correctResultArray[$song]->getBucket() == 1) {
                                 $scoreForThisItem -= 5;
                             }
-                        } else if ($contest == 5) {
+                        } else*/ if ($contest == 5) {
 
                             $bucketDiff = abs($correctResultArray[$song]->getBucket() - getBucketFromPlace((int)$place, 5));
 
@@ -105,7 +105,7 @@ function loadFinalResult() {
                             } else  {
                                 $scoreForThisItem += 3;
                             }
-                        } else if ($contest == 6) {
+                        } else if ($contest <= 4 || $contest == 6) {
 
                             $scoreForThisItem = $numberOfSongs - abs($place - $correctResultArray[$song]->getPlace());
 
@@ -113,13 +113,7 @@ function loadFinalResult() {
                         $score = $score + $scoreForThisItem;
                     }
                 }
-                $key = "";
-                $fbidstr = "" . $fbid;
-                if (fbid != null && strlen($fbidstr) > 1) {
-                    $key = $username . "#:#" . $fbid;
-                } else {
-                    $key = $username;
-                }
+                $key = $username;
 
                 $resultArray[$key] = $score;
             }
@@ -153,7 +147,7 @@ function loadFinalResult() {
     $topListArray = array();
     $query = "select name, fbid from users";
 
-    echo "<div class='row link-button'><button onClick='loadFinalResult();' >KLICKA HÄR FÖR SUMMERAT RESULTAT</button></div><br><br>";
+    #echo "<div class='row link-button'><button onClick='loadFinalResult();' >KLICKA HÄR FÖR SUMMERAT RESULTAT</button></div><br><br>";
 
     calculateResultForContest(6, $dbh, $name);
     calculateResultForContest(5, $dbh, $name);
